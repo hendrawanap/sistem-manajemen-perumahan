@@ -127,6 +127,7 @@ class MenusTableSeeder extends Seeder
     {
         /* Get roles */
         $this->adminRole = Role::where('name' , '=' , 'admin' )->first();
+        $this->managerRole = Role::where('name', '=', 'manager' )->first();
         $this->userRole = Role::where('name', '=', 'user' )->first();
         $dropdownId = array();
         /* Create Sidebar menu */
@@ -145,6 +146,15 @@ class MenusTableSeeder extends Seeder
             $this->insertLink('admin', 'BREAD',    '/bread');
             $this->insertLink('admin', 'Email',    '/email');
         $this->endDropdown();
+        $this->insertTitle('manager', 'Test');
+        $this->insertLink('user,manager,admin','Pegawai', '/pegawai', 'cil-people');
+        $this->insertLink('user,manager,admin','Jadwal', '/jadwal', 'cil-people');
+        $this->insertLink('admin','KK', '/kk', 'cil-people');
+        $this->insertLink('admin','Fasilitas', '/fasilitas', 'cil-people');
+        $this->insertLink('admin','Presensi', '/presensi', 'cil-people');
+        $this->insertLink('admin','Perizinan', '/perizinan', 'cil-people');
+        $this->insertLink('admin','Tagihan', '/tagihan', 'cil-people');
+        $this->insertLink('user,manager,admin','Laporan', '/laporan', 'cil-people');
         $this->insertTitle('user,admin', 'Theme');
         $this->insertLink('user,admin', 'Colors', '/colors', 'cil-drop');
         $this->insertLink('user,admin', 'Typography', '/typography', 'cil-pencil');
