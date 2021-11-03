@@ -104,6 +104,111 @@ const DeleteMenuElement = () => import('@/views/menuElements/DeleteMenuElement')
 
 const Media = () => import('@/views/media/Media')
 
+//Pages
+const KK = () => import('@/views/pages/KK/KKIndex')
+const KKTambah = () => import('@/views/pages/KK/KKTambah')
+const Fasilitas = () => import('@/views/pages/Fasilitas/FasilitasIndex')
+const FasilitasTambah= () => import('@/views/pages/Fasilitas/FasilitasTambah')
+const FasilitasEdit = () => import('@/views/pages/Fasilitas/FasilitasEdit')
+const Pegawai = () => import('@/views/pages/Pegawai/PegawaiIndex')
+const PegawaiTambah = () => import('@/views/pages/Pegawai/PegawaiTambah')
+const PegawaiEdit = () => import('@/views/pages/Pegawai/PegawaiEdit')
+const Perizinan = () => import('@/views/pages/Perizinan/PerizinanIndex')
+
+//Routes
+const kkRoutes = {
+  path: "kk",
+  name: "KK",
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  },
+  children: [
+    {
+      path: "",
+      name: "",
+      component: KK,
+    },
+    {
+      path: "tambah",
+      name: "Tambah",
+      component: KKTambah,
+    },
+  ],
+}
+
+const pegawaiRoutes = {
+  path: "pegawai",
+  meta: { label: "Pegawai" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  },
+  children: [
+    {
+      path: "",
+      component: Pegawai,
+    },
+    {
+      path: "tambah",
+      meta: { label: "Tambah Pegawai" },
+      name: "Tambah Pegawai",
+      component: PegawaiTambah,
+    },
+    {
+      path: "edit",
+      meta: { label: "Edit Pegawai" },
+      name: "Edit Pegawai",
+      component: PegawaiEdit,
+    },
+  ],
+}
+
+const fasilitasRoutes = {
+  path: "fasilitas",
+  meta: { label: "Fasilitas"},
+  component: {
+    render(c) {
+      return c("router-view");
+    }
+  },
+  children: [
+    {
+      path: "",
+      component: Fasilitas,
+    },
+    {
+      path: "tambah",
+      meta: { label: "Tambah Fasilitas"},
+      name: "Tambah Fasilitas",
+      component: FasilitasTambah,
+    },
+    {
+      path: "edit",
+      meta: { label: "Edit Fasilitas" },
+      name: "Edit Fasilitas",
+      component: FasilitasEdit,
+    }
+  ],
+}
+
+const perizinanRoutes = {
+  path: "perizinan",
+  meta: { label: "perizinan" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  },
+  children: [
+    {
+      path: "",
+      component: Perizinan,
+    }
+  ]
+}
 
 Vue.use(Router)
 
@@ -148,706 +253,738 @@ export default router
 function configRoutes () {
   return [
     {
-      path: '/',
-      redirect: '/dashboard',
-      name: 'Home',
+      path: "/",
+      redirect: "/dashboard",
+      name: "Home",
       component: TheContainer,
       children: [
+        kkRoutes,
+        pegawaiRoutes,
+        fasilitasRoutes,
+        perizinanRoutes,
         {
-          path: 'media',
-          name: 'Media',
+          path: "media",
+          name: "Media",
           component: Media,
-          meta:{
-            requiresAdmin: true
-          }
+          meta: {
+            requiresAdmin: true,
+          },
         },
         {
-          path: 'dashboard',
-          name: 'Dashboard',
-          component: Dashboard
+          path: "dashboard",
+          name: "Dashboard",
+          component: Dashboard,
         },
         {
-          path: 'colors',
-          name: 'Colors',
+          path: "colors",
+          name: "Colors",
           component: Colors,
-          meta:{
-            requiresUser: true
-          }
+          meta: {
+            requiresUser: true,
+          },
         },
         {
-          path: 'typography',
-          name: 'Typography',
+          path: "typography",
+          name: "Typography",
           component: Typography,
-          meta:{
-            requiresUser: true
-          }
+          meta: {
+            requiresUser: true,
+          },
         },
         {
-          path: 'charts',
-          name: 'Charts',
+          path: "charts",
+          name: "Charts",
           component: Charts,
-          meta:{
-            requiresUser: true
-          }
+          meta: {
+            requiresUser: true,
+          },
         },
         {
-          path: 'widgets',
-          name: 'Widgets',
+          path: "widgets",
+          name: "Widgets",
           component: Widgets,
-          meta:{
-            requiresUser: true
-          }
+          meta: {
+            requiresUser: true,
+          },
         },
         {
-          path: 'menu',
-          meta: { label: 'Menu'},
+          path: "menu",
+          meta: { label: "Menu" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Menus,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: 'create',
-              meta: { label: 'Create Menu' },
-              name: 'CreateMenu',
+              path: "create",
+              meta: { label: "Create Menu" },
+              name: "CreateMenu",
               component: CreateMenu,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit Menu' },
-              name: 'EditMenu',
+              path: ":id/edit",
+              meta: { label: "Edit Menu" },
+              name: "EditMenu",
               component: EditMenu,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/delete',
-              meta: { label: 'Delete Menu' },
-              name: 'DeleteMenu',
+              path: ":id/delete",
+              meta: { label: "Delete Menu" },
+              name: "DeleteMenu",
               component: DeleteMenu,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'menuelement',
-          meta: { label: 'MenuElement'},
+          path: "menuelement",
+          meta: { label: "MenuElement" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: ':menu/menuelement',
+              path: ":menu/menuelement",
               component: MenuElements,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':menu/menuelement/create',
-              meta: { label: 'Create Menu Element' },
-              name: 'Create Menu Element',
+              path: ":menu/menuelement/create",
+              meta: { label: "Create Menu Element" },
+              name: "Create Menu Element",
               component: CreateMenuElement,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':menu/menuelement/:id',
-              meta: { label: 'Menu Element Details'},
-              name: 'Menu Element',
+              path: ":menu/menuelement/:id",
+              meta: { label: "Menu Element Details" },
+              name: "Menu Element",
               component: ShowMenuElement,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':menu/menuelement/:id/edit',
-              meta: { label: 'Edit Menu Element' },
-              name: 'Edit Menu Element',
+              path: ":menu/menuelement/:id/edit",
+              meta: { label: "Edit Menu Element" },
+              name: "Edit Menu Element",
               component: EditMenuElement,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':menu/menuelement/:id/delete',
-              meta: { label: 'Delete Menu Element' },
-              name: 'Delete Menu Element',
+              path: ":menu/menuelement/:id/delete",
+              meta: { label: "Delete Menu Element" },
+              name: "Delete Menu Element",
               component: DeleteMenuElement,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'users',
-          meta: { label: 'Users'},
+          path: "users",
+          meta: { label: "Users" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Users,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id',
-              meta: { label: 'User Details'},
-              name: 'User',
+              path: ":id",
+              meta: { label: "User Details" },
+              name: "User",
               component: User,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit User' },
-              name: 'Edit User',
+              path: ":id/edit",
+              meta: { label: "Edit User" },
+              name: "Edit User",
               component: EditUser,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'notes',
-          meta: { label: 'Notes'},
+          path: "notes",
+          meta: { label: "Notes" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Notes,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'create',
-              meta: { label: 'Create Note' },
-              name: 'Create Note',
+              path: "create",
+              meta: { label: "Create Note" },
+              name: "Create Note",
               component: CreateNote,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: ':id',
-              meta: { label: 'Note Details'},
-              name: 'Note',
+              path: ":id",
+              meta: { label: "Note Details" },
+              name: "Note",
               component: Note,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit Note' },
-              name: 'Edit Note',
+              path: ":id/edit",
+              meta: { label: "Edit Note" },
+              name: "Edit Note",
               component: EditNote,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'roles',
-          meta: { label: 'Roles'},
+          path: "roles",
+          meta: { label: "Roles" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Roles,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: 'create',
-              meta: { label: 'Create Role' },
-              name: 'Create Role',
+              path: "create",
+              meta: { label: "Create Role" },
+              name: "Create Role",
               component: CreateRole,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id',
-              meta: { label: 'Role Details'},
-              name: 'Role',
+              path: ":id",
+              meta: { label: "Role Details" },
+              name: "Role",
               component: Role,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit Role' },
-              name: 'Edit Role',
+              path: ":id/edit",
+              meta: { label: "Edit Role" },
+              name: "Edit Role",
               component: EditRole,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'bread',
-          meta: { label: 'Bread'},
+          path: "bread",
+          meta: { label: "Bread" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Breads,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: 'create',
-              meta: { label: 'Create Bread' },
-              name: 'CreateBread',
+              path: "create",
+              meta: { label: "Create Bread" },
+              name: "CreateBread",
               component: CreateBread,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id',
-              meta: { label: 'Bread Details'},
-              name: 'Bread',
+              path: ":id",
+              meta: { label: "Bread Details" },
+              name: "Bread",
               component: Bread,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit Bread' },
-              name: 'Edit Bread',
+              path: ":id/edit",
+              meta: { label: "Edit Bread" },
+              name: "Edit Bread",
               component: EditBread,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/delete',
-              meta: { label: 'Delete Bread' },
-              name: 'Delete Bread',
+              path: ":id/delete",
+              meta: { label: "Delete Bread" },
+              name: "Delete Bread",
               component: DeleteBread,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'email',
-          meta: { label: 'Emails'},
+          path: "email",
+          meta: { label: "Emails" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: '',
+              path: "",
               component: Emails,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: 'create',
-              meta: { label: 'Create Email Template' },
-              name: 'Create Email Template',
+              path: "create",
+              meta: { label: "Create Email Template" },
+              name: "Create Email Template",
               component: CreateEmail,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id',
-              meta: { label: 'Show Email Template'},
-              name: 'Show Email Tempalte',
+              path: ":id",
+              meta: { label: "Show Email Template" },
+              name: "Show Email Tempalte",
               component: ShowEmail,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/edit',
-              meta: { label: 'Edit Email Tempalate' },
-              name: 'Edit Email Template',
+              path: ":id/edit",
+              meta: { label: "Edit Email Tempalate" },
+              name: "Edit Email Template",
               component: EditEmail,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
             {
-              path: ':id/sendEmail',
-              meta: { label: 'Send Email' },
-              name: 'Send Email',
+              path: ":id/sendEmail",
+              meta: { label: "Send Email" },
+              name: "Send Email",
               component: SendEmail,
-              meta:{
-                requiresAdmin: true
-              }
+              meta: {
+                requiresAdmin: true,
+              },
             },
-          ]
+          ],
         },
         {
-          path: 'resource',
-          meta: { label: 'Resources'},
+          path: "resource",
+          meta: { label: "Resources" },
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: ':bread/resource',
+              path: ":bread/resource",
               component: Resources,
             },
             {
-              path: ':bread/resource/create',
-              meta: { label: 'Create Resource' },
-              name: 'CreateResource',
-              component: CreateResource
+              path: ":bread/resource/create",
+              meta: { label: "Create Resource" },
+              name: "CreateResource",
+              component: CreateResource,
             },
             {
-              path: ':bread/resource/:id',
-              meta: { label: 'Resource Details'},
-              name: 'Resource',
+              path: ":bread/resource/:id",
+              meta: { label: "Resource Details" },
+              name: "Resource",
               component: Resource,
             },
             {
-              path: ':bread/resource/:id/edit',
-              meta: { label: 'Edit Resource' },
-              name: 'Edit Resource',
-              component: EditResource
+              path: ":bread/resource/:id/edit",
+              meta: { label: "Edit Resource" },
+              name: "Edit Resource",
+              component: EditResource,
             },
             {
-              path: ':bread/resource/:id/delete',
-              meta: { label: 'Delete Resource' },
-              name: 'Delete Resource',
-              component: DeleteResource
+              path: ":bread/resource/:id/delete",
+              meta: { label: "Delete Resource" },
+              name: "Delete Resource",
+              component: DeleteResource,
             },
-          ]
+          ],
         },
         {
-          path: 'base',
-          redirect: '/base/cards',
-          name: 'Base',
+          path: "base",
+          redirect: "/base/cards",
+          name: "Base",
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: 'cards',
-              name: 'Cards',
+              path: "cards",
+              name: "Cards",
               component: Cards,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'forms',
-              name: 'Forms',
+              path: "forms",
+              name: "Forms",
               component: Forms,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'switches',
-              name: 'Switches',
+              path: "switches",
+              name: "Switches",
               component: Switches,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'tables',
-              name: 'Tables',
+              path: "tables",
+              name: "Tables",
               component: Tables,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'tabs',
-              name: 'Tabs',
+              path: "tabs",
+              name: "Tabs",
               component: Tabs,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'breadcrumb',
-              name: 'Breadcrumb',
+              path: "breadcrumb",
+              name: "Breadcrumb",
               component: Breadcrumbs,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'carousel',
-              name: 'Carousel',
+              path: "carousel",
+              name: "Carousel",
               component: Carousels,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'collapse',
-              name: 'Collapse',
+              path: "collapse",
+              name: "Collapse",
               component: Collapses,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'jumbotron',
-              name: 'Jumbotron',
+              path: "jumbotron",
+              name: "Jumbotron",
               component: Jumbotrons,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'list-group',
-              name: 'List Group',
+              path: "list-group",
+              name: "List Group",
               component: ListGroups,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'navs',
-              name: 'Navs',
+              path: "navs",
+              name: "Navs",
               component: Navs,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'navbars',
-              name: 'Navbars',
+              path: "navbars",
+              name: "Navbars",
               component: Navbars,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'pagination',
-              name: 'Pagination',
+              path: "pagination",
+              name: "Pagination",
               component: Paginations,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'popovers',
-              name: 'Popovers',
+              path: "popovers",
+              name: "Popovers",
               component: Popovers,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'progress',
-              name: 'Progress',
+              path: "progress",
+              name: "Progress",
               component: ProgressBars,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'tooltips',
-              name: 'Tooltips',
+              path: "tooltips",
+              name: "Tooltips",
               component: Tooltips,
-              meta:{
-                requiresUser: true
-              }
-            }
-          ]
+              meta: {
+                requiresUser: true,
+              },
+            },
+          ],
         },
         {
-          path: 'buttons',
-          redirect: '/buttons/standard-buttons',
-          name: 'Buttons',
+          path: "buttons",
+          redirect: "/buttons/standard-buttons",
+          name: "Buttons",
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: 'buttons',
-              name: 'Standard Buttons',
+              path: "buttons",
+              name: "Standard Buttons",
               component: StandardButtons,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'button-group',
-              name: 'Button Group',
+              path: "button-group",
+              name: "Button Group",
               component: ButtonGroups,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'dropdowns',
-              name: 'Dropdowns',
+              path: "dropdowns",
+              name: "Dropdowns",
               component: Dropdowns,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'brand-buttons',
-              name: 'Brand Buttons',
+              path: "brand-buttons",
+              name: "Brand Buttons",
               component: BrandButtons,
-              meta:{
-                requiresUser: true
-              }
-            }
-          ]
+              meta: {
+                requiresUser: true,
+              },
+            },
+          ],
         },
         {
-          path: 'icon',
-          redirect: '/icons/coreui-icons',
-          name: 'CoreUI Icons',
+          path: "icon",
+          redirect: "/icons/coreui-icons",
+          name: "CoreUI Icons",
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: 'coreui-icons',
-              name: 'Icons library',
+              path: "coreui-icons",
+              name: "Icons library",
               component: CoreUIIcons,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'brands',
-              name: 'Brands',
+              path: "brands",
+              name: "Brands",
               component: Brands,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'flags',
-              name: 'Flags',
+              path: "flags",
+              name: "Flags",
               component: Flags,
-              meta:{
-                requiresUser: true
-              }
-            }
-          ]
+              meta: {
+                requiresUser: true,
+              },
+            },
+          ],
         },
         {
-          path: 'notifications',
-          redirect: '/notifications/alerts',
-          name: 'Notifications',
+          path: "notifications",
+          redirect: "/notifications/alerts",
+          name: "Notifications",
           component: {
-            render (c) { return c('router-view') }
+            render(c) {
+              return c("router-view");
+            },
           },
           children: [
             {
-              path: 'alerts',
-              name: 'Alerts',
+              path: "alerts",
+              name: "Alerts",
               component: Alerts,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'badge',
-              name: 'Badge',
+              path: "badge",
+              name: "Badge",
               component: Badges,
-              meta:{
-                requiresUser: true
-              }
+              meta: {
+                requiresUser: true,
+              },
             },
             {
-              path: 'modals',
-              name: 'Modals',
+              path: "modals",
+              name: "Modals",
               component: Modals,
-              meta:{
-                requiresUser: true
-              }
-            }
-          ]
-        }
-      ]
+              meta: {
+                requiresUser: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     {
-      path: '/pages',
-      redirect: '/pages/404',
-      name: 'Pages',
+      path: "/pages",
+      redirect: "/pages/404",
+      name: "Pages",
       component: {
-        render (c) { return c('router-view') }
+        render(c) {
+          return c("router-view");
+        },
       },
       children: [
         {
-          path: '404',
-          name: 'Page404',
-          component: Page404
+          path: "404",
+          name: "Page404",
+          component: Page404,
         },
         {
-          path: '500',
-          name: 'Page500',
-          component: Page500
+          path: "500",
+          name: "Page500",
+          component: Page500,
         },
-      ]
+      ],
     },
     {
-      path: '/',
-      redirect: '/login',
-      name: 'Auth',
+      path: "/",
+      redirect: "/login",
+      name: "Auth",
       component: {
-        render (c) { return c('router-view') }
+        render(c) {
+          return c("router-view");
+        },
       },
       children: [
         {
-          path: 'login',
-          name: 'Login',
-          component: Login
+          path: "login",
+          name: "Login",
+          component: Login,
         },
         {
-          path: 'register',
-          name: 'Register',
-          component: Register
+          path: "register",
+          name: "Register",
+          component: Register,
         },
-      ]
+      ],
     },
     {
-      path: '*',
-      name: '404',
-      component: Page404
-    }
-  ]
+      path: "*",
+      name: "404",
+      component: Page404,
+    },
+  ];
 }
