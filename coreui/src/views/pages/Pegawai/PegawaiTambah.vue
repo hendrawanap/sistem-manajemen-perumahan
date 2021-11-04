@@ -16,7 +16,6 @@
               :value.sync="biodata.gender"
               placeholder="Pilih Gender"
             />
-            <CInput label="Email" type="email" id="inputEmail" aria-describedby="emailHelp" v-model="biodata.email" />
             <CInput label="Alamat"  type="text" id="inputPassword" v-model="biodata.alamat" />
             <CInput label="Tanggal Masuk"  type="date" id="inputTanggal" v-model="biodata.tanggalMasuk" />
             <CSelect
@@ -31,7 +30,7 @@
               :value.sync="biodata.jabatan"
               placeholder="Pilih Jabatan"
             />
-            <CButton type="submit" color="primary" @click="submit()">
+            <CButton type="submit" color="primary" @click="tambahPegawai()">
                 Submit
             </CButton>
         </CForm>
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: "PegawaiEdit",
     data() {
@@ -49,11 +49,10 @@ export default {
         biodata: {
           nama: "",
           gender: null,
-          email: "",
           alamat: "",
           tanggalMasuk: null,
-          divisi: "",
-          jabatan: "",
+          divisi: "keamanan",
+          jabatan: "kepala",
         },
         genderOptions: [
           {
@@ -65,12 +64,33 @@ export default {
             label: "Perempuan"
           },
         ],
+        jabatanOptions: [
+          "Kepala",
+          "Wakil Kepala",
+          "Anggota"
+        ],
+        divisiOptions: [
+          'Kebersihan',
+          'Keamanan',
+          'Keserasian',
+          'Kontrol',
+          'Administrasi'
+        ],
       }
     },
     methods: {
-      submit() {
-        console.log(this.biodata)
-      }
+      tambahPegawai(){
+        const formData = new FormData()
+        const biodata = this.biodata
+        formData.append("nama", biodata.nama);
+        formData.append("gender", biodata.gender);
+        formData.append("alamat", biodata.alamat);
+        formData.append("tanggalMasuk", biodata.tanggalMasuk);
+        formData.append("divisi", biodata.divisi);
+        formData.append("jabatan", biodata.jabatan);
+
+        axios.post(this.$apiAdress + '/api/pegawai/add', formData).then( r => console.log('berhasil ditambahkan'))
+      },
     }
 }
 </script>

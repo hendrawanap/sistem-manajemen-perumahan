@@ -158,7 +158,7 @@ const pegawaiRoutes = {
       component: PegawaiTambah,
     },
     {
-      path: "edit",
+      path: "edit/:id",
       meta: { label: "Edit Pegawai" },
       name: "Edit Pegawai",
       component: PegawaiEdit,

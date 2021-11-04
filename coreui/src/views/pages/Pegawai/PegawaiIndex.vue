@@ -20,10 +20,12 @@
               :fields="fields"
               :items-per-page="5"
               pagination>
-              <template #action>
+              <template #action="{item}">
                 <td>
-                  <CButton class ="mr-2" color="primary">Edit</CButton>
-                  <CButton class ="mr-2" color="danger">Hapus</CButton>
+                  <router-link :to="'/pegawai/edit/'+item.id">
+                    <CButton class ="mr-2" color="primary">Edit</CButton>
+                  </router-link>
+                  <CButton class ="mr-2" color="danger" @click="deletePegawai(item.id)">Hapus</CButton>
                 </td>
               </template>
           </CDataTable>
@@ -34,24 +36,41 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "PegawaiIndex",
   data() {
     return {
-      items: [
-        {
-          'no.': '1',
-          'Nama Pegawai': 'Hendrawan',
-          'Gender': 'Laki',
-          'Alamat': 'Malang',
-          'Tanggal Masuk': '3-10-2020',
-          'Divisi': 'Kantoran',
-          'Jabatan': 'Supervisor'
-        },
-      ],
+      items: [],
       fields: ['no.', 'Nama Pegawai', 'Gender', 'Alamat', 'Tanggal Masuk', 'Divisi', 'Jabatan', 'action'],
-    }        
-  }
+    }
+  },
   
+  methods: {
+    getAllPegawai() {
+      axios.get(this.$apiAdress + '/api/pegawai').then( r => {
+        this.items = r.data.map((data, index) => {
+          return {
+          'no.': index+1,
+          'Nama Pegawai': data.nama,
+          'Gender': data.gender == 0 ? 'Laki-laki' : data.gender == 1 ? 'Perempuan' : 'null',
+          'Alamat': data.alamat,
+          'Tanggal Masuk': data.tanggalMasuk,
+          'Divisi': data.divisi,
+          'Jabatan': data.jabatan,
+          'id': data.id,
+        }});
+      });
+    },
+    deletePegawai(id) {
+      axios.get(this.$apiAdress + '/api/pegawai/delete/' + id).then( r => {
+        this.getAllPegawai();
+        console.log('berhasil menghapus');
+      })
+    },
+  },
+  mounted() {
+    this.getAllPegawai();
+  }
 }
 </script>
