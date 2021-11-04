@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,5 +80,23 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/roles/move/move-up',      'RolesController@moveUp')->name('roles.up');
         Route::get('/roles/move/move-down',    'RolesController@moveDown')->name('roles.down');
     });
+
+    // Route::group([], function ($router) {
+    Route::get('/pegawai', [PegawaiController::class, 'getAllPegawai']);
+    Route::post('/pegawai/add', [PegawaiController::class, 'addPegawai']);
+    Route::get('/pegawai/{id}', [PegawaiController::class, 'getPegawai']);
+    Route::get('/pegawai/delete/{id}', [PegawaiController::class, 'deletePegawai']);
+    Route::post('/pegawai/edit/{id}', [PegawaiController::class, 'setPegawai']);
+    // });
+    Route::get('/KK', [KKController::class, 'getAllKK']);
+    Route::post('/KK/add', [KKController::class, 'addKK']);
+    Route::get('/KK/{id}', [KKController::class, 'getKK']);
+    Route::get('/KK/delete/{id}', [KKController::class, 'deleteKK']);
+
+    Route::get('/fasilitas', [FasilitasController::class, 'getAllFasilitas']);
+    Route::post('/fasilitas/add', [FasilitasController::class, 'addFasilitas']);
+    Route::get('/fasilitas/{id}', [FasilitasController::class, 'getFasilitas']);
+    Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
+    
 });
 
