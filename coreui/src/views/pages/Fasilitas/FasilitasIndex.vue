@@ -19,10 +19,10 @@
                         :items-per-page="5"
                         pagination 
                         >
-                        <template #action>                    
+                        <template #action="{item}">                    
                             <td>
                                 <CButton color="primary">Edit</CButton>
-                                <CButton color="danger">Hapus</CButton>
+                                <CButton color="danger" @click="deleteFasilitas(item.id)">Hapus</CButton>
                             </td>
                         </template>
                     </CDataTable>
@@ -37,17 +37,31 @@ export default{
     name: "KKIndex",
     data() {
     return {
-      items: [
-        {
-          'No.': '1',
-          'Nama Fasilitas': 'Kolam Renang',
-          'Kondisi': 'Terbengkalai',
-          'Informasi': 'Butuh dana',
-          'Action': 'awawa' 
-        },
-      ],
+      items: [],
       fields: ['No.', 'Nama Fasilitas', 'Kondisi', 'Informasi', 'action'],
     }
+  },
+  methods: {
+    getAllFasilitas() {
+      axios.get(this.$apiAdress + '/api/Fasilitas').then( r => {
+        this.items = r.data.map((data, index) => {
+          return {
+          'no.': index+1,
+          'Nama Fasilitas': data.fasilitas,
+          'Kondisi': data.kondisi,
+          'Informasi': data.informasi,
+          'id' : data.id,
+        }});
+      });
+    },
+    deleteFasilitas(id) {
+        axios.get(this.$apiAdress + '/api/fasilitas/delete/' + id).then(R => {
+            this.getAllFasilitas()
+        })
+    }
+  },
+  mounted() {
+    this.getAllFasilitas();
   }
 }
 </script>

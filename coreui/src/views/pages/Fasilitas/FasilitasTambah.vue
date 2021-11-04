@@ -9,20 +9,10 @@
                 </CCardHeader>
                 <CCardBody>
                     <CForm>                                     
-                        <div class="mb-3">
-                            <CFormLabel for="FasilitasInput">Nama Fasilitas</CFormLabel>
-                            <CInput type="text" id="FasilitasInput" v-model="fasilitas.namaFasilitas"/>
-                        </div>
-                        <div class="mb-3">
-                            <CFormLabel for="KondisiInput">Kondisi</CFormLabel>
-                            <CInput type="text" id="KondisiInput" v-model="fasilitas.kondisi"/>
-                        </div>
-                        <div class="mb-3">
-                            <CFormLabel for="InformasiInput">Informasi</CFormLabel>
-                            <CInput type="text" id="InformasiInput" v-model="fasilitas.informasi"/>
-                        </div>
-                        <CButton type="submit" color="primary" @click="submit()" >
-                        Submit</CButton>
+                        <CInput label="Nama Fasilitas" type="text" id="FasilitasInput" v-model="fasilitas.namaFasilitas"/>
+                        <CInput label="Kondisi" type="text" id="KondisiInput" v-model="fasilitas.kondisi"/>
+                        <CInput label="Informasi" type="text" id="InformasiInput" v-model="fasilitas.informasi"/>
+                        <CButton type="submit" color="primary" @click="submit()" >Submit</CButton>
                     </CForm>
                 </CCardBody>
             </CCard>
@@ -31,18 +21,26 @@
 </template>
 
 <script>
+import Axios from 'axios';
 export default {
     name: "Tambah Fasilitas",
     data() {
         return {
-            namaFasilitas : "",
-            kondisi : "",
-            informasi : ""
+            fasilitas: {
+                namaFasilitas : "",
+                kondisi : "",
+                informasi : ""
+            }
         }
     },
     methods: {
-        submit() {
-            console.log(this.fasilitas)
+        addFasilitas(){
+            const formData = new FormData();
+            const fasilitas = this.fasilitas;
+            formData.append("namaFasilitas", fasilitas.namaFasilitas);
+            formData.append("kondisi", fasilitas.kondisi);
+            formData.append("informasi", fasilitas.informasi);
+            Axios.post(this.$apiAdress + '/api/pegawai/add').then( r => console.log('berhasil ditambahkan'))
         }
     }
 }

@@ -5,7 +5,11 @@
       <CCardHeader>
         <div class="d-flex justify-content-between">
           <h2>Perizinan</h2>
-          <CButton color="primary" href="PerizinanBuat">Buat</CButton>
+          <router-link :to="'/perizinan/tambah'">
+            <CButton color="primary">
+              Tambah
+            </CButton>
+          </router-link>
         </div>
       </CCardHeader>
       <CCardBodies>
