@@ -107,6 +107,7 @@ const Media = () => import('@/views/media/Media')
 //Pages
 const KK = () => import('@/views/pages/KK/KKIndex')
 const KKTambah = () => import('@/views/pages/KK/KKTambah')
+const KKEdit = () => import('@/views/pages/KK/KKEdit')
 const Fasilitas = () => import('@/views/pages/Fasilitas/FasilitasIndex')
 const FasilitasTambah= () => import('@/views/pages/Fasilitas/FasilitasTambah')
 const FasilitasEdit = () => import('@/views/pages/Fasilitas/FasilitasEdit')
@@ -117,8 +118,8 @@ const Perizinan = () => import('@/views/pages/Perizinan/PerizinanIndex')
 
 //Routes
 const kkRoutes = {
-  path: "kk",
-  name: "KK",
+  path: "KK",
+  meta: { label: "KK"},
   component: {
     render(c) {
       return c("router-view");
@@ -127,7 +128,6 @@ const kkRoutes = {
   children: [
     {
       path: "",
-      name: "",
       component: KK,
     },
     {
@@ -135,6 +135,12 @@ const kkRoutes = {
       name: "Tambah",
       component: KKTambah,
     },
+    {
+      path: "edit/:id",
+      meta: {label: "Edit KK"},
+      name: "Edit Pegawai",
+      component: KKEdit,
+    }
   ],
 }
 
@@ -186,7 +192,7 @@ const fasilitasRoutes = {
       component: FasilitasTambah,
     },
     {
-      path: "edit",
+      path: "edit/:id",
       meta: { label: "Edit Fasilitas" },
       name: "Edit Fasilitas",
       component: FasilitasEdit,

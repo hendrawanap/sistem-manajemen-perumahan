@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 
 class KKController extends Controller
 {
-    public function getAllKK() {
+    public function getAllKK()
+    {
         $allKK = KK::all();
+
+        return response()->json($allKK);
     }
 
     public function getKK($id)
     {
         $KK = KK::where('id', $id)->get();
+
         return response()->json($KK);
     }
 

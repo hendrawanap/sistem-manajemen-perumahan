@@ -5,7 +5,9 @@
         <CCardHeader>
           <div class="d-flex justify-content-between">
             <h2>Daftar KK</h2>
-            <CButton color="primary">Tambah</CButton>
+            <router-link :to="'/KK/tambah'">
+              <CButton color="primary">Tambah</CButton>
+            </router-link>
           </div>
         </CCardHeader>
         <CCardBody>
@@ -16,10 +18,12 @@
             :fields="fields"
             :items-per-page="5"
             pagination>
-            <template #action>
+            <template #action="{item}">
               <td>
+                <router-link :to="'/KK/edit/'+item.id">
                 <CButton color="primary" class="mr-2">Edit</CButton>
-                <CButton color="danger">Hapus</CButton>
+                </router-link>
+                <CButton color="danger" @click="deleteKK(item.id)">Hapus</CButton>
               </td>
             </template>
           </CDataTable>
@@ -30,26 +34,36 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "KKIndex",
   data() {
     return {
-      items: [
-        {
-          'no.': '1',
-          'nomor KK': '3507231198475594',
-          'alamat': 'Karangploso',
-          'kepala Keluarga': 'Baps',
-        },
-        {
-          'no.': '2',
-          'nomor KK': '3507231198475594',
-          'alamat': 'Karangploso',
-          'kepala Keluarga': 'Wira',
-        },
-      ],
+      items: [],
       fields: ['no.', 'nomor KK', 'alamat', 'kepala Keluarga', 'action'],
     }
+  },
+  methods: {
+    getAllKK() {
+      axios.get(this.$apiAdress + '/api/KK').then( r => {
+        this.items = r.data.map((data, index) => {
+          return {
+          'no.': index+1,
+          'nomor KK': data.nomorKK,
+          'alamat': data.alamat,
+          'kepala Keluarga': data.kepalaKeluarga,
+          'id' : data.id,
+        }});
+      });
+    },
+    deleteKK(id) {
+        axios.get(this.$apiAdress + '/api/KK/delete/' + id).then(R => {
+            this.getAllKK()
+        })
+    }
+  },
+  mounted() {
+    this.getAllKK();
   }
 }
 </script>
