@@ -16,12 +16,12 @@ class CreateFacilitiesTable extends Migration
         Schema::create('facilities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('namaFasilitas');
-            $table->smallInteger('kondisi');
+            $table->enum('kondisi', ['Baik', 'Dalam Perbaikan', 'Rusak']);
             $table->string('informasi');
             $table->foreignId('id_user')
-                  ->constrained('users')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->constrained('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

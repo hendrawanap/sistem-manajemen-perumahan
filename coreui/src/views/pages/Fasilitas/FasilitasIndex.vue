@@ -21,7 +21,9 @@
                         >
                         <template #action="{item}">                    
                             <td>
+                                <router-link :to="'/fasilitas/edit/'+item.id">
                                 <CButton color="primary">Edit</CButton>
+                                </router-link>
                                 <CButton color="danger" @click="deleteFasilitas(item.id)">Hapus</CButton>
                             </td>
                         </template>
@@ -33,8 +35,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default{ 
-    name: "KKIndex",
+    name: "FasilitasIndex",
     data() {
     return {
       items: [],
@@ -43,11 +46,11 @@ export default{
   },
   methods: {
     getAllFasilitas() {
-      axios.get(this.$apiAdress + '/api/Fasilitas').then( r => {
+      axios.get(this.$apiAdress + '/api/fasilitas' + '?token=' + localStorage.getItem('api_token')).then( r => {
         this.items = r.data.map((data, index) => {
           return {
-          'no.': index+1,
-          'Nama Fasilitas': data.fasilitas,
+          'No.': index+1,
+          'Nama Fasilitas': data.namaFasilitas,
           'Kondisi': data.kondisi,
           'Informasi': data.informasi,
           'id' : data.id,
@@ -55,7 +58,7 @@ export default{
       });
     },
     deleteFasilitas(id) {
-        axios.get(this.$apiAdress + '/api/fasilitas/delete/' + id).then(R => {
+        axios.get(this.$apiAdress + '/api/fasilitas/delete/' + id + '?token=' + localStorage.getItem('api_token')).then(R => {
             this.getAllFasilitas()
         })
     }
