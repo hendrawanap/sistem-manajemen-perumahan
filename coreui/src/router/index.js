@@ -115,6 +115,7 @@ const Pegawai = () => import('@/views/pages/Pegawai/PegawaiIndex')
 const PegawaiTambah = () => import('@/views/pages/Pegawai/PegawaiTambah')
 const PegawaiEdit = () => import('@/views/pages/Pegawai/PegawaiEdit')
 const Perizinan = () => import('@/views/pages/Perizinan/PerizinanIndex')
+const Presensi = () => import('@/views/pages/Presensi/PresensiIndex')
 
 //Routes
 const kkRoutes = {
@@ -212,6 +213,22 @@ const perizinanRoutes = {
     {
       path: "",
       component: Perizinan,
+    }
+  ]
+}
+
+const presensiRoutes = {
+  path: "presensi",
+  meta: { label: "presensi" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  },
+  children: [
+    {
+      path: "",
+      component: Presensi,
     }
   ]
 }
