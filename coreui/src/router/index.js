@@ -147,7 +147,10 @@ const kkRoutes = {
 
 const pegawaiRoutes = {
   path: "pegawai",
-  meta: { label: "Pegawai" },
+  meta: { 
+    label: "Pegawai",
+    // requiresManager: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -259,6 +262,15 @@ router.beforeEach((to, from, next) => {
     }
   }else if(to.matched.some(record => record.meta.requiresUser)) {
     if(roles != null && roles.indexOf('user') >= 0 ){
+      next()
+    }else{
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    }
+  }else if(to.matched.some(record => record.meta.requiresManager)) {
+    if(roles != null && roles.indexOf('manager') >= 0 ){
       next()
     }else{
       next({
