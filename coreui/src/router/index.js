@@ -115,6 +115,7 @@ const Pegawai = () => import('@/views/pages/Pegawai/PegawaiIndex')
 const PegawaiTambah = () => import('@/views/pages/Pegawai/PegawaiTambah')
 const PegawaiEdit = () => import('@/views/pages/Pegawai/PegawaiEdit')
 const Perizinan = () => import('@/views/pages/Perizinan/PerizinanIndex')
+const JadwalIndex = () => import('@/views/pages/Jadwal/JadwalIndex')
 
 //Routes
 const kkRoutes = {
@@ -219,6 +220,22 @@ const perizinanRoutes = {
   ]
 }
 
+const jadwalRoutes = {
+  path: "jadwal",
+  meta: { label: "jadwal" },
+  component: {
+    render(c) {
+      return c("router-view");
+    }
+  },
+  children: [
+    {
+      path: "",
+      component: JadwalIndex,
+    }
+  ]
+}
+
 Vue.use(Router)
 
 let router = new Router({
@@ -280,6 +297,7 @@ function configRoutes () {
         pegawaiRoutes,
         fasilitasRoutes,
         perizinanRoutes,
+        jadwalRoutes,
         {
           path: "media",
           name: "Media",
