@@ -3,6 +3,7 @@
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\FasilitasController;
+use App\Http\Controllers\PresensiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -100,7 +101,9 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/KK/add', [KKController::class, 'addKK']);
     Route::get('/KK/{id}', [KKController::class, 'getKK']);
     Route::get('/KK/delete/{id}', [KKController::class, 'deleteKK']);
-    Route::post('/KK/edit/{id}', [KKController::class, 'setPegawai']);
-    
+    Route::post('/KK/edit/{id}', [KKController::class, 'setKK']);
+
     Route::get('/jadwal/{divisi}', [JadwalController::class, 'getAllJadwal']);
+
+    Route::get('/presensi/{tanggal}', [PresensiController::class], 'getAllPresensi');
 });

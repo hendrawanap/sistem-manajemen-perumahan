@@ -136,13 +136,14 @@ const kkRoutes = {
     },
     {
       path: "tambah",
+      meta: { label: "Tambah KK" },
       name: "Tambah",
       component: KKTambah,
     },
     {
       path: "edit/:id",
       meta: { label: "Edit KK" },
-      name: "Edit Pegawai",
+      name: "Edit KK",
       component: KKEdit,
     }
   ],

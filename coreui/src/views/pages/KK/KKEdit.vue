@@ -1,63 +1,85 @@
 <template>
-    <CRow>
-        <CCol>
-            <CCard>
-                <CCardHeader>
-                    <div  v class="d-flex justify-content-between">
-                        <h2>Edit KK</h2>
-                    </div>
-                </CCardHeader>
-                <CCardBody>
-                    <CForm v-on:submit.prevent>                                     
-                        <CInput label="Nomor KK" type="text" id="noKKInput" v-model="KK.noKK"/>
-                        <CInput label="Alamat" type="text" id="alamatInput" v-model="KK.alamat"/>
-                        <CInput label="Kepala Keluarga" type="text" id="kepalaKeluargaInput" v-model="KK.kepalaKeluarga"/>
-                        <router-link :to="'/KK'" >
-                            <CButton type="submit" color="primary" @click="addKK()" >Submit</CButton>
-                        </router-link>
-                    </CForm>
-                </CCardBody>
-            </CCard>
-        </CCol>
-    </CRow>
+  <CRow>
+    <CCol>
+      <CCard>
+        <CCardHeader>
+          <div v class="d-flex justify-content-between">
+            <h2>Edit KK</h2>
+          </div>
+        </CCardHeader>
+        <CCardBody>
+          <CForm v-on:submit.prevent>
+            <CInput
+              label="Nomor KK"
+              type="text"
+              id="noKKInput"
+              v-model="KK.nomorKK"
+            />
+            <CInput
+              label="Alamat"
+              type="text"
+              id="alamatInput"
+              v-model="KK.alamat"
+            />
+            <CInput
+              label="Kepala Keluarga"
+              type="text"
+              id="kepalaKeluargaInput"
+              v-model="KK.kepalaKeluarga"
+            />
+            <CButton type="submit" color="primary" @click="editKK()"
+              >Submit</CButton
+            >
+          </CForm>
+        </CCardBody>
+      </CCard>
+    </CCol>
+  </CRow>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-    name: "Edit KK",
-    data() {
-        return {
-            KK: {
-                noKK : "",
-                alamat : "",
-                kepalaKeluarga : ""
-            }
-        }
-    },
-    methods: {
-        editKK(){
-            const formData = new FormData()
-            const KK = this.KK
-            formData.append("nomorKK", KK.noKK);
-            formData.append("alamat", KK.alamat);
-            formData.append("kepalaKeluarga", KK.kepalaKeluarga);
+  name: "Edit KK",
+  data() {
+    return {
+      KK: {
+        nomorKK: "",
+        alamat: "",
+        kepalaKeluarga: "",
+      },
+    };
+  },
+  methods: {
+    editKK() {
+      const formData = new FormData();
+      const KK = this.KK;
+      formData.append("nomorKK", KK.nomorKK);
+      formData.append("alamat", KK.alamat);
+      formData.append("kepalaKeluarga", KK.kepalaKeluarga);
 
-            axios.post(this.$apiAdress + '/api/KK/edit/' + this.$route.params.id, formData).then( r => console.log('berhasil diubah'))
-        },
-        getKK(){
-            axios.get(this.$apiAdress + '/api/KK/' + this.$route.params.id).then( r => {
-                const data = r.data[0];
-                this.KK = {
-                    noKK: data.nomorKK,
-                    alamat: data.alamat,
-                    kepalaKeluarga: data.kepalaKeluarga
-                }
-            })
-        }
+      axios
+        .post(
+          this.$apiAdress + "/api/KK/edit/" + this.$route.params.id,
+          formData
+        )
+        .then((r) => console.log("berhasil diubah"));
     },
-    mounted() {
-        this.getKK();
-    }
-}
+    getKK() {
+      axios
+        .get(this.$apiAdress + "/api/KK/" + this.$route.params.id)
+        .then((r) => {
+          const data = r.data[0];
+          this.KK = {
+            nomorKK: data.nomorKK,
+            alamat: data.alamat,
+            kepalaKeluarga: data.kepalaKeluarga,
+          };
+        });
+    },
+  },
+  mounted() {
+    this.getKK();
+  },
+};
 </script>
