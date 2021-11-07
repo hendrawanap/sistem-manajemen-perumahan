@@ -81,6 +81,12 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::resource('roles',        'RolesController');
         Route::get('/roles/move/move-up',      'RolesController@moveUp')->name('roles.up');
         Route::get('/roles/move/move-down',    'RolesController@moveDown')->name('roles.down');
+
+        Route::get('/fasilitas', [FasilitasController::class, 'getAllFasilitas']);
+        Route::post('/fasilitas/add', [FasilitasController::class, 'addFasilitas']);
+        Route::get('/fasilitas/{id}', [FasilitasController::class, 'getFasilitas']);
+        Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
+        Route::post('/fasilitas/edit/{id}', [FasilitasController::class, 'setFasilitas']);
     });
 
     // Route::group([], function ($router) {
@@ -95,12 +101,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/KK/{id}', [KKController::class, 'getKK']);
     Route::get('/KK/delete/{id}', [KKController::class, 'deleteKK']);
     Route::post('/KK/edit/{id}', [KKController::class, 'setPegawai']);
-
-    Route::get('/fasilitas', [FasilitasController::class, 'getAllFasilitas']);
-    Route::post('/fasilitas/add', [FasilitasController::class, 'addFasilitas']);
-    Route::get('/fasilitas/{id}', [FasilitasController::class, 'getFasilitas']);
-    Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
-    Route::post('/fasilitas/edit/{id}', [FasilitasController::class, 'setPegawai']);
     
     Route::get('/jadwal/{divisi}', [JadwalController::class, 'getAllJadwal']);
 });

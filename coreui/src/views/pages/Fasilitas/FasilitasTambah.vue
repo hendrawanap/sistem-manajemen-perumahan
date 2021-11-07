@@ -8,20 +8,25 @@
                     </div>
                 </CCardHeader>
                 <CCardBody>
-                    <CForm>                                     
+                    <CForm v-on:submit.prevent>                                     
                         <CInput label="Nama Fasilitas" type="text" id="FasilitasInput" v-model="fasilitas.namaFasilitas"/>
-                        <CInput label="Kondisi" type="text" id="KondisiInput" v-model="fasilitas.kondisi"/>
+                        <CSelect
+                            label="Kondisi"
+                            :options="kondisiOptions"
+                            :value.sync="fasilitas.kondisi"
+                            placeholder="Pilih Kondisi"
+                        />
                         <CInput label="Informasi" type="text" id="InformasiInput" v-model="fasilitas.informasi"/>
-                        <CButton type="submit" color="primary" @click="submit()" >Submit</CButton>
+                        <CButton type="submit" color="primary" @click="addFasilitas()" >Submit</CButton>
                     </CForm>
                 </CCardBody>
             </CCard>
-            </CCol>
+        </CCol>
     </CRow>
 </template>
 
 <script>
-import Axios from 'axios';
+import axios from 'axios';
 export default {
     name: "Tambah Fasilitas",
     data() {
@@ -30,7 +35,12 @@ export default {
                 namaFasilitas : "",
                 kondisi : "",
                 informasi : ""
-            }
+            },
+            kondisiOptions: [
+                "Baik",
+                "Dalam Perbaikan",
+                "Rusak"
+            ]
         }
     },
     methods: {
@@ -40,7 +50,8 @@ export default {
             formData.append("namaFasilitas", fasilitas.namaFasilitas);
             formData.append("kondisi", fasilitas.kondisi);
             formData.append("informasi", fasilitas.informasi);
-            Axios.post(this.$apiAdress + '/api/pegawai/add').then( r => console.log('berhasil ditambahkan'))
+
+            axios.post(this.$apiAdress + '/api/fasilitas/add' + '?token=' + localStorage.getItem('api_token'), formData).then( r => console.log(r.data.status))
         }
     }
 }
