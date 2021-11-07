@@ -101,4 +101,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/fasilitas/{id}', [FasilitasController::class, 'getFasilitas']);
     Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
     Route::post('/fasilitas/edit/{id}', [FasilitasController::class, 'setPegawai']);
+    
+    Route::get('/jadwal/{divisi}', [JadwalController::class, 'getAllJadwal']);
 });
