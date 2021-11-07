@@ -4,8 +4,8 @@
       <CCard>
         <CCardHeader>
           <div class="d-flex justify-content-between">
-            <h2>Perizinan</h2>
-            <router-link :to="'/perizinan/tambah'">
+            <h2>Tagihan</h2>
+            <router-link :to="'/tagihan/tambah'">
               <CButton color="primary"> Tambah </CButton>
             </router-link>
           </div>
@@ -19,6 +19,13 @@
             :items-per-page="5"
             pagination
           >
+            <template #More="{ item }">
+              <td>
+                <router-link :to="'/perizinan/edit/' + item.id">
+                  <CButton><CIcon name="cil-options-horizontal" /></CButton>
+                </router-link>
+              </td>
+            </template>
           </CDataTable>
         </CCardBody>
       </CCard>
@@ -27,24 +34,22 @@
 </template>
 <script>
 export default {
-  name: "PerizinanIndex",
+  name: "TagihanIndex",
   data() {
     return {
       items: [
         {
           "No.": "1",
-          "Nama Pegawai": "Heriawan",
+          "Nama Tagihan": "Heriawan",
           Tanggal: "3-11-2021",
-          Alasan: "Males",
         },
         {
           "No.": "2",
-          "Nama Pegawai": "Herlambang",
+          "Nama Tagihan": "Herlambang",
           Tanggal: "2-11-2021",
-          Alasan: "Mules",
         },
       ],
-      fields: ["No.", "Nama Pegawai", "Tanggal", "Alasan"],
+      fields: ["No.", "Nama Tagihan", "Tanggal", "More"],
     };
   },
 };

@@ -85,16 +85,16 @@ const EditResource = () => import('@/views/resources/EditResource')
 const DeleteResource = () => import('@/views/resources/DeleteResource')
 
 //Email
-const Emails        = () => import('@/views/email/Emails')
-const CreateEmail   = () => import('@/views/email/CreateEmail')
-const EditEmail     = () => import('@/views/email/EditEmail')
-const ShowEmail     = () => import('@/views/email/ShowEmail')
-const SendEmail     = () => import('@/views/email/SendEmail')
+const Emails = () => import('@/views/email/Emails')
+const CreateEmail = () => import('@/views/email/CreateEmail')
+const EditEmail = () => import('@/views/email/EditEmail')
+const ShowEmail = () => import('@/views/email/ShowEmail')
+const SendEmail = () => import('@/views/email/SendEmail')
 
-const Menus       = () => import('@/views/menu/MenuIndex')
-const CreateMenu  = () => import('@/views/menu/CreateMenu')
-const EditMenu    = () => import('@/views/menu/EditMenu')
-const DeleteMenu  = () => import('@/views/menu/DeleteMenu')
+const Menus = () => import('@/views/menu/MenuIndex')
+const CreateMenu = () => import('@/views/menu/CreateMenu')
+const EditMenu = () => import('@/views/menu/EditMenu')
+const DeleteMenu = () => import('@/views/menu/DeleteMenu')
 
 const MenuElements = () => import('@/views/menuElements/ElementsIndex')
 const CreateMenuElement = () => import('@/views/menuElements/CreateMenuElement')
@@ -109,19 +109,21 @@ const KK = () => import('@/views/pages/KK/KKIndex')
 const KKTambah = () => import('@/views/pages/KK/KKTambah')
 const KKEdit = () => import('@/views/pages/KK/KKEdit')
 const Fasilitas = () => import('@/views/pages/Fasilitas/FasilitasIndex')
-const FasilitasTambah= () => import('@/views/pages/Fasilitas/FasilitasTambah')
+const FasilitasTambah = () => import('@/views/pages/Fasilitas/FasilitasTambah')
 const FasilitasEdit = () => import('@/views/pages/Fasilitas/FasilitasEdit')
 const Pegawai = () => import('@/views/pages/Pegawai/PegawaiIndex')
 const PegawaiTambah = () => import('@/views/pages/Pegawai/PegawaiTambah')
 const PegawaiEdit = () => import('@/views/pages/Pegawai/PegawaiEdit')
 const Perizinan = () => import('@/views/pages/Perizinan/PerizinanIndex')
+const PerizinanTambah = () => import('@/views/pages/Perizinan/PerizinanTambah')
 const JadwalIndex = () => import('@/views/pages/Jadwal/JadwalIndex')
 const Presensi = () => import('@/views/pages/Presensi/PresensiIndex')
-
+const Tagihan = () => import('@/views/pages/Tagihan/TagihanIndex')
+const TagihanTambah = () => import('@/views/pages/Tagihan/TagihanTambah')
 //Routes
 const kkRoutes = {
   path: "KK",
-  meta: { label: "KK"},
+  meta: { label: "KK" },
   component: {
     render(c) {
       return c("router-view");
@@ -139,7 +141,7 @@ const kkRoutes = {
     },
     {
       path: "edit/:id",
-      meta: {label: "Edit KK"},
+      meta: { label: "Edit KK" },
       name: "Edit Pegawai",
       component: KKEdit,
     }
@@ -148,7 +150,7 @@ const kkRoutes = {
 
 const pegawaiRoutes = {
   path: "pegawai",
-  meta: { 
+  meta: {
     label: "Pegawai",
     // requiresManager: true,
   },
@@ -179,7 +181,7 @@ const pegawaiRoutes = {
 
 const fasilitasRoutes = {
   path: "fasilitas",
-  meta: { label: "Fasilitas"},
+  meta: { label: "Fasilitas" },
   component: {
     render(c) {
       return c("router-view");
@@ -192,7 +194,7 @@ const fasilitasRoutes = {
     },
     {
       path: "tambah",
-      meta: { label: "Tambah Fasilitas"},
+      meta: { label: "Tambah Fasilitas" },
       name: "Tambah Fasilitas",
       component: FasilitasTambah,
     },
@@ -201,7 +203,7 @@ const fasilitasRoutes = {
       meta: { label: "Edit Fasilitas" },
       name: "Edit Fasilitas",
       component: FasilitasEdit,
-    }
+    },
   ],
 }
 
@@ -217,7 +219,13 @@ const perizinanRoutes = {
     {
       path: "",
       component: Perizinan,
-    }
+    },
+    {
+      path: "tambah",
+      meta: { label: "Tambah Perizinan" },
+      name: "Tambah Perizinan",
+      component: PerizinanTambah,
+    },
   ]
 }
 
@@ -236,7 +244,26 @@ const jadwalRoutes = {
     }
   ]
 }
-
+const tagihanRoutes = {
+  path: "tagihan",
+  meta: { label: "tagihan" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  }, children: [
+    {
+      path: "",
+      component: Tagihan,
+    },
+    {
+      path: "tambah",
+      meta: { label: "Tambah Tagihan" },
+      name: "Tambah Tagihan",
+      component: TagihanTambah,
+    },
+  ]
+}
 const presensiRoutes = {
   path: "presensi",
   meta: { label: "presensi" },
@@ -249,7 +276,7 @@ const presensiRoutes = {
     {
       path: "",
       component: Presensi,
-    }
+    },
   ]
 }
 
@@ -265,44 +292,44 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   let roles = localStorage.getItem("roles");
-  if(roles != null){
+  if (roles != null) {
     roles = roles.split(',')
   }
-  if(to.matched.some(record => record.meta.requiresAdmin)) {
-    if(roles != null && roles.indexOf('admin') >= 0 ){
+  if (to.matched.some(record => record.meta.requiresAdmin)) {
+    if (roles != null && roles.indexOf('admin') >= 0) {
       next()
-    }else{
+    } else {
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }
       })
     }
-  }else if(to.matched.some(record => record.meta.requiresUser)) {
-    if(roles != null && roles.indexOf('user') >= 0 ){
+  } else if (to.matched.some(record => record.meta.requiresUser)) {
+    if (roles != null && roles.indexOf('user') >= 0) {
       next()
-    }else{
+    } else {
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }
       })
     }
-  }else if(to.matched.some(record => record.meta.requiresManager)) {
-    if(roles != null && roles.indexOf('manager') >= 0 ){
+  } else if (to.matched.some(record => record.meta.requiresManager)) {
+    if (roles != null && roles.indexOf('manager') >= 0) {
       next()
-    }else{
+    } else {
       next({
         path: '/login',
         params: { nextUrl: to.fullPath }
       })
     }
-  }else{
+  } else {
     next()
   }
 })
 
 export default router
 
-function configRoutes () {
+function configRoutes() {
   return [
     {
       path: "/",
@@ -316,6 +343,7 @@ function configRoutes () {
         perizinanRoutes,
         jadwalRoutes,
         presensiRoutes,
+        tagihanRoutes,
         {
           path: "media",
           name: "Media",
