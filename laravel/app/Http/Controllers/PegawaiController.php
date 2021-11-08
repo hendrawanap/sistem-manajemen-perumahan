@@ -19,6 +19,12 @@ class PegawaiController extends Controller
         return response()->json($pegawai);
     }
 
+    public function getPegawaiByDivisi($divisi) {
+        $pegawai = Pegawai::where('divisi', $divisi)->get();
+
+        return response()->json($pegawai);
+    }
+
     public function setPegawai(Request $request, $id) {
         $pegawai = Pegawai::find($id);
         $pegawai->nama = $request->input('nama');
