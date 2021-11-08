@@ -22,7 +22,7 @@
                         <template #action="{item}">                    
                             <td>
                                 <router-link :to="'/fasilitas/edit/'+item.id">
-                                <CButton color="primary">Edit</CButton>
+                                <CButton color="primary" class="mr-2">Edit</CButton>
                                 </router-link>
                                 <CButton color="danger" @click="deleteFasilitas(item.id)">Hapus</CButton>
                             </td>
