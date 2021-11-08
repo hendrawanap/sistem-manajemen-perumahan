@@ -15,14 +15,14 @@ class CreatePresencesTable extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('waktuPresensi');
-            $table->enum('status',['Tepat Waktu', 'Terlambat', 'Sakit', 'Izin', 'Alpha']);
+            $table->timestamp('waktuPresensi')->nullable();
+            $table->enum('status', ['Tepat Waktu', 'Terlambat', 'Sakit', 'Izin', 'Alpha']);
             $table->string('perizinan')->nullable();
             $table->foreignId('idPegawai')
-                  ->constrained('employees')
-                  ->nullable()
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+                ->constrained('employees')
+                ->nullable()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

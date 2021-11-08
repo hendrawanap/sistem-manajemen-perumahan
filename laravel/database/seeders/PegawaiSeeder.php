@@ -18,6 +18,7 @@ class PegawaiSeeder extends Seeder
         $faker = Faker::create('id_ID');
         $divisi = ['Kebersihan', 'Keamanan', 'Keserasian', 'Kontrol', 'Administrasi'];
         $jabatan = ['Kepala', 'Wakil Kepala'];
+        date_default_timezone_set('Asia/Jakarta');
 
         for ($i = 0; $i < count($divisi); $i++) {
             for ($j = 0; $j < 2; $j++) {
@@ -27,7 +28,9 @@ class PegawaiSeeder extends Seeder
                     'alamat' => $faker->streetAddress,
                     'tanggalMasuk' => $faker->date(now()),
                     'divisi' => $divisi[$i],
-                    'jabatan' => $jabatan[$j]
+                    'jabatan' => $jabatan[$j],
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
         }
@@ -40,7 +43,9 @@ class PegawaiSeeder extends Seeder
                     'alamat' => $faker->streetAddress,
                     'tanggalMasuk' => $faker->date(now()),
                     'divisi' => $divisi[$i],
-                    'jabatan' => 'Anggota'
+                    'jabatan' => 'Anggota',
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
             for ($k = 1; $k <= 2; $k++) {
@@ -50,7 +55,9 @@ class PegawaiSeeder extends Seeder
                     'alamat' => $faker->streetAddress,
                     'tanggalMasuk' => $faker->date(now()),
                     'divisi' => $divisi[$i],
-                    'jabatan' => 'Anggota'
+                    'jabatan' => 'Anggota',
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
             }
         }

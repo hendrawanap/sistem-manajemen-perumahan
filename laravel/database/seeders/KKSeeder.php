@@ -17,26 +17,33 @@ class KKSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         $address = $faker->streetName;
+        date_default_timezone_set('Asia/Jakarta');
 
         for ($i = 1; $i <= 10; $i++) {
             DB::table('families')->insert([
                 'nomorKK' => $faker->numerify('35072###########'),
                 'alamat' => 'Graha Indah A' . $i,
-                'kepalaKeluarga' => $faker->name('male')
+                'kepalaKeluarga' => $faker->name('male'),
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
         for ($i = 1; $i <= 10; $i++) {
             DB::table('families')->insert([
                 'nomorKK' => $faker->numerify('35072###########'),
                 'alamat' => 'Graha Indah B' . $i,
-                'kepalaKeluarga' => $faker->name('male')
+                'kepalaKeluarga' => $faker->name('male'),
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
         for ($i = 1; $i <= 10; $i++) {
             DB::table('families')->insert([
                 'nomorKK' => $faker->numerify('35072###########'),
                 'alamat' => 'Graha Indah C' . $i,
-                'kepalaKeluarga' => $faker->name('male')
+                'kepalaKeluarga' => $faker->name('male'),
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
     }
