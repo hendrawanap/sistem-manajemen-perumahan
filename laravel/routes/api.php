@@ -4,6 +4,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\JadwalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +97,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/pegawai/{id}', [PegawaiController::class, 'getPegawai']);
     Route::get('/pegawai/delete/{id}', [PegawaiController::class, 'deletePegawai']);
     Route::post('/pegawai/edit/{id}', [PegawaiController::class, 'setPegawai']);
+    Route::get('/pegawai/divisi/{divisi}', [PegawaiController::class, 'getPegawaiByDivisi']);
     // });
     Route::get('/KK', [KKController::class, 'getAllKK']);
     Route::post('/KK/add', [KKController::class, 'addKK']);
@@ -104,6 +106,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('/KK/edit/{id}', [KKController::class, 'setKK']);
 
     Route::get('/jadwal/{divisi}', [JadwalController::class, 'getAllJadwal']);
+    Route::post('/jadwal/add', [JadwalController::class, 'addJadwal']);
+    Route::get('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal']);
 
     Route::get('/presensi/{tanggal}', [PresensiController::class], 'getAllPresensi');
 });
