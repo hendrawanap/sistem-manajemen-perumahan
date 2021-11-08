@@ -15,11 +15,13 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('rincian');
+            $table->string('namaTagihan');
+            $table->json('rincian');
             $table->foreignId('user_id')
                   ->constrained('users')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+            $table->date('tanggalTagihan');
             $table->timestamps();
         });
     }
