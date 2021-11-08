@@ -19,10 +19,10 @@
             :items-per-page="5"
             pagination
           >
-            <template #More="{ item }">
+            <template #Aksi="{ item }">
               <td>
                 <router-link :to="'/perizinan/edit/' + item.id">
-                  <CButton><CIcon name="cil-options-horizontal" /></CButton>
+                  <CButton color="primary">Lihat Pembayaran</CButton>
                 </router-link>
               </td>
             </template>
@@ -33,24 +33,30 @@
   </CRow>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "TagihanIndex",
   data() {
     return {
-      items: [
-        {
-          "No.": "1",
-          "Nama Tagihan": "Heriawan",
-          Tanggal: "3-11-2021",
-        },
-        {
-          "No.": "2",
-          "Nama Tagihan": "Herlambang",
-          Tanggal: "2-11-2021",
-        },
-      ],
-      fields: ["No.", "Nama Tagihan", "Tanggal", "More"],
+      items: [],
+      fields: ["No.", "Nama Tagihan", "Tanggal", "Aksi"],
     };
   },
+  methods: {
+    fetchTagihan() {
+      axios.get(this.$apiAdress + '/api/tagihan?token=' + localStorage.getItem('api_token')).then(r => {
+        this.items = r.data.map((item, index) => {
+          return {
+            "No.": index+1,
+            "Nama Tagihan": item.namaTagihan,
+            "Tanggal": item.tanggalTagihan,
+          }
+        })
+      })
+    }
+  },
+  mounted() {
+    this.fetchTagihan()
+  }
 };
 </script>
