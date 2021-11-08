@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class PegawaiSeeder extends Seeder
 {
@@ -14,37 +15,44 @@ class PegawaiSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('employees')->insert([
-            'nama' => 'Hendrawan',
-            'gender' => 0,
-            'alamat' => 'Karangploso',
-            'tanggalMasuk' => '2021-08-08',
-            'divisi' => 'Kebersihan',
-            'jabatan' => 'Kepala',
-        ]);
-        DB::table('employees')->insert([
-            'nama' => 'Rifqi',
-            'gender' => 0,
-            'alamat' => 'Karangploso',
-            'tanggalMasuk' => '2021-08-08',
-            'divisi' => 'Keamanan',
-            'jabatan' => 'Kepala',
-        ]);
-        DB::table('employees')->insert([
-            'nama' => 'Wira',
-            'gender' => 0,
-            'alamat' => 'Karangploso',
-            'tanggalMasuk' => '2021-08-08',
-            'divisi' => 'Keserasian',
-            'jabatan' => 'Kepala',
-        ]);
-        DB::table('employees')->insert([
-            'nama' => 'Ditor',
-            'gender' => 0,
-            'alamat' => 'Karangploso',
-            'tanggalMasuk' => '2021-08-08',
-            'divisi' => 'Kontrol',
-            'jabatan' => 'Kepala',
-        ]);
+        $faker = Faker::create('id_ID');
+        $divisi = ['Kebersihan', 'Keamanan', 'Keserasian', 'Kontrol', 'Administrasi'];
+        $jabatan = ['Kepala', 'Wakil Kepala'];
+
+        for ($i = 0; $i < count($divisi); $i++) {
+            for ($j = 0; $j < 2; $j++) {
+                DB::table('employees')->insert([
+                    'nama' => $faker->name($gender = 'male'),
+                    'gender' => 0,
+                    'alamat' => $faker->streetAddress,
+                    'tanggalMasuk' => $faker->date(now()),
+                    'divisi' => $divisi[$i],
+                    'jabatan' => $jabatan[$j]
+                ]);
+            }
+        }
+
+        for ($i = 0; $i < count($divisi); $i++) {
+            for ($j = 1; $j <= 8; $j++) {
+                DB::table('employees')->insert([
+                    'nama' => $faker->name($gender = 'male'),
+                    'gender' => 0,
+                    'alamat' => $faker->streetAddress,
+                    'tanggalMasuk' => $faker->date(now()),
+                    'divisi' => $divisi[$i],
+                    'jabatan' => 'Anggota'
+                ]);
+            }
+            for ($k = 1; $k <= 2; $k++) {
+                DB::table('employees')->insert([
+                    'nama' => $faker->name($gender = 'female'),
+                    'gender' => 1,
+                    'alamat' => $faker->streetAddress,
+                    'tanggalMasuk' => $faker->date(now()),
+                    'divisi' => $divisi[$i],
+                    'jabatan' => 'Anggota'
+                ]);
+            }
+        }
     }
 }

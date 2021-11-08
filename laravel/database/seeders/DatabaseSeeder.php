@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             EmailSeeder::class,
             PegawaiSeeder::class,
             ShiftSeeder::class,
+            FasilitasSeeder::class,
+            KKSeeder::class,
         ]);
     }
 }
