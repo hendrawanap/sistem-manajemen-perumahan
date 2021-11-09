@@ -14,7 +14,7 @@
           <CDataTable
             hover
             striped
-            :items="items"
+            :items="daftarPerizinan"
             :fields="fields"
             :items-per-page="5"
             pagination
@@ -26,26 +26,31 @@
   </CRow>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "PerizinanIndex",
   data() {
     return {
-      items: [
-        {
-          "No.": "1",
-          "Nama Pegawai": "Heriawan",
-          Tanggal: "3-11-2021",
-          Alasan: "Males",
-        },
-        {
-          "No.": "2",
-          "Nama Pegawai": "Herlambang",
-          Tanggal: "2-11-2021",
-          Alasan: "Mules",
-        },
-      ],
+      daftarPerizinan: [],
       fields: ["No.", "Nama Pegawai", "Tanggal", "Alasan"],
     };
   },
+  methods: {
+    fetchDaftarPerizinan() {
+      axios.get(this.$apiAdress + '/api/perizinan?token=' + localStorage.getItem('api_token')).then(r => {
+        this.daftarPerizinan = r.data.map((perizinan,index) => {
+          return {
+            "No.": index+1,
+            "Nama Pegawai": perizinan.nama,
+            "Tanggal": perizinan.waktuPresensi.slice(0,10),
+            "Alasan": perizinan.perizinan
+          }
+        })
+      })
+    }
+  },
+  mounted() {
+    this.fetchDaftarPerizinan();
+  }
 };
 </script>
