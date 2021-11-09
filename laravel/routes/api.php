@@ -5,6 +5,7 @@ use App\Http\Controllers\KKController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\TagihanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -117,4 +118,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/presensi/{tanggal}', [PresensiController::class, 'getAllPresensi']);
     Route::post('/presensi/cekPresensi', [PresensiController::class, 'cekPresensi']);
+
+    Route::get('/perizinan', [PerizinanController::class, 'getAllPerizinan']);
+    Route::post('/perizinan/tambah', [PerizinanController::class, 'addPerizinan']);
 });
