@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol>
-      <CInput label="Tipe" type="text" v-model="tipe" @change="changeTipe"/>
+      <CInput label="Tipe" type="text" v-model="tipe" @change="changeTipe" />
     </CCol>
     <CCol>
       <CInput

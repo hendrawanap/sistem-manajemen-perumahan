@@ -21,7 +21,7 @@
           >
             <template #Aksi="{ item }">
               <td>
-                <router-link :to="'/perizinan/edit/' + item.id">
+                <router-link :to="'/tagihan/' + item.id">
                   <CButton color="primary">Lihat Pembayaran</CButton>
                 </router-link>
               </td>
@@ -33,7 +33,7 @@
   </CRow>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "TagihanIndex",
   data() {
@@ -44,19 +44,25 @@ export default {
   },
   methods: {
     fetchTagihan() {
-      axios.get(this.$apiAdress + '/api/tagihan?token=' + localStorage.getItem('api_token')).then(r => {
-        this.items = r.data.map((item, index) => {
-          return {
-            "No.": index+1,
-            "Nama Tagihan": item.namaTagihan,
-            "Tanggal": item.tanggalTagihan,
-          }
-        })
-      })
-    }
+      axios
+        .get(
+          this.$apiAdress +
+            "/api/tagihan?token=" +
+            localStorage.getItem("api_token")
+        )
+        .then((r) => {
+          this.items = r.data.map((item, index) => {
+            return {
+              "No.": index + 1,
+              "Nama Tagihan": item.namaTagihan,
+              Tanggal: item.tanggalTagihan,
+            };
+          });
+        });
+    },
   },
   mounted() {
-    this.fetchTagihan()
-  }
+    this.fetchTagihan();
+  },
 };
 </script>

@@ -120,6 +120,8 @@ const JadwalIndex = () => import('@/views/pages/Jadwal/JadwalIndex')
 const Presensi = () => import('@/views/pages/Presensi/PresensiIndex')
 const Tagihan = () => import('@/views/pages/Tagihan/TagihanIndex')
 const TagihanTambah = () => import('@/views/pages/Tagihan/TagihanTambah')
+const DaftarPembayaran = () => import('@/views/pages/Tagihan/DaftarPembayaran')
+const DetailPembayaran = () => import('@/views/pages/Tagihan/DetailPembayaran')
 //Routes
 const kkRoutes = {
   path: "KK",
@@ -262,6 +264,18 @@ const tagihanRoutes = {
       meta: { label: "Tambah Tagihan" },
       name: "Tambah Tagihan",
       component: TagihanTambah,
+    },
+    {
+      path: ":id",
+      meta: { label: "Daftar Pembayaran" },
+      name: "Daftar Pembayaran",
+      component: DaftarPembayaran,
+    },
+    {
+      path: "detail/:id",
+      meta: { label: "Detail Pembayaran" },
+      name: "Detail Pembayaran",
+      component: DetailPembayaran,
     },
   ]
 }

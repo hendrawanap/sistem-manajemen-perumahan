@@ -9,8 +9,16 @@
         </CCardHeader>
         <CCardBody>
           <CForm v-on:submit.prevent>
-            <CInput label="Nama Tagihan" type="text" v-model="tagihan.namaTagihan"/>
-            <CInput label="Tanggal" type="date"  v-model="tagihan.tanggalTagihan"/>
+            <CInput
+              label="Nama Tagihan"
+              type="text"
+              v-model="tagihan.namaTagihan"
+            />
+            <CInput
+              label="Tanggal"
+              type="date"
+              v-model="tagihan.tanggalTagihan"
+            />
             Rincian
             <CCard>
               <CCardBody>
@@ -28,7 +36,9 @@
               </CCardBody>
             </CCard>
             <CInput label="Total Tagihan" disabled v-model="total" />
-            <CButton type="submit" color="primary" @click="tambahTagihan()">Submit</CButton>
+            <CButton type="submit" color="primary" @click="tambahTagihan()"
+              >Submit</CButton
+            >
           </CForm>
         </CCardBody>
       </CCard>
@@ -91,12 +101,19 @@ export default {
     },
     tambahTagihan() {
       const formData = new FormData();
-      formData.append('namaTagihan', this.tagihan.namaTagihan);
-      formData.append('tanggalTagihan', this.tagihan.tanggalTagihan);
-      formData.append('rincian', JSON.stringify(this.inputs));
-      axios.post(this.$apiAdress + '/api/tagihan/add?token=' + localStorage.getItem('api_token'), formData).then(r => {
-        this.$router.push('/tagihan')
-      })
+      formData.append("namaTagihan", this.tagihan.namaTagihan);
+      formData.append("tanggalTagihan", this.tagihan.tanggalTagihan);
+      formData.append("rincian", JSON.stringify(this.inputs));
+      axios
+        .post(
+          this.$apiAdress +
+            "/api/tagihan/add?token=" +
+            localStorage.getItem("api_token"),
+          formData
+        )
+        .then((r) => {
+          this.$router.push("/tagihan");
+        });
     },
   },
   computed: {},
