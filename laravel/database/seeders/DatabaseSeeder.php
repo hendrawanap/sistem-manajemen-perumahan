@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             ShiftSeeder::class,
             FasilitasSeeder::class,
             KKSeeder::class,
+            PresensiSeeder::class,
         ]);
     }
 }

@@ -14,11 +14,15 @@ class FasilitasSeeder extends Seeder
      */
     public function run()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Kolam Renang',
             'kondisi' => 'Baik',
             'informasi' => '-',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
 
         ]);
         DB::table('facilities')->insert([
@@ -26,37 +30,48 @@ class FasilitasSeeder extends Seeder
             'kondisi' => 'Dalam Perbaikan',
             'informasi' => 'Renovasi Masjid',
             'id_user' => 1,
-
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Pos Keamanan',
             'kondisi' => 'Baik',
             'informasi' => '-',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Taman',
             'kondisi' => 'Dalam Perbaikan',
             'informasi' => 'Penambahan Taman Bermain',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Lapangan',
             'kondisi' => 'Rusak',
             'informasi' => 'Ring Basket rusak',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Pengolahan Air Bersih',
             'kondisi' => 'Baik',
             'informasi' => '-',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('facilities')->insert([
             'namaFasilitas' => 'Gedung Pertemuan',
             'kondisi' => 'Baik',
             'informasi' => '-',
             'id_user' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

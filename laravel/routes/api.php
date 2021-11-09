@@ -115,5 +115,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal']);
 
 
-    Route::get('/presensi/{tanggal}', [PresensiController::class], 'getAllPresensi');
+    Route::get('/presensi/{tanggal}', [PresensiController::class, 'getAllPresensi']);
+    Route::post('/presensi/cekPresensi', [PresensiController::class, 'cekPresensi']);
 });
