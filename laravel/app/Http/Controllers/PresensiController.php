@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class PresensiController extends Controller
 {
-    public function getAllPresensi(Request $request)
+    public function getAllPresensi($tanggal)
     {
-        $tanggal = $request->input('tanggal');
         $presensi =
-            DB::table('presences')
-            ->where(DB::raw("DATE('$tanggal')"))
+            Presensi::where('waktuPresensi', '>=', $tanggal . " 00:00:00")
+            ->where('waktuPresensi', '<=', $tanggal . " 23:59:59")
+            ->join('employees', 'employees.id', '=', 'presences.idPegawai')
+            ->select('presences.*', 'employees.nama')
             ->get();
 
         return response()->json($presensi);
