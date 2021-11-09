@@ -24,6 +24,7 @@ import axios from 'axios'
 import Dropdown from 'vue-simple-search-dropdown';
 
 export default {
+    title: 'Simulasi Presensi',
     name: 'PresensiSimulasi',
     components: {
         Dropdown,

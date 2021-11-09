@@ -274,7 +274,7 @@ const tagihanRoutes = {
 }
 const presensiRoutes = {
   path: "presensi",
-  meta: { label: "presensi" },
+  meta: { label: "Presensi" },
   component: {
     render(c) {
       return c("router-view");
@@ -288,6 +288,7 @@ const presensiRoutes = {
     {
       path: "simulasi",
       name: "PresensiSimulasi",
+      meta: { label: 'Simulasi Presensi' },
       component: PresensiSimulasi,
     }
   ]
