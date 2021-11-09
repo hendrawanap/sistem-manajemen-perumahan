@@ -1,7 +1,7 @@
 <template>
   <CRow>
     <CCol>
-      <CInput label="Tipe" type="text" />
+      <CInput label="Tipe" type="text" v-model="tipe" @change="changeTipe"/>
     </CCol>
     <CCol>
       <CInput
@@ -32,6 +32,9 @@ export default {
     },
     changeNominal() {
       this.$emit("changeNominal", { id: this.inputId, nominal: this.nominal });
+    },
+    changeTipe() {
+      this.$emit("changeTipe", { id: this.inputId, tipe: this.tipe });
     },
   },
 };

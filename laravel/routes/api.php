@@ -5,6 +5,7 @@ use App\Http\Controllers\KKController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\TagihanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -89,6 +90,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/fasilitas/{id}', [FasilitasController::class, 'getFasilitas']);
         Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
         Route::post('/fasilitas/edit/{id}', [FasilitasController::class, 'setFasilitas']);
+
+        
+        Route::get('/tagihan', [TagihanController::class, 'getAllTagihan']);
+        Route::post('/tagihan/add', [TagihanController::class, 'addTagihan']);
     });
 
     // Route::group([], function ($router) {
@@ -108,6 +113,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/jadwal/{divisi}', [JadwalController::class, 'getAllJadwal']);
     Route::post('/jadwal/add', [JadwalController::class, 'addJadwal']);
     Route::get('/jadwal/delete/{id}', [JadwalController::class, 'deleteJadwal']);
+
 
     Route::get('/presensi/{tanggal}', [PresensiController::class], 'getAllPresensi');
 });

@@ -10,7 +10,10 @@ class JadwalController extends Controller
 {
     public function getAllJadwal($divisi) {
         $pegawai = Pegawai::select('id')->where('divisi', $divisi)->get();
-        $allJadwal = Jadwal::whereIn('idPegawai', $pegawai)->get();
+        $allJadwal = Jadwal::whereIn('idPegawai', $pegawai)
+                        ->join('employees','employees.id','=','schedules.idPegawai')
+                        ->select('schedules.*', 'employees.nama', 'employees.divisi')
+                        ->get();
 
         return response()->json($allJadwal);
     }
@@ -25,8 +28,8 @@ class JadwalController extends Controller
         return response()->json(['status'=>'success']);
     }
 
-    public function deleteJadwal(Request $request) {
-        $jadwal = Jadwal::find($request->input('id'));
+    public function deleteJadwal($id) {
+        $jadwal = Jadwal::find($id);
         $jadwal->delete();
 
         return response()->json(['status'=>'success']);
