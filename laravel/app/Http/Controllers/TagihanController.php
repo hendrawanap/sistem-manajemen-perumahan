@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class TagihanController extends Controller
 {
-    public static function getAllTagihan()
+    public function getAllTagihan()
     {
         $allTagihan = Tagihan::all();
 
         return response()->json($allTagihan);
     }
     
-    public static function addTagihan(Request $request)
+    public function addTagihan(Request $request)
     {
         $user = auth()->user();
         $tagihan = new Tagihan();
