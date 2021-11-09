@@ -120,6 +120,8 @@ const JadwalIndex = () => import('@/views/pages/Jadwal/JadwalIndex')
 const Presensi = () => import('@/views/pages/Presensi/PresensiIndex')
 const Tagihan = () => import('@/views/pages/Tagihan/TagihanIndex')
 const TagihanTambah = () => import('@/views/pages/Tagihan/TagihanTambah')
+const PresensiSimulasi = () => import('@/views/pages/Presensi/PresensiSimulasi')
+
 //Routes
 const kkRoutes = {
   path: "KK",
@@ -278,6 +280,11 @@ const presensiRoutes = {
       path: "",
       component: Presensi,
     },
+    {
+      path: "simulasi",
+      name: "PresensiSimulasi",
+      component: PresensiSimulasi,
+    }
   ]
 }
 
