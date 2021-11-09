@@ -122,6 +122,11 @@ const Tagihan = () => import('@/views/pages/Tagihan/TagihanIndex')
 const TagihanTambah = () => import('@/views/pages/Tagihan/TagihanTambah')
 const PresensiSimulasi = () => import('@/views/pages/Presensi/PresensiSimulasi')
 
+const LaporanIndex = () => import('@/views/pages/Laporan/LaporanIndex')
+const LaporanPresensi = () => import('@/views/pages/Laporan/LaporanPresensi')
+const LaporanFasilitas = () => import('@/views/pages/Laporan/LaporanFasilitas')
+const LaporanTagihan = () => import('@/views/pages/Laporan/LaporanTagihan')
+const LaporanKK = () => import('@/views/pages/Laporan/LaporanKK')
 //Routes
 const kkRoutes = {
   path: "KK",
@@ -288,6 +293,46 @@ const presensiRoutes = {
   ]
 }
 
+const laporanRoutes = {
+  path: "laporan",
+  meta: { label: "Laporan" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  },
+  children: [
+    {
+      path: "",
+      component: LaporanIndex,
+    },
+    {
+      path: "presensi",
+      meta: { label: "Presensi" },
+      name: "LaporanPresensi",
+      component: LaporanPresensi,
+    },
+    {
+      path: "fasilitas",
+      meta: { label: "Fasilitas" },
+      name: "LaporanFasilitas",
+      component: LaporanFasilitas,
+    },
+    {
+      path: "tagihan",
+      meta: { label: "Tagihan" },
+      name: "LaporanTagihan",
+      component: LaporanTagihan,
+    },
+    {
+      path: "kk",
+      meta: { label: "KK" },
+      name: "LaporanKK",
+      component: LaporanKK,
+    },
+  ]
+}
+
 Vue.use(Router)
 
 let router = new Router({
@@ -352,6 +397,7 @@ function configRoutes() {
         jadwalRoutes,
         presensiRoutes,
         tagihanRoutes,
+        laporanRoutes,
         {
           path: "media",
           name: "Media",
