@@ -91,7 +91,7 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/fasilitas/delete/{id}', [FasilitasController::class, 'deleteFasilitas']);
         Route::post('/fasilitas/edit/{id}', [FasilitasController::class, 'setFasilitas']);
 
-        
+
         Route::get('/tagihan', [TagihanController::class, 'getAllTagihan']);
         Route::post('/tagihan/add', [TagihanController::class, 'addTagihan']);
     });

@@ -18,7 +18,7 @@ class PresensiSeeder extends Seeder
         date_default_timezone_set('Asia/Jakarta');
         $sakit = ['Demam', 'Pusing'];
         $izin = ['Ada acara', 'Urusan Keluarga'];
-        $shift = [7, 15, 23];
+        $shift = [07, 15, 23];
 
         for ($i = 1; $i <= 44; $i++) {
             $temp = $status[rand(0, 1)];
@@ -37,7 +37,7 @@ class PresensiSeeder extends Seeder
             } elseif ($temp == 'Terlambat') {
                 $time = rand(31, 60);
                 DB::table('presences')->insert([
-                    'waktuPresensi' => date("Y-m-$day $s:$time:s"),
+                    'waktuPresensi' => date("Y-m-0$day $s:$time:s"),
                     'status' => $temp,
                     'idPegawai' => $i,
                     'created_at' => now(),
@@ -47,8 +47,10 @@ class PresensiSeeder extends Seeder
         }
         for ($i = 45; $i <= 60; $i++) {
             $ket = $status[rand(2, 3)];
+            $day = rand(1, 7);
             if ($ket == 'Sakit') {
                 DB::table('presences')->insert([
+                    'waktuPresensi' => date("Y-m-0$day 00:00:00"),
                     'status' => $ket,
                     'perizinan' => $sakit[rand(0, 1)],
                     'idPegawai' => $i,
@@ -57,6 +59,7 @@ class PresensiSeeder extends Seeder
                 ]);
             } else {
                 DB::table('presences')->insert([
+                    'waktuPresensi' => date("Y-m-0$day 00:00:00"),
                     'status' => $ket,
                     'perizinan' => $izin[rand(0, 1)],
                     'idPegawai' => $i,
