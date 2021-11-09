@@ -2,9 +2,9 @@
     <CRow>
         <CCol>
             <CCard>
-                <CCardBody>
+                <CCardBody class="position-relative">
                     <CInput label="Nama Pegawai" type="text" v-model="searchQuery" @focus="onFocus" @blur="onBlur"/>
-                    <CCard class="dropdown-list" v-show="focused">
+                    <CCard class="dropdown-list shadow-sm" v-show="focused">
                         <CListGroup flush>
                             <CListGroupItem class="dropdown-item" v-for="pegawai in resultQuery" :key="'pegawai-'+pegawai.id" @click="setSelectedPegawai(pegawai)">
                                 {{ pegawai.nama }}
@@ -85,8 +85,12 @@ export default {
 
 <style scoped>
     .dropdown-list {
+        position: absolute;
+        top: 95px;
         max-height: 200px;
         overflow: auto;
+        left: 20px;
+        right: 20px;
     }
     .dropdown-item:hover {
         color: white;
