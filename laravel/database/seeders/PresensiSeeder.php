@@ -26,7 +26,7 @@ class PresensiSeeder extends Seeder
             $day = rand(1, 7);
             if ($temp == 'Tepat Waktu' | $i % 2 == 0) {
                 $temp = 'Tepat Waktu';
-                $time = rand(0, 29);
+                $time = rand(00, 29);
                 DB::table('presences')->insert([
                     'waktuPresensi' => date("Y-m-0$day $s:$time:s"),
                     'status' => $temp,
@@ -35,7 +35,7 @@ class PresensiSeeder extends Seeder
                     'updated_at' => now()
                 ]);
             } elseif ($temp == 'Terlambat') {
-                $time = rand(31, 60);
+                $time = rand(31, 59);
                 DB::table('presences')->insert([
                     'waktuPresensi' => date("Y-m-0$day $s:$time:s"),
                     'status' => $temp,
