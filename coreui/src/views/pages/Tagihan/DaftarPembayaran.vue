@@ -41,6 +41,7 @@
 import axios from "axios";
 export default {
   name: "DaftarPembayaran",
+  title:'Daftar Pembayaran',
   data() {
     return {
       items: [

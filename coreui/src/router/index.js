@@ -219,7 +219,7 @@ const fasilitasRoutes = {
 
 const perizinanRoutes = {
   path: "perizinan",
-  meta: { label: "perizinan" },
+  meta: { label: "Perizinan" },
   component: {
     render(c) {
       return c("router-view");
@@ -241,7 +241,7 @@ const perizinanRoutes = {
 
 const jadwalRoutes = {
   path: "jadwal",
-  meta: { label: "jadwal" },
+  meta: { label: "Jadwal" },
   component: {
     render(c) {
       return c("router-view");
@@ -256,7 +256,7 @@ const jadwalRoutes = {
 }
 const tagihanRoutes = {
   path: "tagihan",
-  meta: { label: "tagihan" },
+  meta: { label: "Tagihan" },
   component: {
     render(c) {
       return c("router-view");

@@ -36,6 +36,7 @@
 import axios from "axios";
 export default {
   name: "TagihanIndex",
+  title:'Daftar Tagihan',
   data() {
     return {
       items: [],

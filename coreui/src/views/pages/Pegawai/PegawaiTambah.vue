@@ -43,7 +43,8 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "PegawaiEdit",
+    name: "PegawaiTambah",
+    title:'Tambah Pegawai',
     data() {
       return {
         biodata: {

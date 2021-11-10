@@ -37,6 +37,7 @@
 import axios from "axios";
 export default {
   name: "PresensiIndex",
+  title:'Daftar Kehadiran',
   data() {
     return {
       daftarPresensi: [],

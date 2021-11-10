@@ -39,6 +39,7 @@
 import axios from 'axios';
 export default {
   name: "PegawaiIndex",
+  title:'Daftar Pegawai',
   data() {
     return {
       items: [],

@@ -37,6 +37,7 @@
 import axios from 'axios';
 export default {
   name: "KKIndex",
+  title:'Daftar KK',
   data() {
     return {
       items: [],

@@ -60,6 +60,7 @@ import axios from "axios";
 
 export default {
   name: "PerizinanTambah",
+  title:'Tambah Perizinan',
   data() {
     return {
       perizinan: {

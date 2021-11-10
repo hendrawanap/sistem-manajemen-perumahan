@@ -28,7 +28,8 @@
 <script>
 import axios from 'axios';
 export default {
-    name: "Tambah Fasilitas",
+    name: "FasilitasTambah",
+    title:'Tambah Fasilitas',
     data() {
         return {
             fasilitas: {

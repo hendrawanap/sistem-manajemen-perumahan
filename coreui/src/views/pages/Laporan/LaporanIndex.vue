@@ -60,6 +60,7 @@
 <script>
 export default {
   name: "LaporanIndex",
+  title: 'Laporan',
   data() {
     return {
       infoModal: false,

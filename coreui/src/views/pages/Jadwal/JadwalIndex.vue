@@ -112,6 +112,7 @@ import axios from 'axios'
 
 export default {
     name: "JadwalIndex",
+    title: 'Jadwal Pegawai',
     components: {
         IsiJadwal,
     },

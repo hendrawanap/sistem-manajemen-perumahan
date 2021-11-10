@@ -26,6 +26,7 @@ import IsiTagihan from "./IsiTagihan";
 export default {
   components: {},
   name: "DetailPembayaran",
+  title: 'Detail Pembayaran',
   data() {
     return {};
   },
