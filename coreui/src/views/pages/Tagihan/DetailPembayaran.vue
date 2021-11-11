@@ -34,6 +34,7 @@
               </CCardBody>
               <CCardFooter><CInput disabled label="Total Tagihan: " :value="getTotalPembayaran()"/></CCardFooter>
             </CCard>
+            <div class="d-flex justify-content-end"><CButton color="primary" @click="cetakPembayaran()">Cetak Pembayaran</CButton></div>
           </CForm>
         </CCardBody>
       </CCard>
@@ -66,6 +67,9 @@ export default {
     },
     getTotalPembayaran() {
       return this.detailPembayaran.map(p => p.nominal).reduce((total, nominal) => total + nominal);
+    },
+    cetakPembayaran() {
+      window.print();
     }
   },
   mounted() {

@@ -58,15 +58,19 @@ export default {
   methods: {
     fetchAllPembayaran() {
       axios.get(this.$apiAdress + '/api/pembayaran/' + this.$route.params.id).then(r => {
-        this.items = r.data.map((data, index) => {
-          return {
-            "No.": index+1,
-            "Nomor KK": data.nomorKK,
-            "Tanggal Bayar": data.tanggalBayar,
-            id: data.id,
-            kepalaKeluarga: data.kepalaKeluarga,
-          }
-        });
+        // console.log(r.data.length);
+        if (r.data.length) {
+          this.items = r.data.map((data, index) => {
+            return {
+              "No.": index+1,
+              "Nomor KK": data.nomorKK,
+              "Tanggal Bayar": data.tanggalBayar,
+              id: data.id,
+              kepalaKeluarga: data.kepalaKeluarga,
+            }
+          });
+        }
+        // console.log(this.items);
         this.fetchBelumDibayar(r.data.length);
       })
     },
