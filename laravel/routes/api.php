@@ -118,6 +118,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/presensi/{tanggal}', [PresensiController::class, 'getAllPresensi']);
     Route::post('/presensi/cekPresensi', [PresensiController::class, 'cekPresensi']);
+    Route::get('/presensi/alpha/{tanggal}', [PresensiController::class, 'getPresensiAlpha']);
 
     Route::get('/perizinan', [PerizinanController::class, 'getAllPerizinan']);
     Route::post('/perizinan/tambah', [PerizinanController::class, 'addPerizinan']);
