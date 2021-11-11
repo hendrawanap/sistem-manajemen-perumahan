@@ -37,6 +37,7 @@
 import axios from "axios";
 export default {
   name: "PresensiIndex",
+  title:'Daftar Kehadiran',
   data() {
     return {
       daftarPresensi: [],
@@ -54,11 +55,24 @@ export default {
               "No.": index + 1,
               "Nama Pegawai": data.nama,
               "Waktu Presensi": data.waktuPresensi,
-              Status: data.status,
+              "Status": data.status,
             };
           });
+          this.getPresensiAlpha(r.data.length);
         });
     },
+    getPresensiAlpha(nomorTerakhir) {
+      axios.get(this.$apiAdress + "/api/presensi/alpha/" + this.selectedTanggal).then(r => {
+        r.data.forEach((pegawai,index) => {
+          this.daftarPresensi.push({
+            "No.": index + 1 + nomorTerakhir,
+            "Nama Pegawai": pegawai.nama,
+            "Waktu Presensi": '-',
+            "Status": "Alpha"
+          })
+        });
+      })
+    }
   },
   mounted() {
     this.getAllPresensi();

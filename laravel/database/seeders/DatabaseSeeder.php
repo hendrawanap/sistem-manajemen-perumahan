@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             FasilitasSeeder::class,
             KKSeeder::class,
             PresensiSeeder::class,
+            JadwalSeeder::class,
         ]);
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\KKController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\TagihanController;
 use Illuminate\Http\Request;
@@ -94,6 +95,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 
 
         Route::get('/tagihan', [TagihanController::class, 'getAllTagihan']);
+        Route::get('/tagihan/{id}', [TagihanController::class, 'getTagihan']);
         Route::post('/tagihan/add', [TagihanController::class, 'addTagihan']);
     });
 
@@ -118,7 +120,13 @@ Route::group(['middleware' => 'api'], function ($router) {
 
     Route::get('/presensi/{tanggal}', [PresensiController::class, 'getAllPresensi']);
     Route::post('/presensi/cekPresensi', [PresensiController::class, 'cekPresensi']);
+    Route::get('/presensi/alpha/{tanggal}', [PresensiController::class, 'getPresensiAlpha']);
 
     Route::get('/perizinan', [PerizinanController::class, 'getAllPerizinan']);
     Route::post('/perizinan/tambah', [PerizinanController::class, 'addPerizinan']);
+
+    Route::get('/pembayaran/{idTagihan}', [PembayaranController::class, 'getAllPembayaran']);
+    Route::get('/pembayaran/detail/{id}', [PembayaranController::class, 'getPembayaran']);
+    Route::get('/pembayaran/belum/{idTagihan}', [PembayaranController::class, 'getBelumDibayar']);
+    Route::post('/pembayaran/add', [PembayaranController::class, 'addPembayaran']);
 });

@@ -29,6 +29,7 @@
 import axios from 'axios';
 export default {
   name: "PerizinanIndex",
+  title:'Daftar Perizinan',
   data() {
     return {
       daftarPerizinan: [],

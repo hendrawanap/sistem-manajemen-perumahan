@@ -40,7 +40,8 @@
 <script>
 import axios from "axios";
 export default {
-  name: "Edit KK",
+  name: "KKEdit",
+  title: 'Edit KK',
   data() {
     return {
       KK: {

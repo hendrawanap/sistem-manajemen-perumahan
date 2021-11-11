@@ -25,14 +25,14 @@ class JadwalController extends Controller
         $jadwal->idShift = $request->input('idShift');
         $jadwal->save();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil mengatur jadwal']);
     }
 
     public function deleteJadwal($id) {
         $jadwal = Jadwal::find($id);
         $jadwal->delete();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil menghapus jadwal']);
     }
 
     public function addJadwal(Request $request) {
@@ -42,6 +42,6 @@ class JadwalController extends Controller
         $jadwal->idShift = $request->input('idShift');
         $jadwal->save();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil menambah jadwal']);
     }
 }

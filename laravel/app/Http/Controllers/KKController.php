@@ -16,7 +16,7 @@ class KKController extends Controller
 
     public function getKK($id)
     {
-        $KK = KK::where('id', $id)->get();
+        $KK = KK::find($id);
 
         return response()->json($KK);
     }
@@ -29,7 +29,7 @@ class KKController extends Controller
         $KK->kepalaKeluarga = $request->input('kepalaKeluarga');
         $KK->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil mengubah data KK']);
     }
 
     public function deleteKK($id)
@@ -37,7 +37,7 @@ class KKController extends Controller
         $KK = KK::find($id);
         $KK->delete();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil menghapus data KK']);
     }
 
     public function addKK(Request $request)
@@ -48,6 +48,6 @@ class KKController extends Controller
         $KK->kepalaKeluarga = $request->input('kepalaKeluarga');
         $KK->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil menambah data KK']);
     }
 }

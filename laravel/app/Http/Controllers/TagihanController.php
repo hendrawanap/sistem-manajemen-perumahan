@@ -13,6 +13,13 @@ class TagihanController extends Controller
 
         return response()->json($allTagihan);
     }
+
+    public function getTagihan($id)
+    {
+        $tagihan = Tagihan::find($id);
+
+        return response()->json($tagihan);
+    }
     
     public function addTagihan(Request $request)
     {
@@ -24,6 +31,6 @@ class TagihanController extends Controller
         $tagihan->tanggalTagihan = $request->input('tanggalTagihan');
         $tagihan->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil menambah data tagihan']);
     }
 }

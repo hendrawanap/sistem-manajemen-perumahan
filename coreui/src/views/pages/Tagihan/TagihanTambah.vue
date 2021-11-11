@@ -54,6 +54,7 @@ export default {
     IsiTagihan,
   },
   name: "TagihanTambah",
+  title: 'Tambah Tagihan',
   data() {
     return {
       tagihan: {

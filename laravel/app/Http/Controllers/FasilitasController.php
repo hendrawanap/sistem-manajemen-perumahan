@@ -21,7 +21,7 @@ class FasilitasController extends Controller
 
     public function getFasilitas($id)
     {
-        $fasilitas = Fasilitas::where('id', $id)->get();
+        $fasilitas = Fasilitas::find($id);
 
         return response()->json($fasilitas);
     }
@@ -34,7 +34,7 @@ class FasilitasController extends Controller
         $fasilitas->informasi = $request->input('informasi');
         $fasilitas->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil mengubah data fasilitas']);
     }
 
     public function deleteFasilitas($id)
@@ -42,7 +42,7 @@ class FasilitasController extends Controller
         $fasilitas = Fasilitas::find($id);
         $fasilitas->delete();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil menghapus data fasilitas']);
     }
 
     public function addFasilitas(Request $request)
@@ -55,8 +55,8 @@ class FasilitasController extends Controller
             $fasilitas->informasi = $request->input('informasi');
             $fasilitas->id_user = $user->id;
             $fasilitas->save();
-            return response()->json(['status' => 'success']);
+            return response()->json(['message' => 'Berhasil menambah data fasilitas']);
         }
-        return response()->json(['status' => 'no user']);
+        return response()->json(['message' => 'Tidak ada user']);
     }
 }

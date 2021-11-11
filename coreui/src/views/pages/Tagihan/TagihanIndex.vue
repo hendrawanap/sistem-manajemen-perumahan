@@ -36,6 +36,7 @@
 import axios from "axios";
 export default {
   name: "TagihanIndex",
+  title:'Daftar Tagihan',
   data() {
     return {
       items: [],
@@ -55,7 +56,8 @@ export default {
             return {
               "No.": index + 1,
               "Nama Tagihan": item.namaTagihan,
-              Tanggal: item.tanggalTagihan,
+              "Tanggal": item.tanggalTagihan,
+              id: item.id,
             };
           });
         });

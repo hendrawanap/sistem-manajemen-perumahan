@@ -55,6 +55,7 @@
 import axios from 'axios';
 export default {
   name: "LaporanTagihan",
+  title: 'Laporan Tagihan',
   computed : {
       total() {
           return this.tagihan.map(t => t.nominal).reduce((total,nominal) => total + nominal)

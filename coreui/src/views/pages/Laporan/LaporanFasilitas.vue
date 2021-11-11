@@ -27,6 +27,7 @@
 import axios from "axios";
 export default {
   name: "LaporanFasilitas",
+  title: 'Laporan Fasilitas',
   data() {
     return {
       items: [],

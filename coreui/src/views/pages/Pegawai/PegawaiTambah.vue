@@ -43,7 +43,8 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "PegawaiEdit",
+    name: "PegawaiTambah",
+    title:'Tambah Pegawai',
     data() {
       return {
         biodata: {
@@ -89,7 +90,9 @@ export default {
         formData.append("divisi", biodata.divisi);
         formData.append("jabatan", biodata.jabatan);
 
-        axios.post(this.$apiAdress + '/api/pegawai/add', formData).then( r => console.log('berhasil ditambahkan'))
+        axios.post(this.$apiAdress + '/api/pegawai/add', formData).then(r => {
+          this.$router.push('/pegawai?message=' + r.data.message);
+        })
       },
     }
 }

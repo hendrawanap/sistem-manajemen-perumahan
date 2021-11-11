@@ -25,7 +25,8 @@
 <script>
 import axios from 'axios'
 export default {
-    name: "Tambah KK",
+    name: "KKTambah",
+    title:'Tambah KK',
     data() {
         return {
             KK: {

@@ -28,6 +28,7 @@
 <script>
 export default {
     name : "LaporanPresensi",
+    title: 'Lapooran Presensi',
     data(){
         return {
             items : [
