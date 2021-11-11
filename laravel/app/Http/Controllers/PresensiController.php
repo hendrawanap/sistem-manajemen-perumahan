@@ -79,12 +79,12 @@ class PresensiController extends Controller
                     $presensi->status = $isTerlambat ? 'Terlambat' : 'Tepat Waktu';
                     $presensi->idPegawai = $jadwal->idPegawai;
                     $presensi->save();
-                    return response()->json(['message' => 'Berhasil Mencatat Presensi']);
+                    return response()->json(['message' => 'Berhasil mencatat presensi']);
                 }
-                return response()->json(['message' => 'Jadwal Tidak Ditemukan']);
+                return response()->json(['message' => 'Jadwal tidak ditemukan']);
             }
-            return response()->json(['message' => 'Jadwal Tidak Ditemukan']);
+            return response()->json(['message' => 'Jadwal tidak ditemukan']);
         }
-        return response()->json(['message' => 'Pegawai Tidak Ditemukan']);
+        return response()->json(['message' => 'Pegawai tidak ditemukan']);
     }
 }

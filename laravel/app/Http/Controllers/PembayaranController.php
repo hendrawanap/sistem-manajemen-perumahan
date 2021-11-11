@@ -49,6 +49,6 @@ class PembayaranController extends Controller
         $pembayaran->idTagihan = $request->input('idTagihan');
         $pembayaran->save();
 
-        return response()->json(['message' => 'Pembayaran berhasil dicatat']);
+        return response()->json(['message' => 'Berhasil mencatat pembayaran']);
     }
 }

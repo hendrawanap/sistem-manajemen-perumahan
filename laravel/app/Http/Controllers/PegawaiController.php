@@ -35,14 +35,14 @@ class PegawaiController extends Controller
         $pegawai->jabatan = $request->input('jabatan');
         $pegawai->save();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil mengubah data pegawai']);
     }
 
     public function deletePegawai($id) {
         $pegawai = Pegawai::find($id);
         $pegawai->delete();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil menghapus data pegawai']);
     }
 
     public function addPegawai(Request $request) {
@@ -55,6 +55,6 @@ class PegawaiController extends Controller
         $pegawai->jabatan = $request->input('jabatan');
         $pegawai->save();
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['message' => 'Berhasil menambah data pegawai']);
     }
 }

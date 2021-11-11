@@ -24,6 +24,7 @@ class PerizinanController extends Controller
                         ->orWhere('status', 'Sakit')
                         ->join('employees', 'employees.id', '=', 'presences.idPegawai')
                         ->select('presences.*', 'employees.nama')
+                        ->orderBy('presences.waktuPresensi', 'desc')
                         ->get();
         
         return response()->json($perizinan);

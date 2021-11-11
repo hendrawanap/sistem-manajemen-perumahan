@@ -31,6 +31,6 @@ class TagihanController extends Controller
         $tagihan->tanggalTagihan = $request->input('tanggalTagihan');
         $tagihan->save();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['message' => 'Berhasil menambah data tagihan']);
     }
 }
