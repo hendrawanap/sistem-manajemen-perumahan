@@ -13,6 +13,13 @@ class TagihanController extends Controller
 
         return response()->json($allTagihan);
     }
+
+    public function getTagihan($id)
+    {
+        $tagihan = Tagihan::find($id);
+
+        return response()->json($tagihan);
+    }
     
     public function addTagihan(Request $request)
     {

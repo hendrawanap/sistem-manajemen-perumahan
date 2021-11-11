@@ -56,7 +56,8 @@ export default {
             return {
               "No.": index + 1,
               "Nama Tagihan": item.namaTagihan,
-              Tanggal: item.tanggalTagihan,
+              "Tanggal": item.tanggalTagihan,
+              id: item.id,
             };
           });
         });

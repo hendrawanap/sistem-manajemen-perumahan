@@ -26,9 +26,16 @@
           >
             <template #Aksi="{ item }">
               <td>
-                <router-link :to="'/tagihan/detail/' + item.id">
-                  <CIcon name="cil-info" />
-                </router-link>
+                <div v-if="item['Tanggal Bayar'] == 'Belum Bayar'">
+                  <router-link :to="'/pembayaran/bayar?tagihan=' + $route.params.id + '&kk=' + item.id">
+                    <CButton color="warning">Bayar</CButton>
+                  </router-link>
+                </div>
+                <div v-else>
+                  <router-link :to="'/pembayaran/' + item.id">
+                    <CButton color="primary">Detail</CButton>
+                  </router-link>
+                </div>
               </td>
             </template>
           </CDataTable>
@@ -44,22 +51,41 @@ export default {
   title:'Daftar Pembayaran',
   data() {
     return {
-      items: [
-        {
-          "No.": "1",
-          "Nomor KK": 188123812388123,
-          "Tanggal Bayar": "3-11-2021",
-          Tagihan: "Air",
-        },
-        {
-          "No.": "2",
-          "Nomor KK": 188123812388123,
-          "Tanggal Bayar": "3-11-2021",
-          Tagihan: "Bumi",
-        },
-      ],
-      fields: ["No.", "Nomor KK", "Tanggal Bayar", "Tagihan", "Aksi"],
+      items: [],
+      fields: ["No.", "Nomor KK", "Tanggal Bayar", "Aksi"],
     };
   },
+  methods: {
+    fetchAllPembayaran() {
+      axios.get(this.$apiAdress + '/api/pembayaran/' + this.$route.params.id).then(r => {
+        this.items = r.data.map((data, index) => {
+          return {
+            "No.": index+1,
+            "Nomor KK": data.nomorKK,
+            "Tanggal Bayar": data.tanggalBayar,
+            id: data.id,
+            kepalaKeluarga: data.kepalaKeluarga,
+          }
+        });
+        this.fetchBelumDibayar(r.data.length);
+      })
+    },
+    fetchBelumDibayar(nomorTerakhir) {
+      axios.get(this.$apiAdress + '/api/pembayaran/belum/' + this.$route.params.id).then(r => {
+        r.data.forEach((data, index) => {
+          this.items.push({
+            "No.": nomorTerakhir + index+1,
+            "Nomor KK": data.nomorKK,
+            "Tanggal Bayar": "Belum Bayar",
+            id: data.id,
+            kepalaKeluarga: data.kepalaKeluarga,
+          })
+        });
+      })
+    }
+  },
+  mounted() {
+    this.fetchAllPembayaran();
+  }
 };
 </script>

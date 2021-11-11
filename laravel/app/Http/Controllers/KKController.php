@@ -16,7 +16,7 @@ class KKController extends Controller
 
     public function getKK($id)
     {
-        $KK = KK::where('id', $id)->get();
+        $KK = KK::find($id);
 
         return response()->json($KK);
     }

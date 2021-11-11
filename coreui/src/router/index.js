@@ -122,6 +122,7 @@ const Tagihan = () => import('@/views/pages/Tagihan/TagihanIndex')
 const TagihanTambah = () => import('@/views/pages/Tagihan/TagihanTambah')
 const DaftarPembayaran = () => import('@/views/pages/Tagihan/DaftarPembayaran')
 const DetailPembayaran = () => import('@/views/pages/Tagihan/DetailPembayaran')
+const TagihanBayar = () => import('@/views/pages/Tagihan/TagihanBayar')
 const PresensiSimulasi = () => import('@/views/pages/Presensi/PresensiSimulasi')
 
 const LaporanIndex = () => import('@/views/pages/Laporan/LaporanIndex')
@@ -269,23 +270,45 @@ const tagihanRoutes = {
     {
       path: "tambah",
       meta: { label: "Tambah Tagihan" },
-      name: "Tambah Tagihan",
+      name: "TambahTagihan",
       component: TagihanTambah,
     },
     {
       path: ":id",
       meta: { label: "Daftar Pembayaran" },
-      name: "Daftar Pembayaran",
+      name: "DaftarPembayaran",
       component: DaftarPembayaran,
     },
+  ]
+}
+
+const pembayaranRoutes = {
+  path: "pembayaran",
+  meta: { label: "Pembayaran" },
+  component: {
+    render(c) {
+      return c("router-view");
+    },
+  }, children: [
     {
-      path: "detail/:id",
+      path: "",
+      redirect: "/tagihan"
+    },
+    {
+      path: 'bayar',
+      meta: { label: "Bayar Tagihan" },
+      name: "TagihanBayar",
+      component: TagihanBayar,
+    },
+    {
+      path: ":id",
       meta: { label: "Detail Pembayaran" },
-      name: "Detail Pembayaran",
+      name: "PembayaranDetail",
       component: DetailPembayaran,
     },
   ]
 }
+
 const presensiRoutes = {
   path: "presensi",
   meta: { label: "Presensi" },
@@ -413,6 +436,7 @@ function configRoutes() {
         presensiRoutes,
         tagihanRoutes,
         laporanRoutes,
+        pembayaranRoutes,
         {
           path: "media",
           name: "Media",
