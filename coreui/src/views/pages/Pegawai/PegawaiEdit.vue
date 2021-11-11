@@ -90,7 +90,9 @@ export default {
         formData.append("divisi", biodata.divisi);
         formData.append("jabatan", biodata.jabatan);
 
-        axios.post(this.$apiAdress + '/api/pegawai/edit/' + this.$route.params.id, formData).then( r => console.log('berhasil diubah'))
+        axios.post(this.$apiAdress + '/api/pegawai/edit/' + this.$route.params.id, formData).then(r => {
+          this.$router.push('/pegawai?message=' + r.data.message);
+        })
       },
       getPegawai() {
         axios.get(this.$apiAdress + '/api/pegawai/' + this.$route.params.id).then( r => {
