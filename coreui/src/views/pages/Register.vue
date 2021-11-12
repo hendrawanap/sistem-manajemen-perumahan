@@ -1,9 +1,16 @@
 <template>
-  <div class="d-flex align-items-center min-vh-100">
+  <div class="d-flex content-center min-vh-100">
     <CContainer fluid>
-      <CRow class="justify-content-center">
-        <CCol md="6">
+      <CRow class="d-flex content-center">
+        <CCol md="4">
           <CCard class="mx-4 mb-0">
+            <CCardHeader class="d-flex content-center">
+              <img
+                v-bind:src="require('../../assets/' + img)"
+                size="custom-size"
+                :height="150"
+              />
+            </CCardHeader>
             <CCardBody class="p-4">
               <CForm @submit.prevent="register" method="POST">
                 <h1>Register</h1>
@@ -14,7 +21,9 @@
                   autocomplete="username"
                   v-model="name"
                 >
-                  <template #prepend-content><CIcon name="cil-user"/></template>
+                  <template #prepend-content
+                    ><CIcon name="cil-user"
+                  /></template>
                 </CInput>
                 <CInput
                   placeholder="Email"
@@ -29,7 +38,9 @@
                   autocomplete="new-password"
                   v-model="password"
                 >
-                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                  <template #prepend-content
+                    ><CIcon name="cil-lock-locked"
+                  /></template>
                 </CInput>
                 <CInput
                   placeholder="Repeat password"
@@ -39,25 +50,15 @@
                   class="mb-4"
                   v-model="password_confirmation"
                 >
-                  <template #prepend-content><CIcon name="cil-lock-locked"/></template>
+                  <template #prepend-content
+                    ><CIcon name="cil-lock-locked"
+                  /></template>
                 </CInput>
-                <CButton type="submit" color="success" block>Create Account</CButton>
+                <CButton type="submit" color="success" block
+                  >Create Account</CButton
+                >
               </CForm>
             </CCardBody>
-            <CCardFooter class="p-4">
-              <CRow>
-                <CCol col="6">
-                  <CButton block color="facebook">
-                    Facebook
-                  </CButton>
-                </CCol>
-                <CCol col="6">
-                  <CButton block color="twitter">
-                    Twitter
-                  </CButton>
-                </CCol>
-              </CRow>
-            </CCardFooter>
           </CCard>
         </CCol>
       </CRow>
@@ -66,38 +67,39 @@
 </template>
 
   <script>
-    import axios from 'axios'
-    export default {
-      data() {
-        return {
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: ''
-        }
-      },    
-      methods: {
-        register() {
-          var self = this;
-          axios.post(  this.$apiAdress + '/api/register', {
-            name: self.name,
-            email: self.email,
-            password: self.password,
-            password_confirmation: self.password_confirmation
-          }).then(function (response) {
-            self.name = '';
-            self.email = '';
-            self.password = '';
-            self.password_confirmation = '';
-            console.log(response);
-            self.$router.push({ path: '/login' });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-  
-        }
-      }
-    }
-  
-  </script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      img: "logo.png",
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    };
+  },
+  methods: {
+    register() {
+      var self = this;
+      axios
+        .post(this.$apiAdress + "/api/register", {
+          name: self.name,
+          email: self.email,
+          password: self.password,
+          password_confirmation: self.password_confirmation,
+        })
+        .then(function (response) {
+          self.name = "";
+          self.email = "";
+          self.password = "";
+          self.password_confirmation = "";
+          console.log(response);
+          self.$router.push({ path: "/login" });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+};
+</script>
