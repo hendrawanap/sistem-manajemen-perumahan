@@ -1,10 +1,11 @@
 <template>
     <td class="p-2" height="50">
-        <CButton color="primary" class="w-100" @click="toggleModal"><div class="text-truncate"><CIcon name="cil-plus" color="white"/>Tambah Pegawai</div></CButton>
+        <CButton color="primary" class="w-100" @click="toggleModal"><div class="d-flex align-items-center text-truncate"><CIcon class="mr-2" name="cil-plus"/> Tambah Pegawai</div></CButton>
         <div 
             class="border bg-secondary d-flex px-2 py-2 mt-2 rounded-sm justify-content-between align-items-center flex-nowrap"
+            :class="[isDelete ? 'is-delete' : '']"
             v-for="(pegawai, index) in daftarPegawaiTop"
-            :key="'pegawai-' + index"
+            :key="'pegawai-top-' + index"
         >
             <div class="text-truncate">{{ pegawai.nama }}</div>
             <div class="flex-shrink-0" @click="deleteJadwal(pegawai)" v-if="isDelete" color="primary"><CIcon name="cil-trash" :height="16" :width="16"/></div>
@@ -12,8 +13,9 @@
         <template v-if="isMore">
             <div 
                 class="border bg-secondary d-flex px-2 py-2 mt-2 rounded-sm justify-content-between align-items-center flex-nowrap"
+                :class="[isDelete ? 'is-delete' : '']"
                 v-for="(pegawai, index) in daftarPegawaiMore"
-                :key="'pegawai-' + index"
+                :key="'pegawai-more-' + index"
             >
                 <div class="text-truncate">{{ pegawai.nama }}</div>
                 <div class="flex-shrink-0" @click="deleteJadwal(pegawai)" v-if="isDelete" color="primary"><CIcon name="cil-trash" :height="16" :width="16"/></div>
@@ -52,8 +54,14 @@ export default {
             this.$emit("toggleModal")
         },
         deleteJadwal(jadwal) {
-            axios.get(this.$apiAdress + '/api/jadwal/delete/' + jadwal.id).then(r => this.$emit("fetchJadwal"))
+            axios.delete(this.$apiAdress + '/api/jadwal/' + jadwal.id + '?token=' + localStorage.getItem('api_token')).then(r => this.$emit("fetchJadwal"))
         }
     }
 }
 </script>
+
+<style scoped>
+    .is-delete:hover {
+        background-color: var(--danger);
+    }
+</style>

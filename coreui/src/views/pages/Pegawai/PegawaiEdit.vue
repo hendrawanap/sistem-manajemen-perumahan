@@ -81,22 +81,13 @@ export default {
     },
     methods: {
       editPegawai(){
-        const formData = new FormData()
-        const biodata = this.biodata
-        formData.append("nama", biodata.nama);
-        formData.append("gender", biodata.gender);
-        formData.append("alamat", biodata.alamat);
-        formData.append("tanggalMasuk", biodata.tanggalMasuk);
-        formData.append("divisi", biodata.divisi);
-        formData.append("jabatan", biodata.jabatan);
-
-        axios.post(this.$apiAdress + '/api/pegawai/edit/' + this.$route.params.id, formData).then(r => {
+        axios.put(this.$apiAdress + '/api/pegawai/' + this.$route.params.id + '?token=' + localStorage.getItem('api_token'), this.biodata).then(r => {
           this.$router.push('/pegawai?message=' + r.data.message);
         })
       },
       getPegawai() {
-        axios.get(this.$apiAdress + '/api/pegawai/' + this.$route.params.id).then( r => {
-          const data = r.data[0];
+        axios.get(this.$apiAdress + '/api/pegawai/' + this.$route.params.id + '?token=' + localStorage.getItem('api_token')).then( r => {
+          const data = r.data;
           this.biodata = {
             nama: data.nama,
             gender: data.gender,

@@ -95,7 +95,7 @@ export default {
       });
     },
     deletePegawai() {
-      axios.get(this.$apiAdress + '/api/pegawai/delete/' + this.selectedPegawai + '?token=' + localStorage.getItem('api_token')).then( r => {
+      axios.delete(this.$apiAdress + '/api/pegawai/' + this.selectedPegawai + '?token=' + localStorage.getItem('api_token')).then( r => {
         this.getAllPegawai();
         this.hapusModal = false;
         this.showAlert = true;

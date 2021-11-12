@@ -60,7 +60,7 @@ export default {
             const formData = new FormData();
             formData.append('idPegawai', this.selectedPegawai.id);
             formData.append('waktuPresensi', this.waktuPresensi);
-            axios.post(this.$apiAdress + '/api/presensi/cekPresensi', formData).then(r => console.log(r.data));
+            axios.post(this.$apiAdress + '/api/presensi?token=' + localStorage.getItem('api_token'), formData).then(r => console.log(r.data));
         }
     },
     computed: {

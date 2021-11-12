@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     fetchAllPembayaran() {
-      axios.get(this.$apiAdress + '/api/pembayaran/' + this.$route.params.id).then(r => {
+      axios.get(this.$apiAdress + '/api/pembayaran?tagihan=' + this.$route.params.id + '&token=' + localStorage.getItem('api_token')).then(r => {
         // console.log(r.data.length);
         if (r.data.length) {
           this.items = r.data.map((data, index) => {
@@ -75,7 +75,7 @@ export default {
       })
     },
     fetchBelumDibayar(nomorTerakhir) {
-      axios.get(this.$apiAdress + '/api/pembayaran/belum/' + this.$route.params.id).then(r => {
+      axios.get(this.$apiAdress + '/api/pembayaran/?tagihan' + this.$route.params.id + '&belum=true' + '&token=' + localStorage.getItem('api_token')).then(r => {
         r.data.forEach((data, index) => {
           this.items.push({
             "No.": nomorTerakhir + index+1,

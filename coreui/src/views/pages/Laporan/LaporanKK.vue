@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getAllKK() {
-      axios.get(this.$apiAdress + '/api/KK').then( r => {
+      axios.get(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token')).then( r => {
         this.jumlahKK = r.data.length;
         this.items = r.data.map((data, index) => {
           return {

@@ -7,20 +7,18 @@ use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
 {
-    public function getAllPegawai() {
-        $allPegawai = Pegawai::all();
+    public function getAllPegawai(Request $request) {
+        if ($request->query('divisi'))  {
+            $allPegawai = Pegawai::where('divisi', $request->query('divisi'))->get();
+        } else {
+            $allPegawai = Pegawai::all();
+        }
 
         return response()->json($allPegawai);
     }
 
     public function getPegawai($id) {
-        $pegawai = Pegawai::where('id', $id)->get();
-
-        return response()->json($pegawai);
-    }
-
-    public function getPegawaiByDivisi($divisi) {
-        $pegawai = Pegawai::where('divisi', $divisi)->get();
+        $pegawai = Pegawai::find($id);
 
         return response()->json($pegawai);
     }

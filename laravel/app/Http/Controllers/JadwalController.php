@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    public function getAllJadwal($divisi) {
-        $pegawai = Pegawai::select('id')->where('divisi', $divisi)->get();
+    public function getAllJadwal(Request $request) {
+        $pegawai = Pegawai::select('id')->where('divisi', $request->query('divisi'))->get();
         $allJadwal = Jadwal::whereIn('idPegawai', $pegawai)
                         ->join('employees','employees.id','=','schedules.idPegawai')
                         ->select('schedules.*', 'employees.nama', 'employees.divisi')

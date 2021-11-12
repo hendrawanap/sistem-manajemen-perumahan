@@ -15,7 +15,7 @@
             striped
             :items="items"
             :fields="fields"
-            :items-per-page="5"
+            :items-per-page="7"
             pagination
           >
           </CDataTable>
@@ -26,36 +26,35 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name : "LaporanPresensi",
     title: 'Lapooran Presensi',
     data(){
         return {
-            items : [
-                {
-            'No.': 1,
-            'Tanggal Presensi': "2021-11-10",
-            'Jumlah Kehadiran' : '30/200'
-            },
-            {
-            'No.': 2,
-            'Tanggal Presensi': "2021-11-10",
-            'Jumlah Kehadiran' : '20/200'
-            },
-             {
-            'No.': 3,
-            'Tanggal Presensi': "2021-11-10",
-            'Jumlah Kehadiran' : '20/150'
-             },
-             {
-            'No.': 4,
-            'Tanggal Presensi': "2021-11-10",
-            'Jumlah Kehadiran' : '20/100'
-             },
-            ],
+            items : [],
             fields : ['No.', 'Tanggal Presensi', 'Jumlah Kehadiran']
-
         }
+    },
+    methods: {
+      fetchLaporan() {
+        const bulan = this.$route.query.bulan;
+        const tahun = this.$route.query.tahun;
+        axios.get(this.$apiAdress + '/api/laporanPresensi?bulan=' + bulan + '&tahun=' + tahun + '&token=' + localStorage.getItem('api_token'))
+        .then(r => {
+          this.items = r.data.map((presensi, index) => {
+            return {
+              'No.': index + 1,
+              'Tanggal Presensi': presensi.tanggal,
+              'Jumlah Kehadiran' : presensi.presensi,
+            }
+          })
+        });
+      }
+    },
+    mounted() {
+      this.fetchLaporan();
     }
 }
 </script>

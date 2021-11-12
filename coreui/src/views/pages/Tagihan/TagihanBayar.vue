@@ -95,7 +95,7 @@ export default {
       axios
         .get(
           this.$apiAdress +
-            "/api/KK/" +
+            "/api/kk/" +
             this.$route.query.kk +
             "?token=" +
             localStorage.getItem("api_token")
@@ -111,7 +111,7 @@ export default {
         formData.append('idKK', this.$route.query.kk);
         formData.append('idTagihan', this.$route.query.tagihan);
 
-        axios.post(this.$apiAdress + '/api/pembayaran/add?token=' + localStorage.getItem('api_token'), formData).then(r => {
+        axios.post(this.$apiAdress + '/api/pembayaran?token=' + localStorage.getItem('api_token'), formData).then(r => {
             console.log(r.data.message);
             this.$router.push('/tagihan/' + this.$route.query.tagihan);
         })

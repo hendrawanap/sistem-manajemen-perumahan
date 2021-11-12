@@ -41,7 +41,7 @@
 import axios from "axios";
 export default {
   name: "KKEdit",
-  title: 'Edit KK',
+  title: "Edit KK",
   data() {
     return {
       KK: {
@@ -53,24 +53,20 @@ export default {
   },
   methods: {
     editKK() {
-      const formData = new FormData();
-      const KK = this.KK;
-      formData.append("nomorKK", KK.nomorKK);
-      formData.append("alamat", KK.alamat);
-      formData.append("kepalaKeluarga", KK.kepalaKeluarga);
-
       axios
-        .post(
-          this.$apiAdress + "/api/KK/edit/" + this.$route.params.id,
-          formData
+        .put(
+          this.$apiAdress + "/api/kk/" + this.$route.params.id + '?token=' + localStorage.getItem('api_token'),
+          this.KK,
         )
-        .then((r) => console.log("berhasil diubah"));
+        .then((r) => {
+          this.$router.push("/KK?message=" + r.data.message);
+        });
     },
     getKK() {
       axios
-        .get(this.$apiAdress + "/api/KK/" + this.$route.params.id)
+        .get(this.$apiAdress + "/api/kk/" + this.$route.params.id + '?token=' + localStorage.getItem('api_token'))
         .then((r) => {
-          const data = r.data[0];
+          const data = r.data;
           this.KK = {
             nomorKK: data.nomorKK,
             alamat: data.alamat,
