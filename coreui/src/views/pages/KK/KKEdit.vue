@@ -41,7 +41,7 @@
 import axios from "axios";
 export default {
   name: "KKEdit",
-  title: 'Edit KK',
+  title: "Edit KK",
   data() {
     return {
       KK: {
@@ -64,13 +64,15 @@ export default {
           this.$apiAdress + "/api/KK/edit/" + this.$route.params.id,
           formData
         )
-        .then((r) => console.log("berhasil diubah"));
+        .then((r) => {
+          this.$router.push("/KK?message=" + r.data.message);
+        });
     },
     getKK() {
       axios
         .get(this.$apiAdress + "/api/KK/" + this.$route.params.id)
         .then((r) => {
-          const data = r.data[0];
+          const data = r.data;
           this.KK = {
             nomorKK: data.nomorKK,
             alamat: data.alamat,
