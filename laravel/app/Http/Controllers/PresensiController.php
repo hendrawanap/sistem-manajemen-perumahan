@@ -11,14 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class PresensiController extends Controller
 {
-    public function getAllPresensi($tanggal)
+    public function getAllPresensi(Request $request)
     {
-        $presensi = Presensi::where('waktuPresensi', '>=', $tanggal . " 00:00:00")
-                        ->where('waktuPresensi', '<=', $tanggal . " 23:59:59")
-                        ->join('employees', 'employees.id', '=', 'presences.idPegawai')
-                        ->select('presences.*', 'employees.nama')
-                        ->orderBy('waktuPresensi')
-                        ->get();
+        if ($request->query('alpha') == 'true') {
+            $presensi = $this->getPresensiAlpha($request->query('tanggal'));
+        } else {
+            $presensi = Presensi::where('waktuPresensi', '>=', $request->query('tanggal') . " 00:00:00")
+                            ->where('waktuPresensi', '<=', $request->query('tanggal') . " 23:59:59")
+                            ->join('employees', 'employees.id', '=', 'presences.idPegawai')
+                            ->select('presences.*', 'employees.nama')
+                            ->orderBy('waktuPresensi')
+                            ->get();
+        }
 
         return response()->json($presensi);
     }
@@ -47,7 +51,7 @@ class PresensiController extends Controller
             }
         }
 
-        return response()->json($pegawaiAlpha);
+        return $pegawaiAlpha;
     }
 
     public function cekPresensi(Request $request)
@@ -64,7 +68,7 @@ class PresensiController extends Controller
             if ($jadwal) {
                 $time = strtotime($waktuPresensi[1]);
                 $shift = Shift::find($jadwal->idShift);
-                $isValid = ($jadwal->hari == $daysEnum[$day]) && ($time - strtotime($shift->waktuMulai)) > 0 && ($time - strtotime($shift->waktuSelesai)) < 0;
+                $isValid = ($jadwal->hari == $daysEnum[$day]) && ($time - strtotime($shift->waktuMulai)) >= 0 && ($time - strtotime($shift->waktuSelesai)) <= 0;
                 if ($isValid) {
                     $sudahPresensi = Presensi::where('idPegawai', $pegawai->id)
                         ->where('waktuPresensi', '>=', $waktuPresensi[0] . ' ' . '00:00:00')

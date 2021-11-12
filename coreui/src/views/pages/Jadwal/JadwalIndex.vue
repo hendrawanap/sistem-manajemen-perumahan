@@ -68,16 +68,7 @@
                       v-for="hari in daftarHari"
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][0]"
-                      @toggleModal="
-                        () =>
-                          toggleModal(
-                            daftarJadwal[selectedDivisi][hari][0].map(
-                              (p) => p.idPegawai
-                            ),
-                            hari,
-                            1
-                          )
-                      "
+                      @toggleModal="() => toggleModal(hari, 1)"
                       @fetchJadwal="fetchJadwal"
                       :isDelete="isDelete"
                     />
@@ -88,16 +79,7 @@
                       v-for="hari in daftarHari"
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][1]"
-                      @toggleModal="
-                        () =>
-                          toggleModal(
-                            daftarJadwal[selectedDivisi][hari][1].map(
-                              (p) => p.idPegawai
-                            ),
-                            hari,
-                            2
-                          )
-                      "
+                      @toggleModal="() => toggleModal(hari, 2)"
                       @fetchJadwal="fetchJadwal"
                       :isDelete="isDelete"
                     />
@@ -108,16 +90,7 @@
                       v-for="hari in daftarHari"
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][2]"
-                      @toggleModal="
-                        () =>
-                          toggleModal(
-                            daftarJadwal[selectedDivisi][hari][2].map(
-                              (p) => p.idPegawai
-                            ),
-                            hari,
-                            3
-                          )
-                      "
+                      @toggleModal="() => toggleModal(hari, 3)"
                       @fetchJadwal="fetchJadwal"
                       :isDelete="isDelete"
                     />
@@ -285,38 +258,37 @@ export default {
       axios
         .get(
           this.$apiAdress +
-            "/api/jadwal/" +
+            "/api/jadwal?divisi=" +
             this.selectedDivisi +
-            "?token=" +
+            "&token=" +
             localStorage.getItem("api_token")
         )
         .then((r) => {
           this.daftarJadwal[this.selectedDivisi] = this.convertData(r.data);
-          console.log("fetch jadwal");
         });
-    },
-    selectDivisi(divisi) {
-      this.selectedDivisi = divisi;
-      this.fetchJadwal();
     },
     fetchPegawai(ids) {
       axios
         .get(
           this.$apiAdress +
-            "/api/pegawai/divisi/" +
+            "/api/pegawai?divisi=" +
             this.selectedDivisi +
-            "?token=" +
+            "&token=" +
             localStorage.getItem("api_token")
         )
         .then((r) => {
           this.daftarPegawai = r.data.filter((data) => !ids.includes(data.id));
         });
     },
-    toggleModal(ids, hari, shift) {
+    getPegawaiByHari(hari) {
+      return [].concat.apply([], this.daftarJadwal[this.selectedDivisi][hari]);
+    },
+    toggleModal(hari, shift) {
       this.modalTambah = !this.modalTambah;
       this.pegawaiTerpilih = [];
       this.selectedHari = hari;
       this.selectedShift = shift;
+      const ids = this.getPegawaiByHari(hari).map((p) => p.idPegawai);
       this.fetchPegawai(ids);
     },
     addToPegawaiTerpilih(id) {
@@ -332,9 +304,16 @@ export default {
         formData.append("hari", this.selectedHari);
         formData.append("idPegawai", pegawai.id);
         formData.append("idShift", this.selectedShift);
-        axios.post(this.$apiAdress + "/api/jadwal/add/", formData).then((r) => {
-          this.message = r.data.message;
-        });
+        axios
+          .post(
+            this.$apiAdress +
+              "/api/jadwal?token=" +
+              localStorage.getItem("api_token"),
+            formData
+          )
+          .then((r) => {
+            this.message = r.data.message;
+          });
       });
       this.showAlert = true;
       this.modalTambah = false;

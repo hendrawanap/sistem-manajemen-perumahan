@@ -85,7 +85,7 @@ export default {
       formData.append('alasan', perizinan.alasan);
       formData.append('tanggalIzin', perizinan.tanggal + ' 00:00:00');
       
-      axios.post(this.$apiAdress + '/api/perizinan/tambah?token=' + localStorage.getItem('api_token'), formData)
+      axios.post(this.$apiAdress + '/api/perizinan?token=' + localStorage.getItem('api_token'), formData)
         .then(r => {
           console.log(r.data.status);
           this.$router.push('/perizinan');

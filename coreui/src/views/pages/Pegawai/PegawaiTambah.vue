@@ -90,7 +90,7 @@ export default {
         formData.append("divisi", biodata.divisi);
         formData.append("jabatan", biodata.jabatan);
 
-        axios.post(this.$apiAdress + '/api/pegawai/add', formData).then(r => {
+        axios.post(this.$apiAdress + '/api/pegawai?token=' + localStorage.getItem('api_token'), formData).then(r => {
           this.$router.push('/pegawai?message=' + r.data.message);
         })
       },

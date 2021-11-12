@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     getAllKK() {
-      axios.get(this.$apiAdress + "/api/KK").then((r) => {
+      axios.get(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token')).then(r => {
         this.items = r.data.map((data, index) => {
           return {
             "no.": index + 1,
@@ -96,7 +96,7 @@ export default {
     },
     deleteKK() {
       axios
-        .get(this.$apiAdress + "/api/KK/delete/" + this.selectedKK)
+        .delete(this.$apiAdress + "/api/kk" + this.selectedKK + '?token=' + localStorage.getItem('api_token'))
         .then((r) => {
           this.getAllKK();
           this.hapusModal = false;

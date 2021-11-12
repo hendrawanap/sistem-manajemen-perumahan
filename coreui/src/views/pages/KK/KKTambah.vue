@@ -59,7 +59,7 @@ export default {
       formData.append("alamat", KK.alamat);
       formData.append("kepalaKeluarga", KK.kepalaKeluarga);
 
-      axios.post(this.$apiAdress + "/api/KK/add", formData).then((r) => {
+      axios.post(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token'), formData).then((r) => {
         this.$router.push("/KK?message=" + r.data.message);
       });
     },

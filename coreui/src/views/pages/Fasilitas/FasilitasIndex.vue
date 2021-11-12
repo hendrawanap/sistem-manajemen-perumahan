@@ -100,9 +100,9 @@ export default {
     },
     deleteFasilitas() {
       axios
-        .get(
+        .delete(
           this.$apiAdress +
-            "/api/fasilitas/delete/" +
+            "/api/fasilitas/" +
             this.selectedFasilitas +
             "?token=" +
             localStorage.getItem("api_token")

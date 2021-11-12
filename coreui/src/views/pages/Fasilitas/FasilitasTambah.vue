@@ -59,11 +59,11 @@ export default {
       formData.append("namaFasilitas", fasilitas.namaFasilitas);
       formData.append("kondisi", fasilitas.kondisi);
       formData.append("informasi", fasilitas.informasi);
-
+      
       axios
         .post(
           this.$apiAdress +
-            "/api/fasilitas/add" +
+            "/api/fasilitas" +
             "?token=" +
             localStorage.getItem("api_token"),
           formData

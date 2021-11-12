@@ -133,7 +133,10 @@ const LaporanKK = () => import('@/views/pages/Laporan/LaporanKK')
 //Routes
 const kkRoutes = {
   path: "KK",
-  meta: { label: "KK" },
+  meta: {
+    label: "KK",
+    requiresAdmin: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -163,7 +166,7 @@ const pegawaiRoutes = {
   path: "pegawai",
   meta: {
     label: "Pegawai",
-    // requiresManager: true,
+    requiresManager: true,
   },
   component: {
     render(c) {
@@ -192,7 +195,10 @@ const pegawaiRoutes = {
 
 const fasilitasRoutes = {
   path: "fasilitas",
-  meta: { label: "Fasilitas" },
+  meta: { 
+    label: "Fasilitas",
+    requiresAdmin: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -220,7 +226,10 @@ const fasilitasRoutes = {
 
 const perizinanRoutes = {
   path: "perizinan",
-  meta: { label: "Perizinan" },
+  meta: {
+    label: "Perizinan",
+    requiresAdmin: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -242,7 +251,10 @@ const perizinanRoutes = {
 
 const jadwalRoutes = {
   path: "jadwal",
-  meta: { label: "Jadwal" },
+  meta: {
+    label: "Jadwal",
+    requiresManager: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -257,7 +269,10 @@ const jadwalRoutes = {
 }
 const tagihanRoutes = {
   path: "tagihan",
-  meta: { label: "Tagihan" },
+  meta: {
+    label: "Tagihan",
+    requiresAdmin: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -284,7 +299,10 @@ const tagihanRoutes = {
 
 const pembayaranRoutes = {
   path: "pembayaran",
-  meta: { label: "Pembayaran" },
+  meta: {
+    label: "Pembayaran",
+    requiresAdmin: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -311,7 +329,10 @@ const pembayaranRoutes = {
 
 const presensiRoutes = {
   path: "presensi",
-  meta: { label: "Presensi" },
+  meta: {
+    label: "Presensi",
+    requiresUser: true,
+  },
   component: {
     render(c) {
       return c("router-view");
@@ -333,7 +354,10 @@ const presensiRoutes = {
 
 const laporanRoutes = {
   path: "laporan",
-  meta: { label: "Laporan" },
+  meta: {
+    label: "Laporan",
+    requiresUser: true,
+  },
   component: {
     render(c) {
       return c("router-view");

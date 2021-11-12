@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Manager
+class User
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class Manager
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
-        if(empty($user) || !$user->hasRole('manager')){
-            return response()->json(['message' => 'Unauthenticated. Manager role required'], 401);
+        if(empty($user) || !$user->hasRole('user')){
+            return response()->json(['message' => 'Unauthenticated. User role required'], 401);
         }
         return $next($request);
     }

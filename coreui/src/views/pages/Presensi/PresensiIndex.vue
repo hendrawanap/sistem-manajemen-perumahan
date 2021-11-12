@@ -42,13 +42,13 @@ export default {
     return {
       daftarPresensi: [],
       fields: ["No.", "Nama Pegawai", "Waktu Presensi", "Status"],
-      selectedTanggal: new Date().toISOString().slice(0, 10),
+      selectedTanggal: null,
     };
   },
   methods: {
     getAllPresensi() {
       axios
-        .get(this.$apiAdress + "/api/presensi/" + this.selectedTanggal)
+        .get(this.$apiAdress + "/api/presensi?tanggal=" + this.selectedTanggal + '&token=' + localStorage.getItem('api_token'))
         .then((r) => {
           this.daftarPresensi = r.data.map((data, index) => {
             return {
@@ -62,7 +62,7 @@ export default {
         });
     },
     getPresensiAlpha(nomorTerakhir) {
-      axios.get(this.$apiAdress + "/api/presensi/alpha/" + this.selectedTanggal).then(r => {
+      axios.get(this.$apiAdress + "/api/presensi?tanggal=" + this.selectedTanggal + '&token=' + localStorage.getItem('api_token') + '&alpha=true').then(r => {
         r.data.forEach((pegawai,index) => {
           this.daftarPresensi.push({
             "No.": index + 1 + nomorTerakhir,
@@ -75,6 +75,8 @@ export default {
     }
   },
   mounted() {
+    this.selectedTanggal = new Date().toISOString().slice(0, 10);
+    console.log(this.selectedTanggal);
     this.getAllPresensi();
   },
 };

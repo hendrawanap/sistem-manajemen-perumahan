@@ -54,35 +54,14 @@ export default {
   },
   methods: {
     editFasilitas() {
-      const formData = new FormData();
-      const fasilitas = this.fasilitas;
-      formData.append("namaFasilitas", fasilitas.namaFasilitas);
-      formData.append("kondisi", fasilitas.kondisi);
-      formData.append("informasi", fasilitas.informasi);
-
-      axios
-        .post(
-          this.$apiAdress +
-            "/api/fasilitas/edit/" +
-            this.$route.params.id +
-            "?token=" +
-            localStorage.getItem("api_token"),
-          formData
-        )
+      axios.put(this.$apiAdress + '/api/fasilitas/' + this.$route.params.id  + '?token=' + localStorage.getItem('api_token'), this.fasilitas)
         .then((r) => {
           this.$router.push("/fasilitas?message=" + r.data.message);
         });
     },
 
     getFasilitas() {
-      axios
-        .get(
-          this.$apiAdress +
-            "/api/fasilitas/" +
-            this.$route.params.id +
-            "?token=" +
-            localStorage.getItem("api_token")
-        )
+      axios.get(this.$apiAdress + '/api/fasilitas/' + this.$route.params.id + '?token=' + localStorage.getItem('api_token'))
         .then((r) => {
           const data = r.data;
           this.fasilitas = {

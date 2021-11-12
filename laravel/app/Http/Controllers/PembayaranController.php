@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
 {
-    public function getAllPembayaran($idTagihan)
+    public function getAllPembayaran(Request $request)
     {
-        $allPembayaran = Pembayaran::where('idTagihan',$idTagihan)
-                        ->join('families', 'families.id', '=', 'payments.idKK')
-                        ->select('payments.id', 'payments.tanggalBayar', 'families.nomorKK', 'families.kepalaKeluarga')
-                        ->get();
+        if ($request->query('belum') == 'true') {
+            $allPembayaran = $this->getBelumDibayar($request->query('tagihan'));
+        } else {
+            $allPembayaran = Pembayaran::where('idTagihan',$request->query('tagihan'))
+                            ->join('families', 'families.id', '=', 'payments.idKK')
+                            ->select('payments.id', 'payments.tanggalBayar', 'families.nomorKK', 'families.kepalaKeluarga')
+                            ->get();
+        }
 
         return response()->json($allPembayaran);
     }
@@ -37,7 +41,7 @@ class PembayaranController extends Controller
 
         $allKK = KK::whereNotIn('id', $kkSudahBayar)->select('id','nomorKK', 'kepalaKeluarga')->get();
         
-        return response()->json($allKK);
+        return $allKK;
     }
 
     public function addPembayaran(Request $request)

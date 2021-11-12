@@ -53,16 +53,10 @@ export default {
   },
   methods: {
     editKK() {
-      const formData = new FormData();
-      const KK = this.KK;
-      formData.append("nomorKK", KK.nomorKK);
-      formData.append("alamat", KK.alamat);
-      formData.append("kepalaKeluarga", KK.kepalaKeluarga);
-
       axios
-        .post(
-          this.$apiAdress + "/api/KK/edit/" + this.$route.params.id,
-          formData
+        .put(
+          this.$apiAdress + "/api/kk/" + this.$route.params.id + '?token=' + localStorage.getItem('api_token'),
+          this.KK,
         )
         .then((r) => {
           this.$router.push("/KK?message=" + r.data.message);
@@ -70,7 +64,7 @@ export default {
     },
     getKK() {
       axios
-        .get(this.$apiAdress + "/api/KK/" + this.$route.params.id)
+        .get(this.$apiAdress + "/api/kk/" + this.$route.params.id + '?token=' + localStorage.getItem('api_token'))
         .then((r) => {
           const data = r.data;
           this.KK = {

@@ -108,7 +108,7 @@ export default {
       axios
         .post(
           this.$apiAdress +
-            "/api/tagihan/add?token=" +
+            "/api/tagihan?token=" +
             localStorage.getItem("api_token"),
           formData
         )

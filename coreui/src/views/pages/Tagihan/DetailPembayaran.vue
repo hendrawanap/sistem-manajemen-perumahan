@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     fetchPembayaran() {
-      axios.get(this.$apiAdress + '/api/pembayaran/detail/' + this.$route.params.id).then(r => {
+      axios.get(this.$apiAdress + '/api/pembayaran/' + this.$route.params.id + '?token=' + localStorage.getItem('api_token')).then(r => {
         this.nomorKK = r.data.nomorKK;
         this.tanggalBayar = r.data.tanggalBayar;
         this.namaPembayar = r.data.namaPembayar;
