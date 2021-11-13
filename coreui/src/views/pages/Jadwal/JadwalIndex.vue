@@ -69,7 +69,7 @@
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][0]"
                       @toggleModal="() => toggleModal(hari, 1)"
-                      @fetchJadwal="fetchJadwal"
+                      @deleteJadwal="deleteJadwal"
                       :isDelete="isDelete"
                     />
                   </tr>
@@ -80,7 +80,7 @@
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][1]"
                       @toggleModal="() => toggleModal(hari, 2)"
-                      @fetchJadwal="fetchJadwal"
+                      @deleteJadwal="deleteJadwal"
                       :isDelete="isDelete"
                     />
                   </tr>
@@ -91,7 +91,7 @@
                       :key="'isi-jadwal-' + hari"
                       :daftarPegawai="daftarJadwal[selectedDivisi][hari][2]"
                       @toggleModal="() => toggleModal(hari, 3)"
-                      @fetchJadwal="fetchJadwal"
+                      @deleteJadwal="deleteJadwal"
                       :isDelete="isDelete"
                     />
                   </tr>
@@ -107,15 +107,15 @@
         <CCard>
           <CCardHeader><b>Daftar Pegawai</b></CCardHeader>
           <CListGroup flush>
-            <CListGroupItem v-for="pegawai in daftarPegawai" :key="pegawai.id">
+            <CListGroupItem
+              class="item-pegawai"
+              v-for="pegawai in daftarPegawai"
+              :key="pegawai.id"
+              @click="addToPegawaiTerpilih(pegawai.id)"
+            >
               <div class="d-flex justify-content-between">
                 {{ pegawai.nama }}
-                <div
-                  class="bg-primary"
-                  @click="addToPegawaiTerpilih(pegawai.id)"
-                >
-                  <CIcon name="cil-plus" />
-                </div>
+                <CIcon name="cil-plus" />
               </div>
             </CListGroupItem>
             <CListGroupItem v-if="daftarPegawai.length == 0"
@@ -127,9 +127,16 @@
           <CCardHeader><b>Pegawai Terpilih</b></CCardHeader>
           <CListGroup flush>
             <CListGroupItem
+              class="item-pegawai"
               v-for="pegawai in pegawaiTerpilih"
               :key="pegawai.id"
-              >{{ pegawai.nama }}</CListGroupItem
+              @click="removeFromPegawaiTerpilih(pegawai.id)"
+              >
+                <div class="d-flex justify-content-between">
+                  {{ pegawai.nama }}
+                  <CIcon name="cil-trash" />
+                </div>
+              </CListGroupItem
             >
             <CListGroupItem v-if="pegawaiTerpilih.length == 0"
               >Tidak ada data</CListGroupItem
@@ -138,7 +145,7 @@
         </CCard>
         <template #footer>
           <CButton @click="modalTambah = false" color="danger">Batal</CButton>
-          <CButton @click="tambahJadwal()" color="success"
+          <CButton @click="tambahJadwal()" color="primary"
             >Tambah Jadwal</CButton
           >
         </template>
@@ -298,6 +305,13 @@ export default {
         (pegawai) => pegawai.id != id
       );
     },
+    removeFromPegawaiTerpilih(id) {
+      const index = this.pegawaiTerpilih.findIndex((pegawai) => pegawai.id == id);
+      this.daftarPegawai.push(this.pegawaiTerpilih[index]);
+      this.pegawaiTerpilih = this.pegawaiTerpilih.filter(
+        (pegawai) => pegawai.id != id
+      );
+    },
     tambahJadwal() {
       this.pegawaiTerpilih.forEach((pegawai) => {
         const formData = new FormData();
@@ -319,9 +333,26 @@ export default {
       this.modalTambah = false;
       this.fetchJadwal();
     },
+    selectDivisi(divisi) {
+      this.selectedDivisi = divisi;
+      this.fetchJadwal();
+    },
+    deleteJadwal(message) {
+      this.fetchJadwal();
+      this.message = message;
+      this.showAlert = true;
+    }
   },
   mounted() {
     this.fetchJadwal();
   },
 };
 </script>
+
+<style scoped>
+.item-pegawai:hover {
+  color: white;
+  background-color: rgb(82, 82, 94);
+  cursor: pointer;
+}
+</style>

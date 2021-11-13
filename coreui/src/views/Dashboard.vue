@@ -4,7 +4,7 @@
       <CCard>
         <CCardHeader>
           <CCarousel arrows indicators animate>
-            <CCarouselItem class="satu gede">
+            <CCarouselItem class="satu gede" :key="carousel">
               <div class="atas" id="app">
                 <CRow align="center" class="baris">
                   <CCol class="kolom">
@@ -14,7 +14,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >60 Pegawai</CButton
+                        >{{ jumlahPegawai }} Pegawai</CButton
                       ></router-link
                     ><router-link :to="'/Fasilitas'"
                       ><CButton
@@ -22,7 +22,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >50 Fasilitas</CButton
+                        >{{ jumlahFasilitas }} Fasilitas</CButton
                       ></router-link
                     ><router-link :to="'/KK'"
                       ><CButton
@@ -30,7 +30,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >30 Kartu Keluarga</CButton
+                        >{{ jumlahKK }} Kartu Keluarga</CButton
                       ></router-link
                     >
                   </CCol>
@@ -76,8 +76,47 @@
 </template>
     
 <script>
-import ColorTheme from "./theme/ColorTheme";
-export default {};
+import axios from "axios";
+
+export default {
+  name: "Dashboard",
+  title: "Dashboard",
+  data() {
+    return {
+      jumlahPegawai: 0,
+      jumlahKK: 0,
+      jumlahFasilitas: 0,
+      user: "User",
+    };
+  },
+  mounted() {
+    axios
+      .get(
+        this.$apiAdress +
+          "/api/pegawai?token=" +
+          localStorage.getItem("api_token")
+      )
+      .then((r) => (this.jumlahPegawai = r.data.length));
+    axios
+      .get(
+        this.$apiAdress + "/api/kk?token=" + localStorage.getItem("api_token")
+      )
+      .then((r) => (this.jumlahKK = r.data.length));
+    axios
+      .get(
+        this.$apiAdress +
+          "/api/fasilitas?token=" +
+          localStorage.getItem("api_token")
+      )
+      .then((r) => (this.jumlahFasilitas = r.data.length));
+    const user = localStorage.getItem("roles").split(",");
+    if (user[1] == "manager") {
+      this.user = "Manager";
+    } else if (user[1] == "admin") {
+      this.user = "Admin";
+    }
+  },
+};
 </script>
 <style scope>
 .gede {

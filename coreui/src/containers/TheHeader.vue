@@ -14,10 +14,10 @@
       <CIcon name="logo" height="48" alt="Logo"/>
     </CHeaderBrand>
 
-    <CMenu/>
+    <!-- <CMenu/> -->
 
-    <CHeaderNav class="mr-4">
-      <CHeaderNavItem class="d-md-down-none mx-2">
+    <CHeaderNav class="ml-auto mr-4">
+      <!-- <CHeaderNavItem class="d-md-down-none mx-2">
         <CHeaderNavLink>
           <CIcon name="cil-bell"/>
         </CHeaderNavLink>
@@ -31,8 +31,9 @@
         <CHeaderNavLink>
           <CIcon name="cil-envelope-open"/>
         </CHeaderNavLink>
-      </CHeaderNavItem>
-      <TheHeaderDropdownAccnt/>
+      </CHeaderNavItem> -->
+      <CButton color="danger" @click="logout()">Logout</CButton>
+      <!-- <TheHeaderDropdownAccnt/> -->
     </CHeaderNav>
     <CSubheader class="px-3">
       <CBreadcrumbRouter class="border-0 mb-0"/>
@@ -43,12 +44,25 @@
 <script>
 import CMenu from './Menu'
 import TheHeaderDropdownAccnt from './TheHeaderDropdownAccnt'
+import axios from 'axios'
 
 export default {
   name: 'TheHeader',
   components: {
     TheHeaderDropdownAccnt,
     CMenu
+  },
+  methods: {
+    logout(){
+      let self = this;
+      axios.post(this.$apiAdress + '/api/logout?token=' + localStorage.getItem("api_token"),{})
+      .then(function (response) {
+        localStorage.setItem('roles', '');
+        self.$router.push({ path: '/login' });
+      }).catch(function (error) {
+        console.log(error); 
+      });
+    }
   }
 }
 </script>
