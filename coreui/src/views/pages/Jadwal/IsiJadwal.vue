@@ -54,7 +54,7 @@ export default {
             this.$emit("toggleModal")
         },
         deleteJadwal(jadwal) {
-            axios.delete(this.$apiAdress + '/api/jadwal/' + jadwal.id + '?token=' + localStorage.getItem('api_token')).then(r => this.$emit("fetchJadwal"))
+            axios.delete(this.$apiAdress + '/api/jadwal/' + jadwal.id + '?token=' + localStorage.getItem('api_token')).then(r => this.$emit("deleteJadwal", r.data.message))
         }
     }
 }

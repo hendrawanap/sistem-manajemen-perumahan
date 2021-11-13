@@ -8,26 +8,33 @@
           </div>
         </CCardHeader>
         <CCardBody>
-          <CForm v-on:submit.prevent>
+          <CForm @submit="addFasilitas">
             <CInput
               label="Nama Fasilitas"
               type="text"
-              id="FasilitasInput"
               v-model="fasilitas.namaFasilitas"
+              invalid-feedback="Nama fasilitas tidak boleh kosong."
+              :is-valid="fasilitas.namaFasilitas.length > 0"
+              required
             />
             <CSelect
               label="Kondisi"
               :options="kondisiOptions"
               :value.sync="fasilitas.kondisi"
               placeholder="Pilih Kondisi"
+              invalid-feedback="Kondisi fasilitas tidak boleh kosong."
+              :is-valid="fasilitas.kondisi.length > 0"
+              required
             />
             <CInput
               label="Informasi"
               type="text"
-              id="InformasiInput"
               v-model="fasilitas.informasi"
+              invalid-feedback="Informasi fasilitas tidak boleh kosong."
+              :is-valid="fasilitas.informasi.length > 0"
+              required
             />
-            <CButton type="submit" color="primary" @click="addFasilitas()"
+            <CButton type="submit" color="primary"
               >Submit</CButton
             >
           </CForm>
@@ -53,7 +60,8 @@ export default {
     };
   },
   methods: {
-    addFasilitas() {
+    addFasilitas(e) {
+      e.preventDefault();
       const formData = new FormData();
       const fasilitas = this.fasilitas;
       formData.append("namaFasilitas", fasilitas.namaFasilitas);

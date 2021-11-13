@@ -8,26 +8,32 @@
           </div>
         </CCardHeader>
         <CCardBody>
-          <CForm v-on:submit.prevent>
+          <CForm @submit="addKK">
             <CInput
               label="Nomor KK"
               type="text"
-              id="noKKInput"
               v-model="KK.noKK"
+              invalid-feedback="Nomor KK harus terdiri dari 16 karakter."
+              :is-valid="KK.noKK.length == 16"
+              required
             />
             <CInput
               label="Alamat"
               type="text"
-              id="alamatInput"
               v-model="KK.alamat"
+              invalid-feedback="Alamat tidak boleh kosong."
+              :is-valid="KK.alamat.length > 0"
+              required
             />
             <CInput
               label="Kepala Keluarga"
               type="text"
-              id="kepalaKeluargaInput"
               v-model="KK.kepalaKeluarga"
+              invalid-feedback="Nama kepala keluarga tidak boleh kosong."
+              :is-valid="KK.kepalaKeluarga.length > 0"
+              required
             />
-            <CButton type="submit" color="primary" @click="addKK()"
+            <CButton type="submit" color="primary"
               >Submit</CButton
             >
           </CForm>
@@ -52,7 +58,8 @@ export default {
     };
   },
   methods: {
-    addKK() {
+    addKK(e) {
+      e.preventDefault();
       const formData = new FormData();
       const KK = this.KK;
       formData.append("nomorKK", KK.noKK);

@@ -8,29 +8,59 @@
         </div>
         </CCardHeader>
         <CCardBody>
-        <CForm v-on:submit.prevent>
-            <CInput label="Nama Pegawai" type="text" id="inputNama" v-model="biodata.nama"/>
+        <CForm @submit="tambahPegawai">
+            <CInput
+              label="Nama Pegawai"
+              type="text"
+              v-model="biodata.nama"
+              invalid-feedback="Nama pegawai tidak boleh kosong."
+              :is-valid="biodata.nama.length > 0"
+              required
+            />
             <CSelect
               label="Gender"
               :options="genderOptions"
               :value.sync="biodata.gender"
               placeholder="Pilih Gender"
+              invalid-feedback="Gender tidak boleh kosong."
+              :is-valid="biodata.gender != null"
+              required
             />
-            <CInput label="Alamat"  type="text" id="inputPassword" v-model="biodata.alamat" />
-            <CInput label="Tanggal Masuk"  type="date" id="inputTanggal" v-model="biodata.tanggalMasuk" />
+            <CInput
+              label="Alamat"
+              type="text"
+              v-model="biodata.alamat"
+              invalid-feedback="Alamat tidak boleh kosong."
+              :is-valid="biodata.alamat.length > 0"
+              required
+            />
+            <CInput
+              label="Tanggal Masuk"
+              type="date"
+              v-model="biodata.tanggalMasuk"
+              invalid-feedback="Tanggal masuk tidak boleh kosong."
+              :is-valid="biodata.tanggalMasuk != null"
+              required
+            />
             <CSelect
               label="Divisi"
               :options="divisiOptions"
               :value.sync="biodata.divisi"
               placeholder="Pilih Divisi"
+              invalid-feedback="Divisi tidak boleh kosong."
+              :is-valid="biodata.divisi != null"
+              required
             />
             <CSelect
               label="Jabatan"
               :options="jabatanOptions"
               :value.sync="biodata.jabatan"
               placeholder="Pilih Jabatan"
+              invalid-feedback="Jabatan tidak boleh kosong."
+              :is-valid="biodata.jabatan != null"
+              required
             />
-            <CButton type="submit" color="primary" @click="tambahPegawai()">
+            <CButton type="submit" color="primary">
                 Submit
             </CButton>
         </CForm>
@@ -52,8 +82,8 @@ export default {
           gender: null,
           alamat: "",
           tanggalMasuk: null,
-          divisi: "keamanan",
-          jabatan: "kepala",
+          divisi: null,
+          jabatan: null,
         },
         genderOptions: [
           {
@@ -80,7 +110,7 @@ export default {
       }
     },
     methods: {
-      tambahPegawai(){
+      tambahPegawai(e){
         const formData = new FormData()
         const biodata = this.biodata
         formData.append("nama", biodata.nama);
@@ -89,7 +119,7 @@ export default {
         formData.append("tanggalMasuk", biodata.tanggalMasuk);
         formData.append("divisi", biodata.divisi);
         formData.append("jabatan", biodata.jabatan);
-
+        e.preventDefault();
         axios.post(this.$apiAdress + '/api/pegawai?token=' + localStorage.getItem('api_token'), formData).then(r => {
           this.$router.push('/pegawai?message=' + r.data.message);
         })

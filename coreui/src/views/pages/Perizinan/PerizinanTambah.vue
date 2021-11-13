@@ -8,13 +8,16 @@
           </div>
         </CCardHeader>
         <CCardBody>
-          <CForm class="position-relative" v-on:submit.prevent>
+          <CForm class="position-relative" @submit="submit">
             <CInput
               label="Nama Pegawai"
               type="text"
               v-model="searchQuery"
               @focus="onFocus"
               @blur="onBlur"
+              invalid-feedback="Nama pegawai tidak boleh kosong."
+              :is-valid="searchQuery.length > 0"
+              required
             />
             <CCard class="dropdown-list shadow-sm" v-show="focused">
               <CListGroup flush>
@@ -31,22 +34,29 @@
             <CInput
               label="Tanggal"
               type="date"
-              id="inputTanggal"
               v-model="perizinan.tanggal"
+              invalid-feedback="Tanggal perizinan tidak boleh kosong."
+              :is-valid="perizinan.tanggal != null"
+              required
+            />
+            <CSelect
+              label="Tipe Perizinan"
+              :options="tipeOptions"
+              :value.sync="perizinan.tipe"
+              placeholder="Pilih Tipe"
+              invalid-feedback="Tipe perizinan tidak boleh kosong."
+              :is-valid="perizinan.tipe.length > 0"
+              required
             />
             <CInput
               label="Alasan"
               type="text"
-              id="inputAlasan"
               v-model="perizinan.alasan"
+              invalid-feedback="Alasan perizinan tidak boleh kosong."
+              :is-valid="perizinan.alasan.length > 0"
+              required
             />
-            <CSelect
-              label="Tipe"
-              :options="tipeOptions"
-              :value.sync="perizinan.tipe"
-              placeholder="Pilih Tipe"
-            />
-            <CButton type="submit" color="primary" @click="submit()">
+            <CButton type="submit" color="primary">
               Submit
             </CButton>
           </CForm>
@@ -71,13 +81,14 @@ export default {
       },
       tipeOptions: ["Sakit", "Izin"],
       daftarPegawai: [],
-      searchQuery: null,
+      searchQuery: '',
       selectedPegawai: null,
       focused: false,
     };
   },
   methods: {
-    submit() {
+    submit(e) {
+      e.preventDefault();
       const formData = new FormData();
       const perizinan = this.perizinan;
       formData.append('idPegawai', perizinan.idPegawai);
