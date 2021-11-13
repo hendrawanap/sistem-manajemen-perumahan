@@ -43,14 +43,14 @@
                     >
                   </CCol>
                 </CRow>
-                <CRow
+                <!-- <CRow
                   ><CCol col="12" class="text-mid">
                     <CButton color="link" class="px-0"
                       >Lupa Kata Sandi?</CButton
                     >
                   </CCol>
-                </CRow>
-                <CRow>
+                </CRow> -->
+                <!-- <CRow>
                   <CCol col="12" class="text-mid">Tidak memiliki account?</CCol>
                 </CRow>
                 <CRow
@@ -63,7 +63,7 @@
                       Daftar Sekarang!
                     </CButton>
                   </CCol></CRow
-                >
+                > -->
               </CForm>
             </CCardBody>
           </CCard>
