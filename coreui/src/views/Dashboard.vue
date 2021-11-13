@@ -4,7 +4,7 @@
       <CCard>
         <CCardHeader>
           <CCarousel arrows indicators animate>
-            <CCarouselItem class="gede">
+            <CCarouselItem class="satu gede">
               <div class="atas" id="app">
                 <CRow align="center" class="baris">
                   <CCol class="kolom">
@@ -38,117 +38,38 @@
                 <div class="ml-4">
                   <h1 class="text-light mt-5">Hai, Manajer</h1>
                   <h1 class="text-light">Perumahan Estate</h1>
-                  <p class="caption carousel-caption d-none d-md-block w-50">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur pharetra ante in nibh malesuada lacinia.
-                    Pellentesque massa odio, condimentum sed nisi a, elementum
-                    ornare odio. Sed vel pellentesque tellus. Vivamus risus
-                    sapien, vehicula et turpis non, dictum bibendum ligula.
-                    Maecenas lacinia, eros eu scelerisque blandit, arcu lacus
-                    mattis nisl, sed tincidunt libero est id nulla. Morbi
-                    pretium metus elit, non malesuada nunc pellentesque ut.
-                    Phasellus interdum ut neque suscipit ultricies.
+                  <p class="capt1 carousel-caption d-none d-md-block w-50">
+                    Estate merupakan sebuah perumahan yang menawarkan kenyamanan
+                    dan keamanan kepada para penghuninya dibantu dengan Sistem
+                    Manajemen Perumahan yang baik. Dengan sistem ini kondisi
+                    perumahan dapat dipantau setiap saat sehingga bisnis
+                    perumahan ini dapat berjalan dengan baik dan semakin baik
+                    setiap harinya.
                   </p>
                 </div>
               </div> </CCarouselItem
-            ><CCarouselItem class="gede">
-              <div class="atas" id="app">
-                <CRow align="center" class="baris">
-                  <CCol class="kolom">
-                    <router-link :to="'/Pegawai'">
-                      <CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >60 Pegawai</CButton
-                      ></router-link
-                    ><router-link :to="'/Fasilitas'"
-                      ><CButton
-                        class="tombol ml-2 mr-2 mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >50 Fasilitas</CButton
-                      ></router-link
-                    ><router-link :to="'/KK'"
-                      ><CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >30 Kartu Keluarga</CButton
-                      ></router-link
-                    >
-                  </CCol>
-                </CRow>
-                <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
-                  <h1 class="text-light">Perumahan Estate</h1>
-                  <p class="caption carousel-caption d-none d-md-block w-50">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur pharetra ante in nibh malesuada lacinia.
-                    Pellentesque massa odio, condimentum sed nisi a, elementum
-                    ornare odio. Sed vel pellentesque tellus. Vivamus risus
-                    sapien, vehicula et turpis non, dictum bibendum ligula.
-                    Maecenas lacinia, eros eu scelerisque blandit, arcu lacus
-                    mattis nisl, sed tincidunt libero est id nulla. Morbi
-                    pretium metus elit, non malesuada nunc pellentesque ut.
-                    Phasellus interdum ut neque suscipit ultricies.
-                  </p>
-                </div>
-              </div> </CCarouselItem
-            ><CCarouselItem class="gede">
-              <div class="atas" id="app">
-                <CRow align="center" class="baris">
-                  <CCol class="kolom">
-                    <router-link :to="'/Pegawai'">
-                      <CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >60 Pegawai</CButton
-                      ></router-link
-                    ><router-link :to="'/Fasilitas'"
-                      ><CButton
-                        class="tombol ml-2 mr-2 mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >50 Fasilitas</CButton
-                      ></router-link
-                    ><router-link :to="'/KK'"
-                      ><CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >30 Kartu Keluarga</CButton
-                      ></router-link
-                    >
-                  </CCol>
-                </CRow>
-                <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
-                  <h1 class="text-light">Perumahan Estate</h1>
-                  <p class="caption carousel-caption d-none d-md-block w-50">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur pharetra ante in nibh malesuada lacinia.
-                    Pellentesque massa odio, condimentum sed nisi a, elementum
-                    ornare odio. Sed vel pellentesque tellus. Vivamus risus
-                    sapien, vehicula et turpis non, dictum bibendum ligula.
-                    Maecenas lacinia, eros eu scelerisque blandit, arcu lacus
-                    mattis nisl, sed tincidunt libero est id nulla. Morbi
-                    pretium metus elit, non malesuada nunc pellentesque ut.
-                    Phasellus interdum ut neque suscipit ultricies.
-                  </p>
-                </div>
-              </div>
-            </CCarouselItem>
+            ><CCarouselItem
+              class="dua gede"
+              captionHeader="SEKILAS"
+              captionText="Perumahan ini menyediakan berbagai macam fasilitas yang
+                    dapat digunakan oleh para penghuni perumahan ini. Sampai
+                    saat ini pihak estate telah menyediakan fasilitas sejumlah
+                    50 buah. Fasilitas tersebut berupa taman, kolam, lapangan,
+                    area bermain, dan fasilitas lainnya. Sampai saat ini
+                    tercatat sudah ada 30 Kartu Keluarga yang terdaftar sebagai
+                    pemilik hunian di perumahan ini."
+            /><CCarouselItem
+              class="tiga gede"
+              captionHeader="KEUNGGULAN"
+              captionText="Hal yang dapat kami tonjolkan kepada para penghuni 
+              adalah kepastian akan keamanan dan kenyamanan. Kami menyediakan 
+              petugas keamanan yang siap siaga 24 jam dalam sehari yang melaksanakan 
+              pengawasan dan penjagaan secara bergantian sehingga terhindar dari 
+              kelelahan yang menyebabkan kelalaian dalam bekerja. Demi menunjang kenyamanan 
+              kami juga memiliki pasukan kebersihan yang selalu menjaga kebersihan lingkungan perumahan"
+            />
           </CCarousel>
         </CCardHeader>
-        <CCardBody> </CCardBody>
       </CCard>
     </CCol>
   </CRow>
@@ -160,18 +81,33 @@ export default {};
 </script>
 <style scope>
 .gede {
+  height: 545px;
+}
+.satu {
   background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
     url("../assets/rumah.jpg");
   background-size: cover;
-  height: 545px;
+}
+.dua {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+    url("../assets/fas.jpg");
+  background-size: cover;
+}
+.tiga {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)),
+    url("../assets/keuntungan.jpg");
+  background-size: cover;
 }
 .kolom {
   top: 0;
 }
 
-.caption {
+.capt1 {
   text-align: left;
   left: 30px;
+}
+.capt2 {
+  text-align: mid;
 }
 .tombol {
   transition: transform 0.2s;
