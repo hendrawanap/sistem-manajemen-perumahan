@@ -4,7 +4,11 @@
       <CCard>
         <CCardHeader>
           <CCarousel arrows indicators animate>
-            <CCarouselItem class="satu gede" :key="carousel">
+            <CCarouselItem
+              v-for="carousel in 1"
+              class="satu gede"
+              :key="carousel"
+            >
               <div class="atas" id="app">
                 <CRow align="center" class="baris">
                   <CCol class="kolom">
