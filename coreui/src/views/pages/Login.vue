@@ -1,7 +1,7 @@
 <template>
-  <CContainer class="d-flex content-center min-vh-100">
-    <CRow>
-      <CCol>
+  <CContainer class="content-center min-vh-100">
+    <CRow class="w-100">
+      <CCol class="mx-auto" md="12" lg="6">
         <CCardGroup>
           <CCard class="p-4">
             <CCardHeader>
@@ -15,11 +15,13 @@
               <CForm @submit.prevent="login" method="POST">
                 <h1>Login</h1>
                 <p class="text-muted">Masuk ke akunmu</p>
+                <CAlert class="w-100" :show.sync="showMessage" color="danger">{{ message }}</CAlert>
                 <CInput
                   v-model="email"
                   prependHtml="<i class='cui-user'></i>"
                   placeholder="Username"
                   autocomplete="username email"
+                  required
                 >
                   <template #prepend-content
                     ><CIcon name="cil-user"
@@ -31,6 +33,7 @@
                   placeholder="Password"
                   type="password"
                   autocomplete="curent-password"
+                  required
                 >
                   <template #prepend-content
                     ><CIcon name="cil-lock-locked"
@@ -38,7 +41,7 @@
                 </CInput>
                 <CRow>
                   <CCol col="12">
-                    <CButton type="submit" color="primary" class="px-4"
+                    <CButton type="submit" color="primary" class="w-100 px-4"
                       >Login</CButton
                     >
                   </CCol>

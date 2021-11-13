@@ -36,7 +36,7 @@
                   </CCol>
                 </CRow>
                 <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
+                  <h1 class="text-light mt-5">Hai, {{ user }}</h1>
                   <h1 class="text-light">Perumahan Estate</h1>
                   <p class="caption carousel-caption d-none d-md-block w-50">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -71,12 +71,19 @@ export default {
       jumlahPegawai: 0,
       jumlahKK: 0,
       jumlahFasilitas: 0,
+      user: 'User',
     }
   },
   mounted() {
     axios.get(this.$apiAdress + '/api/pegawai?token=' + localStorage.getItem('api_token')).then(r => this.jumlahPegawai = r.data.length);
     axios.get(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token')).then(r => this.jumlahKK = r.data.length);
     axios.get(this.$apiAdress + '/api/fasilitas?token=' + localStorage.getItem('api_token')).then(r => this.jumlahFasilitas = r.data.length);
+    const user = localStorage.getItem('roles').split(',');
+    if (user[1] == 'manager') {
+      this.user = "Manager"
+    } else if (user[1] == 'admin') {
+      this.user = "Admin"
+    }
   }
   
 };
