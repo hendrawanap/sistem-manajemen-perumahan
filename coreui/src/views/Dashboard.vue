@@ -4,7 +4,7 @@
       <CCard>
         <CCardHeader>
           <CCarousel arrows indicators animate>
-            <CCarouselItem class="gede">
+            <CCarouselItem v-for="carousel in 3" class="gede" :key="carousel">
               <div class="atas" id="app">
                 <CRow align="center" class="baris">
                   <CCol class="kolom">
@@ -14,7 +14,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >60 Pegawai</CButton
+                        >{{ jumlahPegawai }} Pegawai</CButton
                       ></router-link
                     ><router-link :to="'/Fasilitas'"
                       ><CButton
@@ -22,7 +22,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >50 Fasilitas</CButton
+                        >{{ jumlahFasilitas }} Fasilitas</CButton
                       ></router-link
                     ><router-link :to="'/KK'"
                       ><CButton
@@ -30,101 +30,7 @@
                         variant="outline"
                         shape="pill"
                         color="secondary"
-                        >30 Kartu Keluarga</CButton
-                      ></router-link
-                    >
-                  </CCol>
-                </CRow>
-                <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
-                  <h1 class="text-light">Perumahan Estate</h1>
-                  <p class="caption carousel-caption d-none d-md-block w-50">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur pharetra ante in nibh malesuada lacinia.
-                    Pellentesque massa odio, condimentum sed nisi a, elementum
-                    ornare odio. Sed vel pellentesque tellus. Vivamus risus
-                    sapien, vehicula et turpis non, dictum bibendum ligula.
-                    Maecenas lacinia, eros eu scelerisque blandit, arcu lacus
-                    mattis nisl, sed tincidunt libero est id nulla. Morbi
-                    pretium metus elit, non malesuada nunc pellentesque ut.
-                    Phasellus interdum ut neque suscipit ultricies.
-                  </p>
-                </div>
-              </div> </CCarouselItem
-            ><CCarouselItem class="gede">
-              <div class="atas" id="app">
-                <CRow align="center" class="baris">
-                  <CCol class="kolom">
-                    <router-link :to="'/Pegawai'">
-                      <CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >60 Pegawai</CButton
-                      ></router-link
-                    ><router-link :to="'/Fasilitas'"
-                      ><CButton
-                        class="tombol ml-2 mr-2 mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >50 Fasilitas</CButton
-                      ></router-link
-                    ><router-link :to="'/KK'"
-                      ><CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >30 Kartu Keluarga</CButton
-                      ></router-link
-                    >
-                  </CCol>
-                </CRow>
-                <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
-                  <h1 class="text-light">Perumahan Estate</h1>
-                  <p class="caption carousel-caption d-none d-md-block w-50">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Curabitur pharetra ante in nibh malesuada lacinia.
-                    Pellentesque massa odio, condimentum sed nisi a, elementum
-                    ornare odio. Sed vel pellentesque tellus. Vivamus risus
-                    sapien, vehicula et turpis non, dictum bibendum ligula.
-                    Maecenas lacinia, eros eu scelerisque blandit, arcu lacus
-                    mattis nisl, sed tincidunt libero est id nulla. Morbi
-                    pretium metus elit, non malesuada nunc pellentesque ut.
-                    Phasellus interdum ut neque suscipit ultricies.
-                  </p>
-                </div>
-              </div> </CCarouselItem
-            ><CCarouselItem class="gede">
-              <div class="atas" id="app">
-                <CRow align="center" class="baris">
-                  <CCol class="kolom">
-                    <router-link :to="'/Pegawai'">
-                      <CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >60 Pegawai</CButton
-                      ></router-link
-                    ><router-link :to="'/Fasilitas'"
-                      ><CButton
-                        class="tombol ml-2 mr-2 mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >50 Fasilitas</CButton
-                      ></router-link
-                    ><router-link :to="'/KK'"
-                      ><CButton
-                        class="tombol mt-4"
-                        variant="outline"
-                        shape="pill"
-                        color="secondary"
-                        >30 Kartu Keluarga</CButton
+                        >{{ jumlahKK }} Kartu Keluarga</CButton
                       ></router-link
                     >
                   </CCol>
@@ -145,7 +51,7 @@
                   </p>
                 </div>
               </div>
-            </CCarouselItem>
+              </CCarouselItem>
           </CCarousel>
         </CCardHeader>
         <CCardBody> </CCardBody>
@@ -155,8 +61,25 @@
 </template>
     
 <script>
-import ColorTheme from "./theme/ColorTheme";
-export default {};
+import axios from 'axios'
+
+export default {
+  name: 'Dashboard',
+  title: 'Dashboard',
+  data() {
+    return {
+      jumlahPegawai: 0,
+      jumlahKK: 0,
+      jumlahFasilitas: 0,
+    }
+  },
+  mounted() {
+    axios.get(this.$apiAdress + '/api/pegawai?token=' + localStorage.getItem('api_token')).then(r => this.jumlahPegawai = r.data.length);
+    axios.get(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token')).then(r => this.jumlahKK = r.data.length);
+    axios.get(this.$apiAdress + '/api/fasilitas?token=' + localStorage.getItem('api_token')).then(r => this.jumlahFasilitas = r.data.length);
+  }
+  
+};
 </script>
 <style scope>
 .gede {
