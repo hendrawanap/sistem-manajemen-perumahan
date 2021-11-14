@@ -1,6 +1,6 @@
 <template>
   <CRow>
-    <CCol>
+    <CCol v-if="tagihan">
       <CCard>
         <CCardHeader>
           <div class="d-flex justify-content-between">
@@ -56,7 +56,7 @@
         <CCardBody>
           <CCardGroup>
             <CWidgetProgressIcon
-              :header="sudahLunas"
+              :header="sudahLunas.toString()"
               :value="(sudahLunas / jumlahKK) * 100"
               text="Sudah Lunas"
               color="success"
@@ -65,7 +65,7 @@
               <CIcon name="cil-notes" height="36" />
             </CWidgetProgressIcon>
             <CWidgetProgressIcon
-              :header="belumLunas"
+              :header="belumLunas.toString()"
               :value="(belumLunas / jumlahKK) * 100"
               text="Belum Lunas"
               color="danger"
@@ -75,6 +75,11 @@
             </CWidgetProgressIcon>
           </CCardGroup>
         </CCardBody>
+      </CCard>
+    </CCol>
+    <CCol v-else>
+      <CCard>
+        <CCardBody>Tidak ada tagihan bulan ini</CCardBody>
       </CCard>
     </CCol>
   </CRow>
@@ -98,11 +103,7 @@ export default {
   },
   data() {
     return {
-      tagihan: {
-        namaTagihan: "",
-        tanggal: "",
-        rincian: [],
-      },
+      tagihan: null,
       jumlahKK: 0,
       sudahLunas: 0,
     };
@@ -123,13 +124,15 @@ export default {
         )
         .then((r) => {
           const tagihan = r.data.tagihan;
-          this.tagihan = {
-            namaTagihan: tagihan.namaTagihan,
-            tanggal: tagihan.tanggalTagihan,
-            rincian: JSON.parse(tagihan.rincian),
-          };
-          this.jumlahKK = r.data.jumlahKK;
-          this.sudahLunas = r.data.sudah;
+          if (tagihan) {
+              this.tagihan = {
+              namaTagihan: tagihan.namaTagihan,
+              tanggal: tagihan.tanggalTagihan,
+              rincian: JSON.parse(tagihan.rincian),
+            };
+            this.jumlahKK = r.data.jumlahKK;
+            this.sudahLunas = r.data.sudah;
+          }
         });
     },
   },
