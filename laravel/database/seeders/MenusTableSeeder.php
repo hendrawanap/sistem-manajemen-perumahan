@@ -142,7 +142,7 @@ class MenusTableSeeder extends Seeder
         ]);
         $this->menuId = DB::getPdo()->lastInsertId();  //set menuId
         /* guest menu */
-        $this->insertLink('guest,user,admin', 'Dashboard', '/', 'cil-speedometer');
+        $this->insertLink('guest,user,admin', 'Dashboard', '/', 'cil-home');
         $this->insertLink('guest', 'Login', '/login', 'cil-account-logout');
         $this->insertLink('guest', 'Register', '/register', 'cil-account-logout');
         // $this->beginDropdown('admin', 'Settings', '/settings', 'cil-puzzle');
@@ -153,14 +153,14 @@ class MenusTableSeeder extends Seeder
         // $this->insertLink('admin', 'Email',    '/email');
         // $this->endDropdown();
         // $this->insertTitle('manager', 'Test');
-        $this->insertLink('user,manager', 'Pegawai', '/pegawai', 'cil-people');
-        $this->insertLink('user,manager', 'Jadwal', '/jadwal', 'cil-people');
+        $this->insertLink('user,manager', 'Pegawai', '/pegawai', 'cil-user');
+        $this->insertLink('user,manager', 'Jadwal', '/jadwal', 'cil-calendar');
         $this->insertLink('admin', 'KK', '/KK', 'cil-people');
-        $this->insertLink('admin', 'Fasilitas', '/fasilitas', 'cil-people');
-        $this->insertLink('admin', 'Presensi', '/presensi', 'cil-people');
-        $this->insertLink('admin', 'Perizinan', '/perizinan', 'cil-people');
-        $this->insertLink('admin', 'Tagihan', '/tagihan', 'cil-people');
-        $this->insertLink('user,manager,admin', 'Laporan', '/laporan', 'cil-people');
+        $this->insertLink('admin', 'Fasilitas', '/fasilitas', 'cil-bank');
+        $this->insertLink('admin', 'Presensi', '/presensi', 'cil-fingerprint');
+        $this->insertLink('admin', 'Perizinan', '/perizinan', 'cil-envelope-letter');
+        $this->insertLink('admin', 'Tagihan', '/tagihan', 'cil-fax');
+        $this->insertLink('user,manager,admin', 'Laporan', '/laporan', 'cil-clipboard');
         // $this->insertTitle('user,admin', 'Theme');
         // $this->insertLink('user,admin', 'Colors', '/colors', 'cil-drop');
         // $this->insertLink('user,admin', 'Typography', '/typography', 'cil-pencil');
