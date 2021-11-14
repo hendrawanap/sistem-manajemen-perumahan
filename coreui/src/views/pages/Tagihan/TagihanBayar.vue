@@ -8,14 +8,24 @@
           </div>
         </CCardHeader>
         <CCardBody>
-          <CForm v-on:submit.prevent>
+          <CForm @submit.prevent="catatPembayaran">
             <CInput disabled label="Nomor KK" type="text" v-model="nomorKK" />
             <CInput
               label="Tanggal"
               type="date"
               v-model="tanggalBayar"
+              invalid-feedback="Tanggal Bayar tidak boleh kosong."
+              :is-valid="tanggalBayar != null"
+              required
             />
-            <CInput label="Nama Pembayar" type="text" v-model="namaPembayar" />
+            <CInput
+              label="Nama Pembayar"
+              type="text"
+              v-model="namaPembayar"
+              invalid-feedback="Nama Pembayar tidak boleh kosong."
+              :is-valid="namaPembayar.length > 0"
+              required
+            />
             <CCard>
               <CCardHeader>Rincian Pembayaran</CCardHeader>
               <CCardBody>
@@ -49,7 +59,7 @@
               /></CCardFooter>
             </CCard>
             <div class="d-flex justify-content-end">
-                <CButton color="primary" @click="catatPembayaran()">Catat Pembayaran</CButton>
+                <CButton type="submit" color="primary">Catat Pembayaran</CButton>
             </div>
           </CForm>
         </CCardBody>
@@ -68,7 +78,7 @@ export default {
     return {
       nomorKK: null,
       tanggalBayar: null,
-      namaPembayar: null,
+      namaPembayar: "",
       detailPembayaran: [],
     };
   },
