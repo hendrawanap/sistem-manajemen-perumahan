@@ -1,6 +1,17 @@
 <template>
     <CRow>
         <CCol>
+            <CAlert :show.sync="showAlert" :color="alertColor" closeButton>
+                {{ message }}
+                <CButton
+                    class="position-absolute"
+                    color="secondary"
+                    style="right:10px;top: 50%;transform: translateY(-50%);"
+                    @click="showAlert = false"
+                >
+                    Close
+                </CButton>
+            </CAlert>
             <CCard>
                 <CCardBody class="position-relative">
                     <CInput label="Nama Pegawai" type="text" v-model="searchQuery" @focus="onFocus" @blur="onBlur"/>
@@ -36,6 +47,9 @@ export default {
             selectedPegawai: null,
             focused: false,
             waktuPresensi: null,
+            showAlert: false,
+            message: "",
+            alertColor: "success",
         }
     },
     methods: {
@@ -60,7 +74,15 @@ export default {
             const formData = new FormData();
             formData.append('idPegawai', this.selectedPegawai.id);
             formData.append('waktuPresensi', this.waktuPresensi);
-            axios.post(this.$apiAdress + '/api/presensi?token=' + localStorage.getItem('api_token'), formData).then(r => console.log(r.data));
+            axios.post(this.$apiAdress + '/api/presensi?token=' + localStorage.getItem('api_token'), formData).then(r => {
+                if (r.data.message == "Berhasil mencatat presensi") {
+                    this.alertColor = "success"
+                } else {
+                    this.alertColor = "danger"
+                }
+                this.message = r.data.message;
+                this.showAlert = true;
+            });
         }
     },
     computed: {

@@ -61,11 +61,19 @@ class PresensiController extends Controller
             $jadwal = Jadwal::whereIn('idPegawai', [$pegawai->id])
                 ->join('employees', 'employees.id', '=', 'schedules.idPegawai')
                 ->select('schedules.*', 'employees.nama', 'employees.divisi')
-                ->get()[0];
-            $daysEnum = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            $waktuPresensi = explode('T', $request->input('waktuPresensi'));
-            $day = (int) date('w', strtotime($waktuPresensi[0]));
+                ->get();
+                $daysEnum = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                $waktuPresensi = explode('T', $request->input('waktuPresensi'));
+                $day = (int) date('w', strtotime($waktuPresensi[0]));
             if ($jadwal) {
+                $index = 0;
+                foreach ($jadwal as $j) {
+                    if ($j->hari == $daysEnum[$day]) {
+                        break;
+                    }
+                    $index += 1;
+                }
+                $jadwal = $jadwal[$index];
                 $time = strtotime($waktuPresensi[1]);
                 $shift = Shift::find($jadwal->idShift);
                 $isValid = ($jadwal->hari == $daysEnum[$day]) && ($time - strtotime($shift->waktuMulai)) >= 0 && ($time - strtotime($shift->waktuSelesai)) <= 0;
