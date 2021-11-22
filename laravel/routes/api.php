@@ -129,9 +129,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/tagihan', [TagihanController::class, 'getAllTagihan']);
         Route::get('/fasilitas', [FasilitasController::class, 'getAllFasilitas']);
         Route::get('/pembayaran', [PembayaranController::class, 'getAllPembayaran']);
+        Route::get('/laporanPresensi', [LaporanController::class, 'getLaporanPresensi']);
+        Route::get('/laporanTagihan', [LaporanController::class, 'getLaporanTagihan']);
     });
 
-    Route::get('/laporanPresensi', [LaporanController::class, 'getLaporanPresensi']);
-    Route::get('/laporanTagihan', [LaporanController::class, 'getLaporanTagihan']);
+    Route::get('/test/{idTagihan}', [PembayaranController::class, 'getBelumDibayar']);
     
 });
