@@ -8,10 +8,9 @@
           </div>
           <div>
             <CInput
-              label="Search KK"
               placeholder="Cari nama kepala keluarga, atau no kk"
               type="text"
-              id="searchKK"
+              v-model="searchQuery"
             />
           </div>
         </CCardHeader>
@@ -19,7 +18,7 @@
           <CDataTable
             hover
             striped
-            :items="items"
+            :items="resultQuery"
             :fields="fields"
             :items-per-page="5"
             pagination
@@ -52,13 +51,28 @@ export default {
   data() {
     return {
       items: [],
-      fields: ["No.", "Nomor KK", "Tanggal Bayar", "Aksi"],
+      fields: ["No.", "Nomor KK", "Kepala Keluarga", "Tanggal Bayar", "Aksi"],
+      searchQuery: null,
     };
+  },
+  computed: {
+    resultQuery() {
+        if (this.searchQuery) {
+            return this.items.filter(item => {
+                return (this.searchQuery
+                    .toLowerCase()
+                    .split(" ")
+                    .every(v => item["Kepala Keluarga"].toLowerCase().includes(v)) || item["Nomor KK"].includes(this.searchQuery));
+            });
+        } else {
+            return this.items;
+        }
+    },
   },
   methods: {
     fetchAllPembayaran() {
       axios.get(this.$apiAdress + '/api/pembayaran?tagihan=' + this.$route.params.id + '&token=' + localStorage.getItem('api_token')).then(r => {
-        // console.log(r.data.length);
+        this.items = [];
         if (r.data.length) {
           this.items = r.data.map((data, index) => {
             return {
@@ -66,23 +80,22 @@ export default {
               "Nomor KK": data.nomorKK,
               "Tanggal Bayar": data.tanggalBayar,
               id: data.id,
-              kepalaKeluarga: data.kepalaKeluarga,
+              "Kepala Keluarga": data.kepalaKeluarga,
             }
           });
         }
-        // console.log(this.items);
         this.fetchBelumDibayar(r.data.length);
       })
     },
     fetchBelumDibayar(nomorTerakhir) {
-      axios.get(this.$apiAdress + '/api/pembayaran/?tagihan' + this.$route.params.id + '&belum=true' + '&token=' + localStorage.getItem('api_token')).then(r => {
+      axios.get(this.$apiAdress + '/api/pembayaran/?tagihan=' + this.$route.params.id + '&belum=true' + '&token=' + localStorage.getItem('api_token')).then(r => {
         r.data.forEach((data, index) => {
           this.items.push({
             "No.": nomorTerakhir + index+1,
             "Nomor KK": data.nomorKK,
             "Tanggal Bayar": "Belum Bayar",
             id: data.id,
-            kepalaKeluarga: data.kepalaKeluarga,
+            "Kepala Keluarga": data.kepalaKeluarga,
           })
         });
       })
