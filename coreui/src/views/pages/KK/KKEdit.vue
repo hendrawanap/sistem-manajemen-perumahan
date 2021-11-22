@@ -12,9 +12,9 @@
             <CInput
               label="Nomor KK"
               type="text"
-              v-model="KK.noKK"
+              v-model="KK.nomorKK"
               invalid-feedback="Nomor KK harus terdiri dari 16 karakter."
-              :is-valid="KK.noKK.length == 16"
+              :is-valid="KK.nomorKK.length == 16"
               required
             />
             <CInput
@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       KK: {
-        noKK: "",
+        nomorKK: "",
         alamat: "",
         kepalaKeluarga: "",
       },
@@ -75,7 +75,7 @@ export default {
         .then((r) => {
           const data = r.data;
           this.KK = {
-            noKK: data.nomorKK,
+            nomorKK: data.nomorKK,
             alamat: data.alamat,
             kepalaKeluarga: data.kepalaKeluarga,
           };
