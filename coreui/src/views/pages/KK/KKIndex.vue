@@ -82,21 +82,31 @@ export default {
   },
   methods: {
     getAllKK() {
-      axios.get(this.$apiAdress + '/api/kk?token=' + localStorage.getItem('api_token')).then(r => {
-        this.items = r.data.map((data, index) => {
-          return {
-            "no.": index + 1,
-            "nomor KK": data.nomorKK,
-            alamat: data.alamat,
-            "kepala Keluarga": data.kepalaKeluarga,
-            id: data.id,
-          };
+      axios
+        .get(
+          this.$apiAdress + "/api/kk?token=" + localStorage.getItem("api_token")
+        )
+        .then((r) => {
+          this.items = r.data.map((data, index) => {
+            return {
+              "no.": index + 1,
+              "nomor KK": data.nomorKK,
+              alamat: data.alamat,
+              "kepala Keluarga": data.kepalaKeluarga,
+              id: data.id,
+            };
+          });
         });
-      });
     },
     deleteKK() {
       axios
-        .delete(this.$apiAdress + "/api/kk" + this.selectedKK + '?token=' + localStorage.getItem('api_token'))
+        .delete(
+          this.$apiAdress +
+            "/api/kk/" +
+            this.selectedKK +
+            "?token=" +
+            localStorage.getItem("api_token")
+        )
         .then((r) => {
           this.getAllKK();
           this.hapusModal = false;
