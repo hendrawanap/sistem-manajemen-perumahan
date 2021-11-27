@@ -40,7 +40,7 @@
                   </CCol>
                 </CRow>
                 <div class="ml-4">
-                  <h1 class="text-light mt-5">Hai, Manajer</h1>
+                  <h1 class="text-light mt-5">Hai, {{ user }}</h1>
                   <h1 class="text-light">Perumahan Estate</h1>
                   <p class="capt1 carousel-caption d-none d-md-block w-50">
                     Estate merupakan sebuah perumahan yang menawarkan kenyamanan
@@ -55,13 +55,13 @@
             ><CCarouselItem
               class="dua gede"
               captionHeader="SEKILAS"
-              captionText="Perumahan ini menyediakan berbagai macam fasilitas yang
-                    dapat digunakan oleh para penghuni perumahan ini. Sampai
-                    saat ini pihak estate telah menyediakan fasilitas sejumlah
-                    50 buah. Fasilitas tersebut berupa taman, kolam, lapangan,
-                    area bermain, dan fasilitas lainnya. Sampai saat ini
-                    tercatat sudah ada 30 Kartu Keluarga yang terdaftar sebagai
-                    pemilik hunian di perumahan ini."
+              :captionText="
+                'Perumahan ini menyediakan berbagai macam fasilitas yang dapat digunakan oleh para penghuni perumahan ini. Sampai saat ini pihak estate telah menyediakan fasilitas sejumlah ' +
+                jumlahFasilitas +
+                ' buah. Fasilitas tersebut berupa taman, kolam, lapangan,area bermain, dan fasilitas lainnya. Sampai saat ini tercatat sudah ada ' +
+                jumlahKK +
+                ' Kartu Keluarga yang terdaftar sebagai pemilik hunian di perumahan ini.'
+              "
             /><CCarouselItem
               class="tiga gede"
               captionHeader="KEUNGGULAN"
