@@ -73,6 +73,7 @@ export default {
     fetchAllPembayaran() {
       axios.get(this.$apiAdress + '/api/pembayaran?tagihan=' + this.$route.params.id + '&token=' + localStorage.getItem('api_token')).then(r => {
         this.items = [];
+        console.log(r.data.length)
         if (r.data.length) {
           this.items = r.data.map((data, index) => {
             return {
@@ -88,16 +89,29 @@ export default {
       })
     },
     fetchBelumDibayar(nomorTerakhir) {
+      console.log(nomorTerakhir)
       axios.get(this.$apiAdress + '/api/pembayaran/?tagihan=' + this.$route.params.id + '&belum=true' + '&token=' + localStorage.getItem('api_token')).then(r => {
-        r.data.forEach((data, index) => {
-          this.items.push({
-            "No.": nomorTerakhir + index+1,
-            "Nomor KK": data.nomorKK,
-            "Tanggal Bayar": "Belum Bayar",
-            id: data.id,
-            "Kepala Keluarga": data.kepalaKeluarga,
-          })
-        });
+        if (nomorTerakhir == 0) {
+          this.items = r.data.map((data, index) => {
+            return {
+              "No.": nomorTerakhir + index+1,
+              "Nomor KK": data.nomorKK,
+              "Tanggal Bayar": "Belum Bayar",
+              id: data.id,
+              "Kepala Keluarga": data.kepalaKeluarga,
+            }
+          });
+        } else {
+          r.data.forEach((data, index) => {
+            this.items.push({
+              "No.": nomorTerakhir + index+1,
+              "Nomor KK": data.nomorKK,
+              "Tanggal Bayar": "Belum Bayar",
+              id: data.id,
+              "Kepala Keluarga": data.kepalaKeluarga,
+            })
+          });
+        }
       })
     }
   },

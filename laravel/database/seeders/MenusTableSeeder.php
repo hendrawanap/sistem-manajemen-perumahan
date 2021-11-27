@@ -157,7 +157,7 @@ class MenusTableSeeder extends Seeder
         $this->insertLink('user,manager', 'Jadwal', '/jadwal', 'cil-calendar');
         $this->insertLink('admin', 'KK', '/KK', 'cil-people');
         $this->insertLink('admin', 'Fasilitas', '/fasilitas', 'cil-bank');
-        $this->insertLink('admin', 'Presensi', '/presensi', 'cil-fingerprint');
+        $this->insertLink('admin,user,manager', 'Presensi', '/presensi', 'cil-fingerprint');
         $this->insertLink('admin', 'Perizinan', '/perizinan', 'cil-envelope-letter');
         $this->insertLink('admin', 'Tagihan', '/tagihan', 'cil-fax');
         $this->insertLink('user,manager,admin', 'Laporan', '/laporan', 'cil-clipboard');

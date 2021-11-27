@@ -102,9 +102,6 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::delete('/kk/{id}', [KKController::class, 'deleteKK']);
         Route::put('/kk/{id}', [KKController::class, 'setKK']);
 
-        Route::get('/presensi', [PresensiController::class, 'getAllPresensi']);
-        Route::post('/presensi', [PresensiController::class, 'cekPresensi']);
-
         Route::get('/perizinan', [PerizinanController::class, 'getAllPerizinan']);
         Route::post('/perizinan', [PerizinanController::class, 'addPerizinan']);
 
@@ -131,6 +128,8 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/pembayaran', [PembayaranController::class, 'getAllPembayaran']);
         Route::get('/laporanPresensi', [LaporanController::class, 'getLaporanPresensi']);
         Route::get('/laporanTagihan', [LaporanController::class, 'getLaporanTagihan']);
+        Route::get('/presensi', [PresensiController::class, 'getAllPresensi']);
+        Route::post('/presensi', [PresensiController::class, 'cekPresensi']);
     });
 
     Route::get('/test/{idTagihan}', [PembayaranController::class, 'getBelumDibayar']);

@@ -56,47 +56,52 @@ class PresensiController extends Controller
 
     public function cekPresensi(Request $request)
     {
-        $pegawai = Pegawai::find($request->input('idPegawai'));
-        if ($pegawai) {
-            $jadwal = Jadwal::whereIn('idPegawai', [$pegawai->id])
+        $pegawai = Pegawai::find($request->input('idPegawai')); // 1
+        $message = "";
+        if (!$pegawai) { // 2
+            $message = 'Pegawai tidak ditemukan'; // 3
+        } else {
+            $daysEnum = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']; // 4
+            $splitWaktu = explode('T', $request->input('waktuPresensi'));
+            $tanggalPresensi = $splitWaktu[0];
+            $waktuPresensi = strtotime($splitWaktu[1]);
+            $dayIndex = (int) date('w', strtotime($tanggalPresensi));
+            $day = $daysEnum[$dayIndex];
+            $jadwal = Jadwal::where('idPegawai', $pegawai->id)
+                ->where('hari', $day)
                 ->join('employees', 'employees.id', '=', 'schedules.idPegawai')
                 ->select('schedules.*', 'employees.nama', 'employees.divisi')
                 ->get();
-                $daysEnum = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                $waktuPresensi = explode('T', $request->input('waktuPresensi'));
-                $day = (int) date('w', strtotime($waktuPresensi[0]));
-            if ($jadwal) {
-                $index = 0;
-                foreach ($jadwal as $j) {
-                    if ($j->hari == $daysEnum[$day]) {
-                        break;
-                    }
-                    $index += 1;
-                }
-                $jadwal = $jadwal[$index];
-                $time = strtotime($waktuPresensi[1]);
+
+            if ($jadwal->count() == 0) { // 5
+                $message = 'Pegawai tidak memiliki jadwal pada hari ini'; // 6
+            } else {
+                $jadwal = $jadwal[0]; // 7
                 $shift = Shift::find($jadwal->idShift);
-                $isValid = ($jadwal->hari == $daysEnum[$day]) && ($time - strtotime($shift->waktuMulai)) >= 0 && ($time - strtotime($shift->waktuSelesai)) <= 0;
-                if ($isValid) {
-                    $sudahPresensi = Presensi::where('idPegawai', $pegawai->id)
-                        ->where('waktuPresensi', '>=', $waktuPresensi[0] . ' ' . '00:00:00')
-                        ->where('waktuPresensi', '<=', $waktuPresensi[0] . ' ' . '23:59:59')
+                $diffWktMulai = $waktuPresensi - strtotime($shift->waktuMulai);
+                $diffWktSelesai = $waktuPresensi - strtotime($shift->waktuSelesai);
+                if (!($diffWktMulai >= 0 && $diffWktSelesai <= 0)) { // 8,9
+                    $message = 'Pegawai tidak memiliki jadwal pada shift ini'; // 10
+                } else {
+                    $sudahPresensi = Presensi::where('idPegawai', $pegawai->id) // 11
+                        ->where('waktuPresensi', '>=', $tanggalPresensi . ' ' . '00:00:00')
+                        ->where('waktuPresensi', '<=', $tanggalPresensi . ' ' . '23:59:59')
                         ->get();
-                    if (count($sudahPresensi) > 0) {
-                        return response()->json(['message' => "Anda Sudah Presensi"]);
+                    if ($sudahPresensi->count() > 0) { // 12
+                        $message = "Pegawai sudah presensi"; // 13
+                    } else { // 14
+                        $isTerlambat = ($diffWktMulai / 60) > 30;
+                        $presensi = new Presensi();
+                        $presensi->waktuPresensi = str_replace('T', ' ', $request->input('waktuPresensi'));
+                        $presensi->status = $isTerlambat ? 'Terlambat' : 'Tepat Waktu';
+                        $presensi->idPegawai = $jadwal->idPegawai;
+                        $presensi->save();
+                        $message = 'Berhasil mencatat presensi';
                     }
-                    $isTerlambat = ($time - strtotime($shift->waktuMulai)) / 60 > 30;
-                    $presensi = new Presensi();
-                    $presensi->waktuPresensi = str_replace('T', ' ', $request->input('waktuPresensi'));
-                    $presensi->status = $isTerlambat ? 'Terlambat' : 'Tepat Waktu';
-                    $presensi->idPegawai = $jadwal->idPegawai;
-                    $presensi->save();
-                    return response()->json(['message' => 'Berhasil mencatat presensi']);
                 }
-                return response()->json(['message' => 'Jadwal tidak ditemukan']);
             }
-            return response()->json(['message' => 'Jadwal tidak ditemukan']);
         }
-        return response()->json(['message' => 'Pegawai tidak ditemukan']);
+
+        return response()->json(['message' => $message]); // 15
     }
 }
