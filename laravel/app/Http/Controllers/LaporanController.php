@@ -26,9 +26,9 @@ class LaporanController extends Controller
                             ->select('presences.*', 'employees.nama')
                             ->orderBy('waktuPresensi')
                             ->get();
-        $presensi1 = $presensi->where('waktuPresensi', '>=', "$tahun-$bulan-01" . " 00:00:00")
-                            ->where('waktuPresensi', '<=', "$tahun-$bulan-01" . " 23:59:59")
-                            ->whereIn('status',['Tepat Waktu', 'Terlambat'])->toArray();
+        $presensi->where('waktuPresensi', '>=', "$tahun-$bulan-01" . " 00:00:00")
+                    ->where('waktuPresensi', '<=', "$tahun-$bulan-01" . " 23:59:59")
+                    ->whereIn('status',['Tepat Waktu', 'Terlambat'])->toArray();
         $output = array();
         
         $presensiController = new PresensiController();
@@ -50,7 +50,6 @@ class LaporanController extends Controller
             ]);
         }
         return response()->json($output);
-        // return response()->json(['tahun' => $tahun, 'bulan' => $bulan]);
     }
 
     public function getLaporanTagihan(Request $request) {
@@ -70,7 +69,6 @@ class LaporanController extends Controller
                         ->select('payments.id', 'payments.tanggalBayar', 'families.nomorKK', 'families.kepalaKeluarga')
                         ->get()
                         ->count();
-            // $belum = 
             return response()->json(['jumlahKK' => $jumlahKK, 'sudah' => $sudah, 'belum' => $jumlahKK - $sudah, 'tagihan' => $tagihan[0]]);
         } else {
             return response()->json(['message' => 'Tidak Ada Tagihan']);
