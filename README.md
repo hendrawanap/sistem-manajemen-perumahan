@@ -1,3 +1,8 @@
+# Tugas Akhir Rekayasa Perangkat Lunak
+## Sistem Manajemen Perumahan
+### Deskripsi
+Suatu perangkat lunak berbasis website yang dikembangkan untuk membantu pengelolaan jadwal pegawai, pencatatan pembayaran iuran perumahan, pemantauan kehadiran pegawai, pencatatan perizinan pegawai, dan pelaporan lainnya.
+
 ## Table of Contents
 * [Requirements](#Requirements)
 * [Installation](#Installation)
